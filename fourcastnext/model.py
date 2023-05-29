@@ -14,7 +14,7 @@ class FourCastNext(pl.LightningModule):
     model_params: dict, 
     base_lr=1e-3,
     grad_accum_schedule=None,
-    precision= 16,
+    precision = 32,
 
   ):
     super().__init__()
@@ -29,9 +29,11 @@ class FourCastNext(pl.LightningModule):
     self.model_params = model_params
 
     if precision == 16:
-      self.dtype = torch.float16
+      self._dtype = torch.float16
     else:
-      self.dtype = torch.float32
+      self._dtype = torch.float
+
+    self.model = self.model.to(dtype = self._dtype)
 
   def forward(self, x, net):
     value, flow = net(x)
@@ -91,11 +93,13 @@ class FourCastNext(pl.LightningModule):
     """
     B T C H W
     """
-    inp, tar = map(lambda x: x.to(dtype = self.dtype), batch)
+    inp, tar = map(lambda x: x.to(dtype = self._dtype), batch)
     B, T, C, H, W = inp.shape
     if T > 1:
       input0 = inp[:,0]
       input1 = inp[:,1]
+    else:
+      input1 = inp[:,0]
 
     #new_batch = self.preprocess(batch, is_training=True)
     n_pred_steps = tar.shape[1]
@@ -111,15 +115,15 @@ class FourCastNext(pl.LightningModule):
       else:
         tar_idx = 0
         with torch.inference_mode():
-          teacher = self.get_teacher(input0.device)
-          for i in range(n_pred_steps-1):
-            output0 = self.forward(input0, teacher)
-            input0[:, :self.out_channels, ...] = input0[:, -self.out_channels:, ...]
-            input0[:, -self.out_channels:, ...] = output0
+          teacher = self.get_teacher(input1.device)
+          for i in range(np.random.choice(np.arange(1,n_pred_steps))):
+            output0 = self.forward(input1, teacher)
+            input1[:, :self.out_channels, ...] = input1[:, -self.out_channels:, ...]
+            input1[:, -self.out_channels:, ...] = output0
             tar_idx = i
-
-        output0 = self.forward(input0, self.model)
-        total_loss = F.mse_loss(output0, tar[:, tar_idx]) 
+        output0 = self.forward(input1, self.model)
+        total_loss = F.mse_loss(output0, tar[:, tar_idx + 1]) 
+        self.log('recurrent/step', i)
 
     else:
       output1 = self.forward(input1, self.model)
@@ -144,7 +148,7 @@ class FourCastNext(pl.LightningModule):
         else:
           rmse_val1 = 0.0
 
-      msg = f'iter={self.trainer.global_step+1}/{self.trainer.max_steps}, total_loss={total_loss_val:.6f}, n_pred_steps={n_pred_steps}, single-step_rmse={rmse_val1:.6f}, multi-step_rmse={rmse_val0:.6f}'
+      #msg = f'iter={self.trainer.global_step+1}/{self.trainer.max_steps}, total_loss={total_loss_val:.6f}, n_pred_steps={n_pred_steps}, single-step_rmse={rmse_val1:.6f}, multi-step_rmse={rmse_val0:.6f}'
 
       #self.log('train/loss', rmse_val1 if rmse_val0 == 0.0 else rmse_val1, on_step = True, on_epoch = True, prog_bar=True, logger = True)
 
@@ -173,9 +177,27 @@ class FourCastNext(pl.LightningModule):
     scheduler = CosineAnnealingLR(optimizer, self.trainer.max_steps, eta_min=self.hparams.base_lr*0.1)
     return [optimizer, ], [scheduler, ]
 
+  def validation_step(self, batch, batch_idx):
+
+    inp, tar = map(lambda x: x.to(dtype = self._dtype), batch)
+  
+    target = tar[:,0]
+    B, T, C, H, W = inp.shape
+    if T > 1:
+      input0 = inp[:,0]
+      input1 = inp[:,1]
+    else:
+      input1 = inp[:,0]
+
+    output1 = self.forward(input1, self.model)
+    total_loss = F.mse_loss(output1, target) 
+    self.log('valid/loss', total_loss, on_step = True, on_epoch = True, prog_bar=True, logger = True)
+
+    return total_loss
+  
   def predict_step(self, batch, batch_idx):
 
-    inp, tar = map(lambda x: x.to(dtype = self.dtype), batch)
+    inp, tar = map(lambda x: x.to(dtype = self._dtype), batch)
 
     B, T, C, H, W = inp.shape
     if T > 1:
@@ -186,10 +208,10 @@ class FourCastNext(pl.LightningModule):
     n_pred_steps = tar.shape[1]
 
     predictions = self.forward(input1, self.model)
-    if n_pred_steps > 1:
-      predictions = torch.stack((predictions, self.forward(predictions.unsqueeze(1)[:,0], self.model)), dim = 1)
-    else:
-      predictions = predictions.unsqueeze(1)
+    # for i in range(n_pred_steps):
+    #   predictions = torch.stack((predictions, self.forward(predictions.unsqueeze(1)[:,0], self.model)), dim = 1)
+    # else:
+    predictions = predictions.unsqueeze(1)
     
     return inp, predictions
     
