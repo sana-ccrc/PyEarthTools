@@ -6,7 +6,14 @@ import torch
 import torch.nn.functional as F
 from torch.optim.lr_scheduler import CosineAnnealingLR
 from torch_optimizer import Lamb
-from .architecture.afnonet import AFNONet
+
+EDIT_TRAINING_IMPORTED = True
+try:
+    from edit.training.modules import get_loss
+except ImportError:
+    EDIT_TRAINING_IMPORTED = False
+
+from fourcastnext.architecture.afnonet import AFNONet
 
 class FourCastNext(pl.LightningModule):
   def __init__(
@@ -15,6 +22,8 @@ class FourCastNext(pl.LightningModule):
     base_lr=1e-3,
     grad_accum_schedule=None,
     precision = 32,
+    loss_function: str = 'L1Loss',
+    loss_kwargs : dict = {},
 
   ):
     super().__init__()
@@ -29,65 +38,52 @@ class FourCastNext(pl.LightningModule):
     self.model_params = model_params
 
     if precision == 16:
-      self._dtype = torch.float16
+        self._dtype = torch.float16
     else:
-      self._dtype = torch.float
+        self._dtype = torch.float
 
     self.model = self.model.to(dtype = self._dtype)
 
-  def forward(self, x, net):
-    value, flow = net(x)
+    if EDIT_TRAINING_IMPORTED:
+        self.loss_obj = get_loss(loss_function, **loss_kwargs)
+    else:
+        self.loss_obj = getattr(torch.nn, loss_function)(**loss_kwargs)
 
-    x = x[:, -self.out_channels:] #B, [t-1, t], H, W
-    B, C, H, W = x.shape
-    warp_coords = self.grid.repeat(B*C, 1, 1, 1) + flow.view(B*C, H, W, 2)
-    x = x.reshape(B*C, 1, H, W)
-    warped_x = F.grid_sample(x, warp_coords, mode='bilinear', align_corners=True)
-    warped_x = warped_x.reshape(B, C, H, W)
-    return warped_x + value
+    
+
+  def forward(self, x, net):
+      value, flow = net(x)
+
+      x = x[:, -self.out_channels:] #B, [t-1, t], H, W
+      B, C, H, W = x.shape
+      warp_coords = self.grid.repeat(B*C, 1, 1, 1) + flow.view(B*C, H, W, 2)
+      x = x.reshape(B*C, 1, H, W)
+      warped_x = F.grid_sample(x, warp_coords, mode='bilinear', align_corners=True)
+      warped_x = warped_x.reshape(B, C, H, W)
+
+      return warped_x + value
 
   def setup_grid(self):
-    h, w = self.spatial_size
-    xgrid = torch.arange(w)
-    xgrid = 2 * xgrid / (w - 1) - 1
+      h, w = self.spatial_size
+      xgrid = torch.arange(w)
+      xgrid = 2 * xgrid / (w - 1) - 1
 
-    ygrid = torch.arange(h)
-    ygrid = 2 * ygrid / (h - 1) - 1
-    coords = torch.meshgrid(ygrid, xgrid, indexing="ij")
-    coords = torch.stack(coords[::-1], dim=0).float()
-    return coords.permute(1, 2, 0)
+      ygrid = torch.arange(h)
+      ygrid = 2 * ygrid / (h - 1) - 1
+      coords = torch.meshgrid(ygrid, xgrid, indexing="ij")
+      coords = torch.stack(coords[::-1], dim=0).float()
+      return coords.permute(1, 2, 0)
 
-  # def preprocess(self, batch, is_training=False):
-  #   new_batch = {}
-
-  #   if is_training:
-  #     new_batch['input1'] = batch['input1'] 
-  #     new_batch['input1'] = new_batch['input1']
-
-  #     for step, target in batch['targets'].items():
-  #       n_pred_steps = step
-  #       target = (target - self.means) / self.stds
-  #       target = target.to(dtype=dtype)
-  #       new_batch['target'] = target
-  #       break
-
-  #     new_batch['n_pred_steps'] = n_pred_steps
-
-  #   if (is_training and n_pred_steps > 1) or not is_training:
-  #     new_batch['input0'] = (batch['input0'] - self.means.repeat(*rep_dims)) / self.stds.repeat(*rep_dims)
-  #     new_batch['input0'] = new_batch['input0'].to(dtype=dtype)
-
-    return new_batch
 
   def get_teacher(self, device):
-    model_name = '_teacher_model'
-    if model_name not in sys.modules:
-      teacher = AFNONet(**self.model_params).to(device=device)
+      model_name = '_teacher_model'
+      if model_name not in sys.modules:
+          teacher = AFNONet(**self.model_params).to(device=device)
 
-      teacher.load_state_dict(self.model.state_dict())
-      sys.modules[model_name] = teacher.eval()
+          teacher.load_state_dict(self.model.state_dict())
+          sys.modules[model_name] = teacher.eval()
 
-    return sys.modules[model_name]
+      return sys.modules[model_name]
 
   def training_step(self, batch, batch_idx):
     """
@@ -111,7 +107,7 @@ class FourCastNext(pl.LightningModule):
     if n_pred_steps > 1:
       if batch_idx % 2 == 0:
         output1 = self.forward(input1, self.model)
-        total_loss = F.mse_loss(output1, target) 
+        total_loss = self.loss_obj(output1, target) 
       else:
         tar_idx = 0
         with torch.inference_mode():
@@ -122,11 +118,12 @@ class FourCastNext(pl.LightningModule):
             input1[:, -self.out_channels:, ...] = output0
             tar_idx = i
         output0 = self.forward(input1, self.model)
-        total_loss = F.mse_loss(output0, tar[:, tar_idx + 1]) 
+        total_loss = self.loss_obj(output0, tar[:, tar_idx + 1]) 
+        self.log('teacher/index', torch.Tensor([i]), on_step = True, prog_bar=False,)
 
     else:
       output1 = self.forward(input1, self.model)
-      total_loss = F.mse_loss(output1, target) 
+      total_loss = self.loss_obj(output1, target) 
     
     self.log('train/loss', total_loss, on_step = True, on_epoch = True, prog_bar=True, logger = True)
 
@@ -135,21 +132,6 @@ class FourCastNext(pl.LightningModule):
         (self.trainer.global_step+1) % self.trainer.log_every_n_steps == 0 or \
         self.trainer.global_step+1 == self.trainer.max_steps - 1 ):
       total_loss_val = total_loss.item()
-
-      with torch.no_grad():
-        if n_pred_steps > 1 and batch_idx % 2 != 0:
-          rmse_val0 = torch.sqrt(F.mse_loss(output0, target)).item()
-        else:
-          rmse_val0 = 0.0
-
-        if n_pred_steps == 1 or batch_idx % 2 == 0:
-          rmse_val1 = torch.sqrt(F.mse_loss(output1, target)).item()
-        else:
-          rmse_val1 = 0.0
-
-      #msg = f'iter={self.trainer.global_step+1}/{self.trainer.max_steps}, total_loss={total_loss_val:.6f}, n_pred_steps={n_pred_steps}, single-step_rmse={rmse_val1:.6f}, multi-step_rmse={rmse_val0:.6f}'
-
-      #self.log('train/loss', rmse_val1 if rmse_val0 == 0.0 else rmse_val1, on_step = True, on_epoch = True, prog_bar=True, logger = True)
 
       if not np.isfinite(total_loss_val):
         raise Exception(f'loss is not finite, loss={total_loss_val}, step={self.trainer.global_step+1}')
@@ -189,7 +171,7 @@ class FourCastNext(pl.LightningModule):
       input1 = inp[:,0]
 
     output1 = self.forward(input1, self.model)
-    total_loss = F.mse_loss(output1, target) 
+    total_loss = self.loss_obj(output1, target) 
     self.log('valid/loss', total_loss, on_step = True, on_epoch = True, prog_bar=True, logger = True)
 
     return total_loss
