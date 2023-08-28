@@ -16,6 +16,8 @@ from edit.data.indexes import ArchiveIndex, decorators
 from edit.data.transform import Transform, TransformCollection
 from edit.data.archive import register_archive
 
+from edit_archive_NCI.utilities import check_project
+
 BRAN_RESOLUTION = ["annual", "daily", "month", "static"]
 BRAN_TYPES_RESOLUTION = [(365, "D"), (1, "D"), (31, "D"), None]
 BRAN_REGEX = {
@@ -41,7 +43,7 @@ class BRAN(ArchiveIndex):
     )
     @decorators.check_arguments(
         resolution=BRAN_RESOLUTION,
-        variables="edit.data.archive.NCI.variables.BRAN.{resolution}.valid",
+        variables="edit_archive_NCI.variables.BRAN.{resolution}.valid",
     )
     def __init__(
         self,
@@ -65,6 +67,7 @@ class BRAN(ArchiveIndex):
                 Base Transforms to apply. Defaults to TransformCollection().
         """
         self.make_catalog()
+        check_project(project_code='gb6')
 
         variables = [variables] if isinstance(variables, str) else variables
         self.variables = variables

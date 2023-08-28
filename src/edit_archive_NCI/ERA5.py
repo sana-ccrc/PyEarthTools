@@ -15,6 +15,7 @@ from edit.data.indexes import ArchiveIndex, decorators
 from edit.data.transform import Transform, TransformCollection
 from edit.data.archive import register_archive
 
+from edit_archive_NCI.utilities import check_project
 
 ERA5_LEVELS = ["single", "pressure"]
 ERA_RES = ["monthly-averaged", "monthly-averaged-by-hour", "reanalysis"]
@@ -37,7 +38,7 @@ class ERA5(ArchiveIndex):
     @decorators.check_arguments(
         level=ERA5_LEVELS,
         resolution=ERA_RES,
-        variables="edit.data.archive.NCI.variables.ERA5.{level}.{resolution}.valid",
+        variables="edit_archive_NCI.variables.ERA5.{level}.{resolution}.valid",
     )
     @decorators.alias_arguments(level_value=["pressure"], variables=["variable"])
     def __init__(
@@ -65,6 +66,7 @@ class ERA5(ArchiveIndex):
                 Defaults to TransformCollection().
         """
         self.make_catalog()
+        check_project(project_code='rt52')
 
         variables = [variables] if isinstance(variables, str) else variables
 

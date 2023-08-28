@@ -15,6 +15,8 @@ from edit.data.indexes import ArchiveIndex, decorators
 from edit.data.transform import Transform, TransformCollection
 from edit.data.archive import register_archive
 
+from edit_archive_NCI.utilities import check_project
+
 
 MODIS_REGIONS = ["AU"]
 MODIS_RENAME = {"Band1": "lai"}
@@ -47,7 +49,7 @@ class MODIS(ArchiveIndex):
     @decorators.check_arguments(
         region=MODIS_REGIONS,
         resolution=MODIS_RESOLUTION,
-        variables="edit.data.archive.NCI.variables.MODIS.surface.valid",
+        variables="edit_archive_NCI.variables.MODIS.surface.valid",
     )
     def __init__(
         self,
@@ -71,6 +73,7 @@ class MODIS(ArchiveIndex):
                 Base Transforms to apply. Defaults to TransformCollection().
         """
         self.make_catalog()
+        check_project(project_code='fj4')
 
         variables = [variables] if isinstance(variables, str) else variables
 

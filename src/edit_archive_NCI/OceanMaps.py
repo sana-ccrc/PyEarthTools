@@ -17,6 +17,8 @@ from edit.data.indexes import ArchiveIndex, decorators
 from edit.data.transform import Transform, TransformCollection
 from edit.data.archive import register_archive
 
+from edit_archive_NCI.utilities import check_project
+
 
 OceanMaps_TYPES = ["analysis", "forecast"]
 OceanMaps_SUBVAR = ["ocean_an00", "ocean_an01", "ocean_an02", "ocean_an_ensemble"]
@@ -40,7 +42,7 @@ class OceanMaps(ArchiveIndex):
     @decorators.check_arguments(
         datatype=OceanMaps_TYPES,
         sub_var=OceanMaps_SUBVAR,
-        variables="edit.data.archive.NCI.variables.OceanMaps.{datatype}.valid",
+        variables="edit_archive_NCI.variables.OceanMaps.{datatype}.valid",
     )
     def __init__(
         self,
@@ -70,6 +72,7 @@ class OceanMaps(ArchiveIndex):
                 Base Transforms to apply. Defaults to TransformCollection().
         """
         self.make_catalog()
+        check_project(project_code='rr6')
 
         variables = [variables] if isinstance(variables, str) else variables
         self.variables = variables

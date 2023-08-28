@@ -23,6 +23,8 @@ from edit.data.time import EDITDatetime
 from edit.data.transform import Transform, TransformCollection
 from edit.data.archive import register_archive
 
+from edit_archive_NCI.utilities import check_project
+
 
 BARRA_REGIONS = ["R", "AD", "PH", "SY", "TA"]
 BARRA_TYPES = ["forecast", "static", "analysis"]
@@ -63,7 +65,7 @@ class BARRA(DataIndex):
     @decorators.check_arguments(
         region=BARRA_REGIONS,
         datatype=BARRA_TYPES,
-        variables="edit.data.archive.NCI.variables.BARRA.{datatype}.valid",
+        variables="edit_archive_NCI.variables.BARRA.{datatype}.valid",
     )
     def __init__(
         self,
@@ -97,6 +99,7 @@ class BARRA(DataIndex):
             IndexError:
                 If datatype = 'analysis' and region is not 'R", as only R has an analysis product
         """
+        check_project(project_code='cj37')
 
         variables = variables if isinstance(variables, (list, tuple)) else [variables]
         self.region = region

@@ -10,6 +10,7 @@ from edit.data.indexes import ArchiveIndex, decorators, VariableDefault
 from edit.data.transform import Transform, TransformCollection
 from edit.data.archive import register_archive
 
+from edit_archive_NCI.utilities import check_project
 
 """
 Structure order
@@ -36,7 +37,7 @@ class BARPA(ArchiveIndex):
     """Index into Bureau of Meteorology Atmospheric Regional Projections for Australia"""
 
     @decorators.alias_arguments(variables=["variable"])
-    @decorators.check_arguments(struc="edit.data.archive.NCI.structure.BARPA.struc")
+    @decorators.check_arguments(struc="edit_archive_NCI.structure.BARPA.struc")
     def __init__(
         self,
         variables: list[str] | str,
@@ -88,8 +89,9 @@ class BARPA(ArchiveIndex):
             transforms (Transform | TransformCollection, optional): 
                 Transforms to apply to the data. Defaults to TransformCollection().
         """        
-
         self.make_catalog()
+        check_project(project_code='ia39')
+        
         variables = [variables] if isinstance(variables, str) else variables
         self.variables = variables
 

@@ -17,10 +17,11 @@ from edit.data.indexes.utilities import spellcheck
 from edit.data.transform import Transform, TransformCollection
 from edit.data.archive import register_archive
 
+from edit_archive_NCI.utilities import check_project
 
 AGCD_VARIABLES = ["tmax", "tmin", "precip", "vapourpres_h09"]  # vapourpres_h15
 
-AGCD_var_path = "edit.data.archive.NCI.variables.AGCD.{variable}.valid"
+AGCD_var_path = "edit_archive_NCI.variables.AGCD.{variable}.valid"
 AGCD_RENAME = {"vapourpres": "vapourpres_09"}
 
 
@@ -62,6 +63,7 @@ class AGCD(ArchiveIndex):
         """
 
         self.make_catalog()
+        check_project(project_code='zv2')
 
         variables = [variables] if isinstance(variables, str) else variables
 

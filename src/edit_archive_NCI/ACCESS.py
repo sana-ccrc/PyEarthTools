@@ -20,6 +20,7 @@ from edit.data.transform import Transform, TransformCollection
 
 from edit.data.archive import register_archive
 
+from edit_archive_NCI.utilities import check_project
 
 ACCESS_REGIONS = ["g", "bn", "ad", "sy", "vt", "ph", "nq", "dn"]
 FORECAST_INTERVAL = 6
@@ -64,7 +65,7 @@ class ACCESS(DataIndex):
     @decorators.check_arguments(
         region=ACCESS_REGIONS,
         datatype=ACCESS_DATATYPES,
-        variables="edit.data.archive.NCI.variables.ACCESS.{datatype}.valid",
+        variables="edit_archive_NCI.variables.ACCESS.{datatype}.valid",
     )
     def __init__(
         self,
@@ -91,7 +92,7 @@ class ACCESS(DataIndex):
             transforms (Transform | TransformCollection, optional):
                 Base Transforms to apply. Defaults to TransformCollection().
         """
-
+        check_project(project_code='wr45')
         variables = [variables] if isinstance(variables, str) else variables
 
         region = region.lower()
