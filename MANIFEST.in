@@ -1,1 +1,1 @@
-recursive-include NCI/ *.struc *.valid
+recursive-include edit_archive_NCI/ *.struc *.valid
