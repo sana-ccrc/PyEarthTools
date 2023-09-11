@@ -1,4 +1,4 @@
-
+"""Utilities for NCI indexes"""
 from __future__ import annotations
 
 from pathlib import Path
@@ -11,6 +11,7 @@ def check_project(project_code: str = None):
     """
 
     default_root_path = Path('/g/data/')
+
     project_code = str(project_code)
     if '/scratch' in project_code:
         default_root_path = Path('/scratch/')

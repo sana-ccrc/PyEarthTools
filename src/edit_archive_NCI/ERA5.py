@@ -21,8 +21,8 @@ ERA5_LEVELS = ["single", "pressure"]
 ERA_RES = ["monthly-averaged", "monthly-averaged-by-hour", "reanalysis"]
 ERA_RES_RESOLUTION = [(1, "month"), (1, "month"), (1, "hour")]
 
-
 ERA5_RENAME = {"t2m": "2t", "u10": "10u", "v10": "10v"}
+
 
 @register_archive('ERA5')
 class ERA5(ArchiveIndex):
@@ -35,12 +35,12 @@ class ERA5(ArchiveIndex):
             "range": "1970-current",
         }
 
+    @decorators.alias_arguments(level_value=["pressure"], variables=["variable"])
     @decorators.check_arguments(
         level=ERA5_LEVELS,
         resolution=ERA_RES,
         variables="edit_archive_NCI.variables.ERA5.{level}.{resolution}.valid",
     )
-    @decorators.alias_arguments(level_value=["pressure"], variables=["variable"])
     def __init__(
         self,
         variables: list[str] | str,
@@ -74,7 +74,7 @@ class ERA5(ArchiveIndex):
         self.resolution = resolution
 
         if level_value and not level == "pressure":
-            raise KeyError(f"Pressure level cannot be set if level == 'pressure'")
+            raise KeyError(f"Pressure level cannot be set if level != 'pressure'")
 
         self.variables = variables
         base_transform = TransformCollection()
