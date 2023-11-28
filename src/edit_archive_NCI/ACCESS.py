@@ -12,7 +12,7 @@ import warnings
 import xarray as xr
 
 from edit.data import transform
-from edit.data.exceptions import DataNotFoundError, InvalidIndexError
+from edit.data.exceptions import DataNotFoundError
 from edit.data.warnings import IndexWarning
 from edit.data.indexes import ArchiveIndex, ForecastIndex, DataIndex, decorators
 from edit.data.time import EDITDatetime, TimeDelta
@@ -43,6 +43,7 @@ class ACCESS(DataIndex):
     def _desc_(self):
         return {
             "singleline": "Australian Community Climate and Earth-System Simulator",
+            "Documentation": "http://www.bom.gov.au/nwp/doc/access/NWPData.shtml",
         }
 
     @decorators.alias_arguments(variables=["variable"])
@@ -115,6 +116,36 @@ class ACCESS(DataIndex):
         super().__init__(transforms=base_transform + transforms, **kwargs)
         self.make_catalog()
 
+    def load(self, *args, **kwargs) -> Any:
+        """Load access data, accounting for coord issues"""
+        e = None
+        try:
+            new_kwargs = dict(kwargs)
+            new_kwargs['compat'] = 'override'
+            # new_kwargs['coords'] = 'all'
+            return super().load(*args, **new_kwargs)
+        except Exception as excep:
+            try:
+                return super().load(*args, **kwargs)
+            except Exception:
+                e = excep
+        raise e
+    
+    def series(self, *args, **kwargs) -> Any:
+        """Load access data, accounting for coord issues"""
+        e = None
+        try:
+            new_kwargs = dict(kwargs)
+            new_kwargs['compat'] = 'override'
+            new_kwargs['coords'] = 'all'
+            return super().series(*args, **new_kwargs)
+        except Exception as excep:
+            try:
+                return super().series(*args, **kwargs)
+            except Exception:
+                e = excep
+        raise e
+    
     def filesystem(
         self,
         basetime: str | datetime.datetime,
