@@ -75,6 +75,7 @@ class BARPA(ArchiveIndex):
             driving_source (str): 
                 Global Coupled Model. The models selected are: 
                     ERA5, ACCESS-CM2, ACCESS-ESM1-5, NorESM2-MM, EC-Earth3, CESM2, CMCC-ESM2, MPI-ESM1-2-HR
+                Must be only one.
             frequency (str): 
                 Temporal Frequency. 1hr (1-hourly), 3hr, 6hr, day (daily), mon (monthly), fx
             transforms (Transform | TransformCollection, optional): 

@@ -3,23 +3,31 @@ Bureau of Meteorology Atmospheric Regional Projections for Australia (BARRA_V2)
 """
 
 from __future__ import annotations
-from pathlib import Path
-from typing import Type
+import datetime
 
-from edit.data import EDITDatetime, transform, DataNotFoundError
-from edit.data.indexes import ArchiveIndex, decorators, VariableDefault
+
+import edit.data
+from edit.data.indexes import Structured, VARIABLE_DEFAULT, VariableDefault, decorators
+from edit.data.time import EDITDatetime
 from edit.data.transform import Transform, TransformCollection
 from edit.data.archive import register_archive
 
 from edit_archive_NCI.utilities import check_project
 
+from edit_archive_NCI.ancilliary.BARRA_V2 import variable_rename, coarse_variables
+import xarray as xr
 
-BARRA_V2_DIR_STRUCTURE = "{nature}/{activity}/{domain}/{institution}/{driving_source}/{experiment}/{variant}/{source}/{version_realisation}/{frequency}/"
+temporal_resolution = {
+    'fx':None,
+    'mon':(1, 'month'),
+    '3hr':(3, 'hour'),
+    '1hr':(1, 'hour'),
+    'day':(1,'day'),
+}
 
-VARIABLE_DEFAULT = Type[VariableDefault]
 
 @register_archive('BARRA_V2')
-class BARRA_V2(ArchiveIndex):
+class BARRA_V2(Structured):
     """Bureau of Meteorology Atmospheric high-resolution Regional Reanalysis for Australia, BARRA Version 2"""
 
     @property
@@ -28,6 +36,10 @@ class BARRA_V2(ArchiveIndex):
             "singleline": "Bureau of Meteorology Atmospheric high-resolution Regional Reanalysis for Australia, BARRA Version 2",
             "Documentation": "https://dx.doi.org/10.25914/1x6g-2v48",
         }
+    
+    DIR_STRUCTURE = "{nature}/{activity}/{domain}/{institution}/{driving_source}/{experiment}/{variant}/{source}/{version_realisation}/{frequency}/"
+    GLOB_TEMPLATE = "{variable}/{version}/{variable}_*%Y%m-%Y%m.nc"
+
     
     @decorators.alias_arguments(variables=["variable"])
     @decorators.check_arguments(struc="edit_archive_NCI.structure.BARRA_V2.struc")
@@ -45,7 +57,7 @@ class BARRA_V2(ArchiveIndex):
         variant: str | VARIABLE_DEFAULT = VariableDefault,
         source: str | VARIABLE_DEFAULT = VariableDefault,
         version_realisation: str | VARIABLE_DEFAULT = VariableDefault,
-        version: str | VARIABLE_DEFAULT = 'v20231001', # VariableDefault,
+        version: str | VARIABLE_DEFAULT = 'v20231001',
         transforms: Transform | TransformCollection = TransformCollection(),
     ):
         """
@@ -88,37 +100,46 @@ class BARRA_V2(ArchiveIndex):
             version_realisation (str | VARIABLE_DEFAULT, optional):
                 identifies the modelling version of BARRA2 (TBC on identifying data version)
             version (str | VARIABLE_DEFAULT, optional):                    
-                Denotes the date of data generation or date of data release
+                Denotes the date of data generation or date of data release.
+                Defaults to 'v20231001'
         """        
 
-        self.make_catalog()
         check_project(project_code='ob53')
 
+        if frequency == 'fx':
+            self.GLOB_TEMPLATE = "{variable}/{version}/{variable}_*.nc"
+        transforms += edit.data.transform.variables.drop('time_bnds')
+
         variables = [variables] if isinstance(variables, str) else variables
-        self.dir = Path(BARRA_V2_DIR_STRUCTURE.format(**locals()))
-        
-        self.variables = variables
-        self.version = str(version)
+        new_vars = []
 
+        for var in variables:
+            if var in coarse_variables[frequency]:
+                tuple(new_vars.append(v) for v in coarse_variables[frequency][var])
+            else:
+                new_vars.append(var)
+        variables = new_vars
 
-        super().__init__(transforms = transforms)
+        preprocess = edit.data.transform.dimensions.expand(['pressure','depth'], missing='skip')
+        preprocess += edit.data.transform.variables.rename_variables({var: variable_rename[var] for var in variables if var in variable_rename})
 
-    def filesystem(
-        self,
-        querytime: str | EDITDatetime,
-    ) -> Path | dict[str, str]:
-        BARRA_V2_HOME = Path(self.ROOT_DIRECTORIES["BARRA_V2"])
-
-        discovered_paths = {}
-
-        querytime_month = EDITDatetime(querytime).at_resolution("month")
-
-        for variable in self.variables:
-            dir_path = BARRA_V2_HOME / self.dir / variable / self.version
-
-            paths = list(dir_path.glob(f"*{querytime_month.strftime('%Y%m')}-{querytime_month.strftime('%Y%m')}.nc"))
-
-            if len(paths) == 0:
-                raise DataNotFoundError(f"Could not find data at {dir_path!r} at time {querytime!r}")
-            discovered_paths[variable] = paths[0]
-        return discovered_paths
+        super().__init__(
+            variables = variables, 
+            data_interval=temporal_resolution[frequency],
+            transforms = transforms,
+            preprocess_transforms=preprocess,
+            round = frequency == 'mon',
+            config_vars = dict(
+                frequency = frequency,
+                nature = nature,
+                activity = activity,
+                domain = domain,
+                institution = institution,
+                driving_source = driving_source,
+                experiment = experiment,
+                variant = variant,
+                source = source,
+                version_realisation = version_realisation,
+                version = version,
+                )
+            )
