@@ -14,7 +14,7 @@ stages:
 variables:
   PYCOV_DIR: ""
   CONDA_ENV_FILE: ""
-  LINE_LENGTH: 90
+  LINE_LENGTH: 120
   YAMLLINT_CONFIG_FILE: ".yamllint.yml"
 
 workflow:
