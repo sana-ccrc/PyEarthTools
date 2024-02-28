@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "edit_archive_NCI"
-version = "2023.08"
+version = "2024.02"
 description = "EDIT archive for NCI"
 readme = "README.md"
 requires-python = ">=3.9"
