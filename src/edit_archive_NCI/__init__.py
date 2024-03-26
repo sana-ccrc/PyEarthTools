@@ -48,3 +48,5 @@ from edit_archive_NCI.OceanMaps import OceanMaps
 from edit_archive_NCI.Himiwari import Himiwari
 
 register_archive("NCI")(edit_archive_NCI)
+
+__version__ = '2024.03'
