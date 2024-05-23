@@ -1,9 +1,9 @@
 # Copyright Commonwealth of Australia, Bureau of Meteorology 2024.
-# This software is provided under license 'as is', without warranty 
-# of any kind including, but not limited to, fitness for a particular 
-# purpose. The user assumes the entire risk as to the use and 
-# performance of the software. In no event shall the copyright holder 
-# be held liable for any claim, damages or other liability arising 
+# This software is provided under license 'as is', without warranty
+# of any kind including, but not limited to, fitness for a particular
+# purpose. The user assumes the entire risk as to the use and
+# performance of the software. In no event shall the copyright holder
+# be held liable for any claim, damages or other liability arising
 # from the use of the software.
 
 """
@@ -17,7 +17,7 @@ from glob import glob
 from pathlib import Path
 
 
-from edit.data import EDITDatetime, transform
+from edit.data import EDITDatetime, transform, TimeDelta
 from edit.data.exceptions import DataNotFoundError
 from edit.data.indexes import ArchiveIndex, decorators
 from edit.data.transform import Transform, TransformCollection
@@ -81,7 +81,7 @@ class Himiwari(ArchiveIndex):
         root_dir = self.ROOT_DIRECTORIES["HIMIWARI"]
         basetime = EDITDatetime(basetime)
 
-        offset = datetime.timedelta(days=1)
+        offset = TimeDelta(1, "day")
         check_dates = [basetime - offset, basetime, basetime + offset]
 
         for dates in check_dates:

@@ -1,15 +1,16 @@
 # Copyright Commonwealth of Australia, Bureau of Meteorology 2024.
-# This software is provided under license 'as is', without warranty 
-# of any kind including, but not limited to, fitness for a particular 
-# purpose. The user assumes the entire risk as to the use and 
-# performance of the software. In no event shall the copyright holder 
-# be held liable for any claim, damages or other liability arising 
+# This software is provided under license 'as is', without warranty
+# of any kind including, but not limited to, fitness for a particular
+# purpose. The user assumes the entire risk as to the use and
+# performance of the software. In no event shall the copyright holder
+# be held liable for any claim, damages or other liability arising
 # from the use of the software.
 
 """Utilities for NCI indexes"""
 
 from __future__ import annotations
 
+import functools
 from pathlib import Path
 
 JOIN_LINK = "https://my.nci.org.au/mancini/project/{code}/join"
@@ -35,3 +36,15 @@ def check_project(project_code: str, scratch: bool = False) -> bool:
             f"\nJoin this project at {JOIN_LINK.format(code = project_code)}"
         )
     return True
+
+
+@functools.lru_cache()
+def cached_iterdir(path: Path) -> list[Path]:
+    """Run iterdir but cached"""
+    return list(path.iterdir())
+
+
+@functools.lru_cache()
+def cached_exists(path: Path) -> bool:
+    """Run exits but cached"""
+    return path.exists()
