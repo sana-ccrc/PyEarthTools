@@ -20,12 +20,12 @@ import functools
 
 import xarray as xr
 
-from edit.data import transform
+import edit.data
 from edit.data.exceptions import DataNotFoundError
 from edit.data.warnings import IndexWarning
 from edit.data.indexes import ArchiveIndex, ForecastIndex, DataFileSystemIndex, decorators
 from edit.data.time import EDITDatetime, TimeDelta
-from edit.data.transform import Transform, TransformCollection
+from edit.data.transforms import Transform, TransformCollection
 
 from edit.data.archive import register_archive
 
@@ -105,7 +105,7 @@ class ACCESS(DataFileSystemIndex, ACCESS_UI_MIXIN):
         *,
         datatype: str,
         level_value: Any = None,
-        transforms: Transform | TransformCollection = TransformCollection(),
+        transforms: Transform | TransformCollection | None = None,
         **kwargs,
     ):
         """
@@ -134,17 +134,17 @@ class ACCESS(DataFileSystemIndex, ACCESS_UI_MIXIN):
 
         split_variables = [var.split("/")[-1] for var in variables]
 
-        base_transform = transform.variables.variable_trim(split_variables)
+        base_transform = edit.data.transforms.variables.Trim(split_variables)
 
         self.level_value = level_value
         if level_value is not None:
-            base_transform += transform.coordinates.select(
+            base_transform += edit.data.transforms.coordinates.Select(
                 {coord: level_value for coord in ["theta_lvl", "lvl", "rho_lvl"]},
                 ignore_missing=True,
             )
 
-        super().__init__(transforms=base_transform + transforms, **kwargs)
-        self.make_catalog()
+        super().__init__(transforms=base_transform + (transforms or TransformCollection()), **kwargs)
+        self.record_initialisation()
 
     def load(self, *args, **kwargs) -> Any:
         """Load access data, accounting for coord issues"""
@@ -206,10 +206,12 @@ class ACCESS(DataFileSystemIndex, ACCESS_UI_MIXIN):
 
 
 class ACCESS_Analysis(ACCESS, ArchiveIndex):
+    @functools.wraps(ACCESS.__init__)
     @decorators.alias_arguments(variables=["variable"])
+    @decorators.variable_modifications(variable_keyword="variables", remove_variables=False)
     def __init__(self, variables: list[str] | str, region: str, **kwargs):
         kwargs["data_interval"] = (6, "h") if region.lower() == "g" else (1, "h")
-        super().__init__(variables, region, **kwargs)
+        super().__init__(variables, region=region, **kwargs)
 
     def series(self, *args, **kwargs) -> Any:
         """Load access data, accounting for coord issues"""
@@ -236,7 +238,7 @@ class ACCESS_Forecast(ACCESS, ForecastIndex):
         datatype: Literal["fc", "fcmm"] = "fc",
         *,
         forecast_leadtime: datetime.timedelta | int | tuple | None = None,
-        transforms: Transform | TransformCollection = TransformCollection(),
+        transforms: Transform | TransformCollection | None = None,
         **kwargs,
     ):
         """
@@ -255,8 +257,8 @@ class ACCESS_Forecast(ACCESS, ForecastIndex):
                 Base Transforms to apply. Defaults to TransformCollection().
         """
         kwargs["data_interval"] = (6, "h")
-        super().__init__(variables, region, datatype=datatype, transforms=transforms, **kwargs)
-        self.make_catalog()
+        super().__init__(variables, region=region, datatype=datatype, transforms=transforms, **kwargs)
+        self.record_initialisation()
 
         self.forecast_leadtime = forecast_leadtime if forecast_leadtime is None else TimeDelta(forecast_leadtime)
 

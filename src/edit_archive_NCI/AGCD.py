@@ -14,15 +14,15 @@ from __future__ import annotations
 
 import datetime
 from pathlib import Path
-from typing import Any, Literal
 
 
-from edit.data import EDITDatetime, transform
+import edit.data
+from edit.data import EDITDatetime
 from edit.data.exceptions import DataNotFoundError
 from edit.data.indexes import ArchiveIndex, decorators
 from edit.data.indexes.utilities import spellcheck
 
-from edit.data.transform import Transform, TransformCollection
+from edit.data.transforms import Transform, TransformCollection
 from edit.data.archive import register_archive
 
 from edit_archive_NCI.utilities import check_project
@@ -43,6 +43,7 @@ class AGCD(ArchiveIndex):
             "singleline": "Australian Gridded Climate Data (AGCD)",
         }
 
+    @decorators.variable_modifications(variable_keyword="variables")
     @decorators.check_arguments(variables=AGCD_VARIABLES, resolution=["day", "month"])
     def __init__(
         self,
@@ -50,7 +51,7 @@ class AGCD(ArchiveIndex):
         resolution: str,
         *,
         sub_var: str | dict = {"precip": "total", "default": "mean"},
-        transforms: Transform | TransformCollection = TransformCollection(),
+        transforms: Transform | TransformCollection | None = None,
     ):
         """Setup AGCD Indexer
 
@@ -70,7 +71,7 @@ class AGCD(ArchiveIndex):
                 If `sub_var` does not contain a default and a given variable
         """
 
-        self.make_catalog()
+        self.record_initialisation()
         check_project(project_code="zv2")
 
         variables = [variables] if isinstance(variables, str) else variables
@@ -82,7 +83,7 @@ class AGCD(ArchiveIndex):
             if var not in sub_var and "default" not in sub_var:
                 raise KeyError(f"If 'sub_var' is a dict, it most contain entries for all variables")
 
-            valid_args = spellcheck.open_file(AGCD_var_path.format(variable=var))
+            valid_args = spellcheck.open_static(AGCD_var_path.format(variable=var))
             spellcheck.check_prompt(
                 sub_var[var] if var in sub_var else sub_var["default"],
                 valid_args,
@@ -95,11 +96,11 @@ class AGCD(ArchiveIndex):
         self.variables = variables
         base_transform = TransformCollection()
 
-        base_transform += transform.variables.rename_variables(AGCD_RENAME)
-        base_transform += transform.variables.variable_trim(variables)
+        base_transform += edit.data.transforms.variables.rename_variables(AGCD_RENAME)
+        base_transform += edit.data.transforms.variables.variable_trim(variables)
 
         super().__init__(
-            transforms=base_transform + transforms,
+            transforms=base_transform + (transforms or TransformCollection()),
             data_interval=(
                 1,
                 "month" if "month" in sub_var[list(sub_var.keys())[0]] else "day",

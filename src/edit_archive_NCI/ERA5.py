@@ -12,15 +12,16 @@ ECWMF ReAnalysis v5
 
 from __future__ import annotations
 
-import functools
 from pathlib import Path
 from typing import Any, Literal
 
 
-from edit.data import EDITDatetime, transform
+import edit.data
+
+from edit.data import EDITDatetime
 from edit.data.exceptions import DataNotFoundError
 from edit.data.indexes import ArchiveIndex, decorators
-from edit.data.transform import Transform, TransformCollection
+from edit.data.transforms import Transform, TransformCollection
 from edit.data.archive import register_archive
 
 from edit_archive_NCI.utilities import check_project, cached_exists, cached_iterdir
@@ -47,9 +48,10 @@ class ERA5(ArchiveIndex):
 
     @decorators.alias_arguments(
         level_value=["pressure"],
-        variable=["variables"],
+        variables=["variable"],
         product=["resolution"],
     )
+    @decorators.variable_modifications(variable_keyword="variables", remove_variables=False)
     @decorators.check_arguments(
         struc="edit_archive_NCI.structure.ERA5.struc",
     )
@@ -58,11 +60,11 @@ class ERA5(ArchiveIndex):
     )
     def __init__(
         self,
-        variable: list[str] | str,
+        variables: list[str] | str,
         *,
         product: Literal["monthly-averaged", "monthly-averaged-by-hour", "reanalysis"] = "reanalysis",
         level_value: int | float | list[int | float] | tuple[list | int, ...] | None = None,
-        transforms: Transform | TransformCollection = TransformCollection(),
+        transforms: Transform | TransformCollection | None = None,
     ):
         """
         Setup ERA5 Indexer
@@ -81,28 +83,28 @@ class ERA5(ArchiveIndex):
         """
         check_project(project_code="rt52")
 
-        variables = [variable] if isinstance(variable, str) else variable
+        variables = [variables] if isinstance(variables, str) else variables
 
         self.resolution = product
 
         self.variables = variables
         base_transform = TransformCollection()
 
-        base_transform += transform.variables.rename_variables(ERA5_RENAME)
-        # base_transform += transform.variables.variable_trim(variables)
+        base_transform += edit.data.transforms.attributes.Rename(ERA5_RENAME)
+        # base_transform += edit.data.transforms.variables.variable_trim(variables)
 
         self.level_value = level_value
 
         if level_value:
-            base_transform += transform.coordinates.select(
+            base_transform += edit.data.transforms.coordinates.Select(
                 {coord: level_value for coord in ["level"]}, ignore_missing=True
             )
 
         super().__init__(
-            transforms=base_transform + transforms,
+            transforms=base_transform + (transforms or TransformCollection()),
             data_interval=ERA_RES_RESOLUTION[ERA_PROD.index(product)],
         )
-        self.make_catalog()
+        self.record_initialisation()
 
     def filesystem(
         self,

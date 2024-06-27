@@ -17,10 +17,11 @@ from glob import glob
 from pathlib import Path
 
 
-from edit.data import EDITDatetime, transform, TimeDelta
+import edit.data
+from edit.data import EDITDatetime, TimeDelta
 from edit.data.exceptions import DataNotFoundError
 from edit.data.indexes import ArchiveIndex, decorators
-from edit.data.transform import Transform, TransformCollection
+from edit.data.transforms import Transform, TransformCollection
 from edit.data.archive import register_archive
 
 from edit_archive_NCI.utilities import check_project
@@ -42,13 +43,14 @@ class Himiwari(ArchiveIndex):
         }
 
     @decorators.alias_arguments(variables=["variable"])
+    @decorators.variable_modifications(variable_keyword="variables")
     def __init__(
         self,
         variables: list[str] | str | None = None,
         *,
         file_regex: str = FILE_REGEX,
         data_interval: tuple[int, str] = (10, "m"),
-        transforms: Transform | TransformCollection = TransformCollection(),
+        transforms: Transform | TransformCollection | None = None,
     ):
         """
         Setup Satellite Indexer
@@ -63,7 +65,7 @@ class Himiwari(ArchiveIndex):
             transforms (Transform | TransformCollection, optional):
                 Base Transforms to apply. Defaults to TransformCollection().
         """
-        self.make_catalog()
+        self.record_initialisation()
         check_project(project_code="rv74")
 
         variables = [variables] if isinstance(variables, str) else variables
@@ -71,7 +73,7 @@ class Himiwari(ArchiveIndex):
         self.variables = variables
         self.file_regex = file_regex
 
-        base_transform = transform.variables.variable_trim(variables) + transforms
+        base_transform = edit.data.transforms.variables.Trim(variables) + (transforms or TransformCollection())
         super().__init__(transforms=base_transform, data_interval=data_interval or (10, "m"))
 
     def filesystem(

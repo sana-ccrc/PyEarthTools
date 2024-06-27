@@ -14,9 +14,9 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Type
 
-from edit.data import EDITDatetime, transform, DataNotFoundError
+from edit.data import EDITDatetime, DataNotFoundError
 from edit.data.indexes import ArchiveIndex, decorators, VariableDefault
-from edit.data.transform import Transform, TransformCollection
+from edit.data.transforms import Transform, TransformCollection
 from edit.data.archive import register_archive
 
 from edit_archive_NCI.utilities import check_project
@@ -49,6 +49,7 @@ class BARPA(ArchiveIndex):
     """Index into Bureau of Meteorology Atmospheric Regional Projections for Australia"""
 
     @decorators.alias_arguments(variables=["variable"])
+    @decorators.variable_modifications(variable_keyword="variables")
     @decorators.check_arguments(struc="edit_archive_NCI.structure.BARPA.struc")
     def __init__(
         self,
@@ -66,7 +67,7 @@ class BARPA(ArchiveIndex):
         source: str | VARIABLE_DEFAULT = VariableDefault,
         version_realisation: str | VARIABLE_DEFAULT = VariableDefault,
         version: str | VARIABLE_DEFAULT = "v20231001",  # VariableDefault,
-        transforms: Transform | TransformCollection = TransformCollection(),
+        transforms: Transform | TransformCollection | None = None,
     ):
         """
         Bureau of Meteorology Atmospheric Regional Projections for Australia (BARPA)
@@ -112,7 +113,7 @@ class BARPA(ArchiveIndex):
                 Denotes the date of data generation or date of data release
         """
 
-        self.make_catalog()
+        self.record_initialisation()
         check_project(project_code="py18")
 
         variables = [variables] if isinstance(variables, str) else variables
@@ -121,7 +122,7 @@ class BARPA(ArchiveIndex):
         self.variables = variables
         self.version = str(version)
 
-        super().__init__(transforms=transforms)
+        super().__init__(transforms=(transforms or TransformCollection()))
 
     def filesystem(
         self,

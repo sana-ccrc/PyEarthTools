@@ -18,11 +18,12 @@ from pathlib import Path
 from typing import Any, Literal
 
 
-from edit.data import EDITDatetime, transform
+import edit.data
+from edit.data import EDITDatetime
 
 from edit.data.exceptions import DataNotFoundError
 from edit.data.indexes import ArchiveIndex, decorators
-from edit.data.transform import Transform, TransformCollection
+from edit.data.transforms import Transform, TransformCollection
 from edit.data.archive import register_archive
 
 from edit_archive_NCI.utilities import check_project
@@ -48,6 +49,7 @@ class OceanMaps(ArchiveIndex):
         }
 
     @decorators.alias_arguments(variables=["variable"])
+    @decorators.variable_modifications(variable_keyword="variables")
     @decorators.check_arguments(
         datatype=OceanMaps_TYPES,
         sub_var=OceanMaps_SUBVAR,
@@ -61,7 +63,7 @@ class OceanMaps(ArchiveIndex):
         *,
         depth_value: Any = None,
         version: str = "3.4",
-        transforms: Transform | TransformCollection = TransformCollection(),
+        transforms: Transform | TransformCollection | None = None,
     ):
         """
         Setup BRAN Indexer
@@ -80,7 +82,7 @@ class OceanMaps(ArchiveIndex):
             transforms (Transform | TransformCollection, optional):
                 Base Transforms to apply. Defaults to TransformCollection().
         """
-        self.make_catalog()
+        self.record_initialisation()
         check_project(project_code="rr6")
 
         variables = [variables] if isinstance(variables, str) else variables
@@ -91,14 +93,14 @@ class OceanMaps(ArchiveIndex):
 
         self.version = version
 
-        base_transform = transform.variables.variable_trim(variables)
+        base_transform = edit.data.transforms.variables.Trim(variables)
 
         self.depth_value = depth_value
         if depth_value is not None:
-            base_transform += transform.coordinates.select(
+            base_transform += edit.data.transforms.coordinates.Select(
                 {coord: depth_value for coord in ["st_ocean"]}, ignore_missing=True
             )
-        super().__init__(transforms=base_transform + transforms, data_interval=(1, "D"))
+        super().__init__(transforms=base_transform + (transforms or TransformCollection()), data_interval=(1, "D"))
 
     def filesystem(
         self,
