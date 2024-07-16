@@ -10,7 +10,7 @@ description = "FourCastNeXt"
 readme = "README.md"
 requires-python = ">=3.9"
 license = {file = "LICENSE"}
-keywords = ["pangu"]
+keywords = ["fourcastnext"]
 authors = [
   {email = "harrison.cook@bom.gov.au"},
   {name = "Harrison Cook"}
@@ -24,7 +24,7 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
- 'edit.training[lightning]==1.0.0', 'edit.models==1.0.0', 'edit.pipeline==1.0.0'
+ 'edit.training[lightning]==1.0.0', 'edit.models==1.0.0', 'edit.pipeline==1.0.0', 'hydra-core', 'torch_optimizer',
 ]
 
 
@@ -35,7 +35,6 @@ homepage = "https://bom.gov.au"
 Global_fourcastnext = "fourcastnext.registered_model:FourCastNeXt"
 
 [tool.isort]
-
 profile = "black"
 
 [tool.black]
