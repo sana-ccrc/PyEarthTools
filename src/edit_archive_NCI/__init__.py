@@ -44,7 +44,7 @@ ROOT_DIRECTORIES = {
 
 register_archive("ROOT_DIRECTORIES")(ROOT_DIRECTORIES)
 
-import edit_archive_NCI  
+import edit_archive_NCI
 
 from edit_archive_NCI.ACCESS import ACCESS
 from edit_archive_NCI.AGCD import AGCD
