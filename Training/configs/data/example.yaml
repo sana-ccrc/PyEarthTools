@@ -1,7 +1,6 @@
 # Fake Data Module
 
-pipelines:
-  - pipelines/example.pipe
+pipelines: pipelines/example.pipe
 
 img_size: 
   - 128

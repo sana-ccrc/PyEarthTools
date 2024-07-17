@@ -20,7 +20,7 @@ from fourcastnext.architecture.afnonet import AFNONet
 from edit.training.modules import get_loss
 
 
-
+torch.set_float32_matmul_precision('medium')
 
 class FourCastNext(pl.LightningModule):
     def __init__(
@@ -36,7 +36,9 @@ class FourCastNext(pl.LightningModule):
         """
         FourCastNeXt model
 
-        Data in B,T,C,H,W 
+        Expects data in (B,T,C,H,W, B,T_1,C,H,W)
+        With the first element being the input and the second the target
+        `T_1` can be any length thus indicating training up to that rollout.
 
         Args:
             model_params (dict): 
@@ -201,8 +203,8 @@ class FourCastNext(pl.LightningModule):
         ]
 
     def validation_step(self, batch, batch_idx):
+        batch, batch_idx, _ = batch # Issue caused by dataloader needed to replicate training dataloader
         inp, tar = map(lambda x: x.to(dtype=self._dtype), batch)
-
         target = tar[:, 0]
         B, T, C, H, W = inp.shape
         if T > 1:
