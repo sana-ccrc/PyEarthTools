@@ -87,7 +87,7 @@ Then create a Conda environment to install all dependencies:
 conda env create -f environment.yml -p ./venv
 ```
 
-Next, to run the example [notebooks](PyEarthTools/packages/tutorial/nbook/), you can either
+Next, to run the example [notebooks](packages/tutorial/nbook/), you can either
 
 - start a JupyterLab instance
 
