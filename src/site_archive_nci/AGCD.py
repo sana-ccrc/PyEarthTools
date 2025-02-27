@@ -16,20 +16,20 @@ import datetime
 from pathlib import Path
 
 
-import edit.data
-from edit.data import EDITDatetime
-from edit.data.exceptions import DataNotFoundError
-from edit.data.indexes import ArchiveIndex, decorators
-from edit.data.indexes.utilities import spellcheck
+import pyearthtools.data
+from pyearthtools.data import pyearthtoolsDatetime
+from pyearthtools.data.exceptions import DataNotFoundError
+from pyearthtools.data.indexes import ArchiveIndex, decorators
+from pyearthtools.data.indexes.utilities import spellcheck
 
-from edit.data.transforms import Transform, TransformCollection
-from edit.data.archive import register_archive
+from pyearthtools.data.transforms import Transform, TransformCollection
+from pyearthtools.data.archive import register_archive
 
-from edit_archive_NCI.utilities import check_project
+from pyearthtools_archive_NCI.utilities import check_project
 
 AGCD_VARIABLES = ["tmax", "tmin", "precip", "vapourpres_h09"]  # vapourpres_h15
 
-AGCD_var_path = "edit_archive_NCI.variables.AGCD.{variable}.valid"
+AGCD_var_path = "pyearthtools_archive_NCI.variables.AGCD.{variable}.valid"
 AGCD_RENAME = {"vapourpres": "vapourpres_09"}
 
 
@@ -95,8 +95,8 @@ class AGCD(ArchiveIndex):
         self.variables = variables
         base_transform = TransformCollection()
 
-        base_transform += edit.data.transforms.variables.rename_variables(AGCD_RENAME)
-        base_transform += edit.data.transforms.variables.variable_trim(variables)
+        base_transform += pyearthtools.data.transforms.variables.rename_variables(AGCD_RENAME)
+        base_transform += pyearthtools.data.transforms.variables.variable_trim(variables)
 
         super().__init__(
             transforms=base_transform + (transforms or TransformCollection()),
@@ -109,13 +109,13 @@ class AGCD(ArchiveIndex):
 
     def filesystem(
         self,
-        basetime: str | datetime.datetime | EDITDatetime,
+        basetime: str | datetime.datetime | pyearthtoolsDatetime,
     ) -> Path:
         AGCD_HOME = self.ROOT_DIRECTORIES["AGCD"]
 
         paths = {}
 
-        basetime = EDITDatetime(basetime)
+        basetime = pyearthtoolsDatetime(basetime)
 
         for variable in self.variables:
             sub_var = self.sub_var[variable]

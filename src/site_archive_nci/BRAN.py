@@ -18,15 +18,15 @@ from pathlib import Path
 from typing import Any, Literal
 
 
-import edit.data
+import pyearthtools.data
 
-from edit.data import EDITDatetime, TimeResolution
-from edit.data.exceptions import DataNotFoundError, InvalidIndexError
-from edit.data.indexes import ArchiveIndex, decorators
-from edit.data.transforms import Transform, TransformCollection
-from edit.data.archive import register_archive
+from pyearthtools.data import pyearthtoolsDatetime, TimeResolution
+from pyearthtools.data.exceptions import DataNotFoundError, InvalidIndexError
+from pyearthtools.data.indexes import ArchiveIndex, decorators
+from pyearthtools.data.transforms import Transform, TransformCollection
+from pyearthtools.data.archive import register_archive
 
-from edit_archive_NCI.utilities import check_project
+from pyearthtools_archive_NCI.utilities import check_project
 
 BRAN_RESOLUTION = ["annual", "daily", "month", "static"]
 BRAN_TYPES_RESOLUTION = [(365, "D"), (1, "D"), (31, "D"), None]
@@ -55,7 +55,7 @@ class BRAN(ArchiveIndex):
     @decorators.variable_modifications(variable_keyword="variables")
     @decorators.check_arguments(
         resolution=BRAN_RESOLUTION,
-        variables="edit_archive_NCI.variables.BRAN.{resolution}.valid",
+        variables="pyearthtools_archive_NCI.variables.BRAN.{resolution}.valid",
     )
     def __init__(
         self,
@@ -86,11 +86,11 @@ class BRAN(ArchiveIndex):
         self.resolution = resolution
 
         variables = [var.replace("ocean_", "") for var in variables]
-        base_transform = edit.data.transforms.variables.Trim(variables)
+        base_transform = pyearthtools.data.transforms.variables.Trim(variables)
 
         self.depth_value = depth_value
         if depth_value is not None:
-            base_transform += edit.data.transforms.coordinates.Select(
+            base_transform += pyearthtools.data.transforms.coordinates.Select(
                 {coord: depth_value for coord in ["st_ocean"]}, ignore_missing=True
             )
 
@@ -102,13 +102,13 @@ class BRAN(ArchiveIndex):
 
     def filesystem(
         self,
-        basetime: str | datetime.datetime | EDITDatetime,
+        basetime: str | datetime.datetime | pyearthtoolsDatetime,
     ) -> Path | dict[str, Path]:
         BRAN_HOME = self.ROOT_DIRECTORIES["BRAN"]
 
         paths = {}
 
-        basetime = EDITDatetime(str(basetime))
+        basetime = pyearthtoolsDatetime(str(basetime))
 
         for variable in self.variables:
             if self.resolution == "static":

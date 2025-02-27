@@ -16,16 +16,16 @@ from pathlib import Path
 from typing import Any, Literal
 
 
-import edit.data
+import pyearthtools.data
 
-from edit.data import EDITDatetime
-from edit.data.exceptions import DataNotFoundError
-from edit.data.indexes import ArchiveIndex, decorators
-from edit.data.transforms import Transform, TransformCollection
-from edit.data.archive import register_archive
+from pyearthtools.data import pyearthtoolsDatetime
+from pyearthtools.data.exceptions import DataNotFoundError
+from pyearthtools.data.indexes import ArchiveIndex, decorators
+from pyearthtools.data.transforms import Transform, TransformCollection
+from pyearthtools.data.archive import register_archive
 
-from edit_archive_NCI.utilities import check_project, cached_exists, cached_iterdir
-from edit_archive_NCI.ancilliary.ERA5 import ERA5_SINGLE_VARIABLES, ERA5_PRESSURE_VARIABLES
+from pyearthtools_archive_NCI.utilities import check_project, cached_exists, cached_iterdir
+from pyearthtools_archive_NCI.ancilliary.ERA5 import ERA5_SINGLE_VARIABLES, ERA5_PRESSURE_VARIABLES
 
 ERA_PROD = ["monthly-averaged", "monthly-averaged-by-hour", "reanalysis"]
 ERA_RES_RESOLUTION = [(1, "month"), (1, "month"), (1, "hour")]
@@ -53,7 +53,7 @@ class ERA5(ArchiveIndex):
     )
     @decorators.variable_modifications(variable_keyword="variables", remove_variables=False)
     @decorators.check_arguments(
-        struc="edit_archive_NCI.structure.ERA5.struc",
+        struc="pyearthtools_archive_NCI.structure.ERA5.struc",
     )
     @decorators.deprecated_arguments(
         level="`level` is deprecated in the ERA5 index. Simply provide the variables, `level` will be autofound."
@@ -90,13 +90,13 @@ class ERA5(ArchiveIndex):
         self.variables = variables
         base_transform = TransformCollection()
 
-        base_transform += edit.data.transforms.attributes.Rename(ERA5_RENAME)
-        # base_transform += edit.data.transforms.variables.variable_trim(variables)
+        base_transform += pyearthtools.data.transforms.attributes.Rename(ERA5_RENAME)
+        # base_transform += pyearthtools.data.transforms.variables.variable_trim(variables)
 
         self.level_value = level_value
 
         if level_value:
-            base_transform += edit.data.transforms.coordinates.Select(
+            base_transform += pyearthtools.data.transforms.coordinates.Select(
                 {coord: level_value for coord in ["level"]}, ignore_missing=True
             )
 
@@ -108,12 +108,12 @@ class ERA5(ArchiveIndex):
 
     def filesystem(
         self,
-        querytime: str | EDITDatetime,
+        querytime: str | pyearthtoolsDatetime,
     ) -> Path | dict[str, str | Path]:
         ERA5_HOME = self.ROOT_DIRECTORIES["ERA5"]
 
         paths = {}
-        querytime = EDITDatetime(querytime)
+        querytime = pyearthtoolsDatetime(querytime)
 
         for variable in self.variables:
             if variable in VARIABLE_EXCEPTIONS:

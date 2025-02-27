@@ -17,14 +17,14 @@ from glob import glob
 from pathlib import Path
 
 
-import edit.data
-from edit.data import EDITDatetime, TimeDelta
-from edit.data.exceptions import DataNotFoundError
-from edit.data.indexes import ArchiveIndex, decorators
-from edit.data.transforms import Transform, TransformCollection
-from edit.data.archive import register_archive
+import pyearthtools.data
+from pyearthtools.data import pyearthtoolsDatetime, TimeDelta
+from pyearthtools.data.exceptions import DataNotFoundError
+from pyearthtools.data.indexes import ArchiveIndex, decorators
+from pyearthtools.data.transforms import Transform, TransformCollection
+from pyearthtools.data.archive import register_archive
 
-from edit_archive_NCI.utilities import check_project
+from pyearthtools_archive_NCI.utilities import check_project
 
 SATELLITE_PATTERN = "{ROOT_DIR}/{FILE_DATE}/{FILE}"
 FILE_REGEX = "*{date_info}*{time_info}*.nc"
@@ -72,16 +72,16 @@ class Himiwari(ArchiveIndex):
         self.variables = variables
         self.file_regex = file_regex
 
-        base_transform = edit.data.transforms.variables.Trim(variables) + (transforms or TransformCollection())
+        base_transform = pyearthtools.data.transforms.variables.Trim(variables) + (transforms or TransformCollection())
         super().__init__(transforms=base_transform, data_interval=data_interval or (10, "m"))
         self.record_initialisation()
 
     def filesystem(
         self,
-        basetime: str | datetime.datetime | EDITDatetime,
+        basetime: str | datetime.datetime | pyearthtoolsDatetime,
     ):
         root_dir = self.ROOT_DIRECTORIES["HIMIWARI"]
-        basetime = EDITDatetime(basetime)
+        basetime = pyearthtoolsDatetime(basetime)
 
         offset = TimeDelta(1, "day")
         check_dates = [basetime - offset, basetime, basetime + offset]

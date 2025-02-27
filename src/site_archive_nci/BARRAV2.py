@@ -13,14 +13,14 @@ Bureau of Meteorology Atmospheric Regional Projections for Australia (BARRA_V2)
 from __future__ import annotations
 
 
-import edit.data
-from edit.data.indexes import Structured, VARIABLE_DEFAULT, VariableDefault, decorators
-from edit.data.transforms import Transform, TransformCollection
-from edit.data.archive import register_archive
+import pyearthtools.data
+from pyearthtools.data.indexes import Structured, VARIABLE_DEFAULT, VariableDefault, decorators
+from pyearthtools.data.transforms import Transform, TransformCollection
+from pyearthtools.data.archive import register_archive
 
-from edit_archive_NCI.utilities import check_project
+from pyearthtools_archive_NCI.utilities import check_project
 
-from edit_archive_NCI.ancilliary.BARRA_V2 import variable_rename, coarse_variables
+from pyearthtools_archive_NCI.ancilliary.BARRA_V2 import variable_rename, coarse_variables
 
 temporal_resolution = {
     "fx": None,
@@ -47,7 +47,7 @@ class BARRA_V2(Structured):
 
     @decorators.alias_arguments(variables=["variable"])
     @decorators.variable_modifications(variable_keyword="variables")
-    @decorators.check_arguments(struc="edit_archive_NCI.structure.BARRA_V2.struc")
+    @decorators.check_arguments(struc="pyearthtools_archive_NCI.structure.BARRA_V2.struc")
     def __init__(
         self,
         variables: list[str] | str,
@@ -80,7 +80,7 @@ class BARRA_V2(Structured):
         Args:
             variables (list[str] | str):
                 Variables to retrieve.
-                Mostly based on https://docs.google.com/spreadsheets/d/1qUauozwXkq7r1g-L4ALMIkCNINIhhCPx/edit#gid=1672965248
+                Mostly based on https://docs.google.com/spreadsheets/d/1qUauozwXkq7r1g-L4ALMIkCNINIhhCPx/pyearthtools#gid=1672965248
             frequency (str):
                 Temporal Frequency. '1hr' (1-hourly), '3hr', '6hr', 'day' (daily), 'mon' (monthly), 'fx'
             transforms (Transform | TransformCollection, optional):
@@ -115,7 +115,7 @@ class BARRA_V2(Structured):
             self.GLOB_TEMPLATE = "{variable}/{version}/{variable}_*.nc"
 
         transforms = transforms or TransformCollection()
-        transforms += edit.data.transforms.variables.Drop("time_bnds")
+        transforms += pyearthtools.data.transforms.variables.Drop("time_bnds")
 
         variables = [variables] if isinstance(variables, str) else variables
         new_vars = []
@@ -127,8 +127,8 @@ class BARRA_V2(Structured):
                 new_vars.append(var)
         variables = new_vars
 
-        preprocess = edit.data.transforms.dimensions.Expand(["pressure", "depth", "height"], missing="skip")
-        preprocess += edit.data.transforms.attributes.Rename(
+        preprocess = pyearthtools.data.transforms.dimensions.Expand(["pressure", "depth", "height"], missing="skip")
+        preprocess += pyearthtools.data.transforms.attributes.Rename(
             {var: variable_rename[var] for var in variables if var in variable_rename}
         )
 

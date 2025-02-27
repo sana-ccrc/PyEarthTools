@@ -17,14 +17,14 @@ from pathlib import Path
 from typing import Literal
 
 
-import edit.data
-from edit.data import EDITDatetime
-from edit.data.exceptions import DataNotFoundError
-from edit.data.indexes import ArchiveIndex, decorators
-from edit.data.transforms import Transform, TransformCollection
-from edit.data.archive import register_archive
+import pyearthtools.data
+from pyearthtools.data import pyearthtoolsDatetime
+from pyearthtools.data.exceptions import DataNotFoundError
+from pyearthtools.data.indexes import ArchiveIndex, decorators
+from pyearthtools.data.transforms import Transform, TransformCollection
+from pyearthtools.data.archive import register_archive
 
-from edit_archive_NCI.utilities import check_project
+from pyearthtools_archive_NCI.utilities import check_project
 
 
 MODIS_REGIONS = ["AU"]
@@ -60,7 +60,7 @@ class MODIS(ArchiveIndex):
     @decorators.check_arguments(
         region=MODIS_REGIONS,
         resolution=MODIS_RESOLUTION,
-        variables="edit_archive_NCI.variables.MODIS.surface.valid",
+        variables="pyearthtools_archive_NCI.variables.MODIS.surface.valid",
     )
     def __init__(
         self,
@@ -93,8 +93,8 @@ class MODIS(ArchiveIndex):
         self.variables = variables
         base_transform = TransformCollection()
 
-        base_transform += edit.data.transforms.attributes.Rename(MODIS_RENAME)
-        base_transform += edit.data.transforms.variables.Trim(variables)
+        base_transform += pyearthtools.data.transforms.attributes.Rename(MODIS_RENAME)
+        base_transform += pyearthtools.data.transforms.variables.Trim(variables)
 
         # 8 day timesteps... so strange
         super().__init__(
@@ -105,13 +105,13 @@ class MODIS(ArchiveIndex):
 
     def filesystem(
         self,
-        basetime: str | datetime.datetime | EDITDatetime,
+        basetime: str | datetime.datetime | pyearthtoolsDatetime,
     ) -> Path:
         MODIS_HOME = self.ROOT_DIRECTORIES["MODIS"]
 
         paths = {}
 
-        basetime = EDITDatetime(basetime)
+        basetime = pyearthtoolsDatetime(basetime)
         basepath = Path(MODIS_HOME.format(region=self.region))
 
         for variable in self.variables:

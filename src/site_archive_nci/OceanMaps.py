@@ -18,15 +18,15 @@ from pathlib import Path
 from typing import Any, Literal
 
 
-import edit.data
-from edit.data import EDITDatetime
+import pyearthtools.data
+from pyearthtools.data import pyearthtoolsDatetime
 
-from edit.data.exceptions import DataNotFoundError
-from edit.data.indexes import ArchiveIndex, decorators
-from edit.data.transforms import Transform, TransformCollection
-from edit.data.archive import register_archive
+from pyearthtools.data.exceptions import DataNotFoundError
+from pyearthtools.data.indexes import ArchiveIndex, decorators
+from pyearthtools.data.transforms import Transform, TransformCollection
+from pyearthtools.data.archive import register_archive
 
-from edit_archive_NCI.utilities import check_project
+from pyearthtools_archive_NCI.utilities import check_project
 
 
 OceanMaps_TYPES = ["analysis", "forecast"]
@@ -53,7 +53,7 @@ class OceanMaps(ArchiveIndex):
     @decorators.check_arguments(
         datatype=OceanMaps_TYPES,
         sub_var=OceanMaps_SUBVAR,
-        variables="edit_archive_NCI.variables.OceanMaps.{datatype}.valid",
+        variables="pyearthtools_archive_NCI.variables.OceanMaps.{datatype}.valid",
     )
     def __init__(
         self,
@@ -92,11 +92,11 @@ class OceanMaps(ArchiveIndex):
 
         self.version = version
 
-        base_transform = edit.data.transforms.variables.Trim(variables)
+        base_transform = pyearthtools.data.transforms.variables.Trim(variables)
 
         self.depth_value = depth_value
         if depth_value is not None:
-            base_transform += edit.data.transforms.coordinates.Select(
+            base_transform += pyearthtools.data.transforms.coordinates.Select(
                 {coord: depth_value for coord in ["st_ocean"]}, ignore_missing=True
             )
         super().__init__(transforms=base_transform + (transforms or TransformCollection()), data_interval=(1, "D"))
@@ -104,13 +104,13 @@ class OceanMaps(ArchiveIndex):
 
     def filesystem(
         self,
-        basetime: str | datetime.datetime | EDITDatetime,
+        basetime: str | datetime.datetime | pyearthtoolsDatetime,
     ) -> Path | dict[str, Path]:
         OceanMaps_HOME = self.ROOT_DIRECTORIES["OceanMaps"]
 
         paths = {}
 
-        basetime = EDITDatetime(str(basetime))
+        basetime = pyearthtoolsDatetime(str(basetime))
         basetime -= datetime.timedelta(days=1)
 
         for variable in self.variables:

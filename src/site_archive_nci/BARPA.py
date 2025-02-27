@@ -14,12 +14,12 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Type
 
-from edit.data import EDITDatetime, DataNotFoundError
-from edit.data.indexes import ArchiveIndex, decorators, VariableDefault
-from edit.data.transforms import Transform, TransformCollection
-from edit.data.archive import register_archive
+from pyearthtools.data import pyearthtoolsDatetime, DataNotFoundError
+from pyearthtools.data.indexes import ArchiveIndex, decorators, VariableDefault
+from pyearthtools.data.transforms import Transform, TransformCollection
+from pyearthtools.data.archive import register_archive
 
-from edit_archive_NCI.utilities import check_project
+from pyearthtools_archive_NCI.utilities import check_project
 
 """
 Structure order
@@ -50,7 +50,7 @@ class BARPA(ArchiveIndex):
 
     @decorators.alias_arguments(variables=["variable"])
     @decorators.variable_modifications(variable_keyword="variables")
-    @decorators.check_arguments(struc="edit_archive_NCI.structure.BARPA.struc")
+    @decorators.check_arguments(struc="pyearthtools_archive_NCI.structure.BARPA.struc")
     def __init__(
         self,
         variables: list[str] | str,
@@ -81,7 +81,7 @@ class BARPA(ArchiveIndex):
         Args:
             variables (list[str] | str):
                 Variables to retireve.
-                Based upon https://docs.google.com/spreadsheets/d/1qUauozwXkq7r1g-L4ALMIkCNINIhhCPx/edit#gid=1672965248
+                Based upon https://docs.google.com/spreadsheets/d/1qUauozwXkq7r1g-L4ALMIkCNINIhhCPx/pyearthtools#gid=1672965248
             driving_source (str):
                 Global Coupled Model. The models selected are:
                     ERA5, ACCESS-CM2, ACCESS-ESM1-5, NorESM2-MM, EC-Earth3, CESM2, CMCC-ESM2, MPI-ESM1-2-HR
@@ -126,13 +126,13 @@ class BARPA(ArchiveIndex):
 
     def filesystem(
         self,
-        querytime: str | EDITDatetime,
+        querytime: str | pyearthtoolsDatetime,
     ) -> Path | dict[str, str]:
         BARPA_HOME = Path(self.ROOT_DIRECTORIES["BARPA"])
 
         discovered_paths = {}
 
-        querytime_year = EDITDatetime(querytime).at_resolution("year")
+        querytime_year = pyearthtoolsDatetime(querytime).at_resolution("year")
 
         for variable in self.variables:
             dir_path = BARPA_HOME / self.dir / variable / self.version

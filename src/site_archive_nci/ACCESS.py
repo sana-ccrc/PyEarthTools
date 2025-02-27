@@ -20,16 +20,16 @@ import functools
 
 import xarray as xr
 
-import edit.data
-from edit.data.exceptions import DataNotFoundError
-from edit.data.warnings import IndexWarning
-from edit.data.indexes import ArchiveIndex, ForecastIndex, DataFileSystemIndex, decorators
-from edit.data.time import EDITDatetime, TimeDelta
-from edit.data.transforms import Transform, TransformCollection
+import pyearthtools.data
+from pyearthtools.data.exceptions import DataNotFoundError
+from pyearthtools.data.warnings import IndexWarning
+from pyearthtools.data.indexes import ArchiveIndex, ForecastIndex, DataFileSystemIndex, decorators
+from pyearthtools.data.time import pyearthtoolsDatetime, TimeDelta
+from pyearthtools.data.transforms import Transform, TransformCollection
 
-from edit.data.archive import register_archive
+from pyearthtools.data.archive import register_archive
 
-from edit_archive_NCI.utilities import check_project
+from pyearthtools_archive_NCI.utilities import check_project
 
 ACCESS_REGIONS = ["g", "bn", "ad", "sy", "vt", "ph", "nq", "dn"]
 ACCESS_REGIONS = [*ACCESS_REGIONS, *(x.upper() for x in ACCESS_REGIONS)]
@@ -40,7 +40,7 @@ ACCESS_DATATYPES = ["an", "fc", "fcmm"]
 VALID_DATATYPES = Literal["an", "fc", "fcmm"]
 
 
-def rounder(time: EDITDatetime, interval: int) -> str:
+def rounder(time: pyearthtoolsDatetime, interval: int) -> str:
     hour = time.hour
     return "%02d00" % ((hour // interval) * interval,)
 
@@ -96,7 +96,7 @@ class ACCESS(DataFileSystemIndex, ACCESS_UI_MIXIN):
     @decorators.check_arguments(
         region=ACCESS_REGIONS,
         datatype=ACCESS_DATATYPES,
-        variables="edit_archive_NCI.variables.ACCESS.{datatype}.valid",
+        variables="pyearthtools_archive_NCI.variables.ACCESS.{datatype}.valid",
     )
     def __init__(
         self,
@@ -134,11 +134,11 @@ class ACCESS(DataFileSystemIndex, ACCESS_UI_MIXIN):
 
         split_variables = [var.split("/")[-1] for var in variables]
 
-        base_transform = edit.data.transforms.variables.Trim(split_variables)
+        base_transform = pyearthtools.data.transforms.variables.Trim(split_variables)
 
         self.level_value = level_value
         if level_value is not None:
-            base_transform += edit.data.transforms.coordinates.Select(
+            base_transform += pyearthtools.data.transforms.coordinates.Select(
                 {coord: level_value for coord in ["theta_lvl", "lvl", "rho_lvl"]},
                 ignore_missing=True,
             )
@@ -163,12 +163,12 @@ class ACCESS(DataFileSystemIndex, ACCESS_UI_MIXIN):
 
     def filesystem(
         self,
-        basetime: str | EDITDatetime,
+        basetime: str | pyearthtoolsDatetime,
     ):
         paths = {}
 
         ACCESS_HOME = self.ROOT_DIRECTORIES["ACCESS"]
-        basetime = EDITDatetime(basetime)
+        basetime = pyearthtoolsDatetime(basetime)
 
         basepath = Path(ACCESS_HOME.format(region=self.region))
 
@@ -262,8 +262,8 @@ class ACCESS_Forecast(ACCESS, ForecastIndex):
 
         self.forecast_leadtime = forecast_leadtime if forecast_leadtime is None else TimeDelta(forecast_leadtime)
 
-    def get(self, querytime: EDITDatetime, *, select_time: EDITDatetime | None = None, **kwargs) -> xr.Dataset:
-        querytime = EDITDatetime(querytime)
+    def get(self, querytime: pyearthtoolsDatetime, *, select_time: pyearthtoolsDatetime | None = None, **kwargs) -> xr.Dataset:
+        querytime = pyearthtoolsDatetime(querytime)
         if self.forecast_leadtime:
             querytime = querytime - self.forecast_leadtime
         data = super().get(querytime, **kwargs)
@@ -272,8 +272,8 @@ class ACCESS_Forecast(ACCESS, ForecastIndex):
             data = data.sel(time=select_time)
         return data
 
-    def filesystem(self, basetime: str | EDITDatetime):
-        basetime = EDITDatetime(basetime)
+    def filesystem(self, basetime: str | pyearthtoolsDatetime):
+        basetime = pyearthtoolsDatetime(basetime)
         if self.forecast_leadtime:
             basetime = basetime - self.forecast_leadtime
         return super().filesystem(basetime)

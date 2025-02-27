@@ -13,20 +13,20 @@ National Computing Infrastructure specific Indexes
 
 | Name        | Description |
 | :---        |       ----: |
-| [ERA5][edit_archive_NCI.ERA5]                | ECWMF ReAnalysis v5       |
-| [ACCESS][edit_archive_NCI.ACCESS]            | Australian Community Climate and Earth-System Simulator       |
-| [AGCD][edit_archive_NCI.AGCD]                | Australian Gridded Climate Data        |
-| [BRAN][edit_archive_NCI.BRAN]                | Bluelink ReANalysis        |
-| [OceanMaps][edit_archive_NCI.OceanMaps]      | Ocean Modelling and Analysis Prediction System        |
-| [MODIS][edit_archive_NCI.MODIS]              | MODerate resolution Imaging Spectroradiometer       |
-| [Himiwari][edit_archive_NCI.Himiwari]        | Himiwari 8/9 satellite data       |
-| [BARRA][edit_archive_NCI.BARRA]              | Bureau of meteorology Atmospheric high-resolution Regional Reanalysis for Australia       |
-| [BARPA][edit_archive_NCI.BARPA]              | Bureau of Meteorology Atmospheric Regional Projections for Australia       |
-| [BARRA_V2][edit_archive_NCI.BARRA_V2]        | Bureau of meteorology Atmospheric high-resolution Regional Reanalysis for Australia v2    |
+| [ERA5][pyearthtools_archive_NCI.ERA5]                | ECWMF ReAnalysis v5       |
+| [ACCESS][pyearthtools_archive_NCI.ACCESS]            | Australian Community Climate and Earth-System Simulator       |
+| [AGCD][pyearthtools_archive_NCI.AGCD]                | Australian Gridded Climate Data        |
+| [BRAN][pyearthtools_archive_NCI.BRAN]                | Bluelink ReANalysis        |
+| [OceanMaps][pyearthtools_archive_NCI.OceanMaps]      | Ocean Modelling and Analysis Prediction System        |
+| [MODIS][pyearthtools_archive_NCI.MODIS]              | MODerate resolution Imaging Spectroradiometer       |
+| [Himiwari][pyearthtools_archive_NCI.Himiwari]        | Himiwari 8/9 satellite data       |
+| [BARRA][pyearthtools_archive_NCI.BARRA]              | Bureau of meteorology Atmospheric high-resolution Regional Reanalysis for Australia       |
+| [BARPA][pyearthtools_archive_NCI.BARPA]              | Bureau of Meteorology Atmospheric Regional Projections for Australia       |
+| [BARRA_V2][pyearthtools_archive_NCI.BARRA_V2]        | Bureau of meteorology Atmospheric high-resolution Regional Reanalysis for Australia v2    |
 """
 
-import edit.data
-from edit.data.archive import register_archive
+import pyearthtools.data
+from pyearthtools.data.archive import register_archive
 
 
 ROOT_DIRECTORIES = {
@@ -46,20 +46,20 @@ ROOT_DIRECTORIES = {
 
 register_archive("ROOT_DIRECTORIES")(ROOT_DIRECTORIES)
 
-import edit_archive_NCI
+import pyearthtools_archive_NCI
 
-from edit_archive_NCI.ACCESS import ACCESS
-from edit_archive_NCI.AGCD import AGCD
-from edit_archive_NCI.BRAN import BRAN
-from edit_archive_NCI.BARRA import BARRA
-from edit_archive_NCI.BARRAV2 import BARRA_V2
-from edit_archive_NCI.BARPA import BARPA
-from edit_archive_NCI.ERA5 import ERA5
-from edit_archive_NCI.MODIS import MODIS
-from edit_archive_NCI.OceanMaps import OceanMaps
-from edit_archive_NCI.Himiwari import Himiwari
+from pyearthtools_archive_NCI.ACCESS import ACCESS
+from pyearthtools_archive_NCI.AGCD import AGCD
+from pyearthtools_archive_NCI.BRAN import BRAN
+from pyearthtools_archive_NCI.BARRA import BARRA
+from pyearthtools_archive_NCI.BARRAV2 import BARRA_V2
+from pyearthtools_archive_NCI.BARPA import BARPA
+from pyearthtools_archive_NCI.ERA5 import ERA5
+from pyearthtools_archive_NCI.MODIS import MODIS
+from pyearthtools_archive_NCI.OceanMaps import OceanMaps
+from pyearthtools_archive_NCI.Himiwari import Himiwari
 
-register_archive("NCI")(edit_archive_NCI)
+register_archive("NCI")(pyearthtools_archive_NCI)
 
 try:
     # NOTE: the `_version.py` file must not be present in the git repository

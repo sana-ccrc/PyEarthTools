@@ -17,22 +17,22 @@ import functools
 from pathlib import Path
 from typing import Any, Literal
 
-import edit.data
+import pyearthtools.data
 
-from edit.data import DataNotFoundError
+from pyearthtools.data import DataNotFoundError
 
-from edit.data.indexes import (
+from pyearthtools.data.indexes import (
     DataIndex,
     ArchiveIndex,
     ForecastIndex,
     StaticDataIndex,
     decorators,
 )
-from edit.data.time import EDITDatetime
-from edit.data.transforms import Transform, TransformCollection
-from edit.data.archive import register_archive
+from pyearthtools.data.time import pyearthtoolsDatetime
+from pyearthtools.data.transforms import Transform, TransformCollection
+from pyearthtools.data.archive import register_archive
 
-from edit_archive_NCI.utilities import check_project
+from pyearthtools_archive_NCI.utilities import check_project
 
 
 BARRA_REGIONS = ["R", "AD", "PH", "SY", "TA"]
@@ -76,7 +76,7 @@ class BARRA(DataIndex):
     @decorators.check_arguments(
         region=BARRA_REGIONS,
         datatype=BARRA_TYPES,
-        variables="edit_archive_NCI.variables.BARRA.{datatype}.valid",
+        variables="pyearthtools_archive_NCI.variables.BARRA.{datatype}.valid",
     )
     def __init__(
         self,
@@ -125,17 +125,17 @@ class BARRA(DataIndex):
         variables = [var.split("/")[-1] for var in variables]
 
         base_transform = TransformCollection()
-        base_transform += edit.data.transforms.variables.Trim(variables)
+        base_transform += pyearthtools.data.transforms.variables.Trim(variables)
 
         preprocess = None
 
         if datatype == "analysis":
-            base_transform += edit.data.transforms.coordinates.Drop(["forecast_reference_time", "forecast_period"])
-            preprocess = edit.data.transforms.dimensions.Expand("time", as_dataarray=True)
+            base_transform += pyearthtools.data.transforms.coordinates.Drop(["forecast_reference_time", "forecast_period"])
+            preprocess = pyearthtools.data.transforms.dimensions.Expand("time", as_dataarray=True)
 
         self.pressure = pressure
         if pressure is not None:
-            base_transform += edit.data.transforms.coordinates.Select(
+            base_transform += pyearthtools.data.transforms.coordinates.Select(
                 {coord: pressure for coord in ["pressure"]}, ignore_missing=True
             )
         super().__init__(
@@ -173,8 +173,8 @@ class BARRA(DataIndex):
         kwargs["datatype"] = "analysis"
         return BARRA_Analysis(*args, **kwargs)
 
-    def filesystem(self, querytime: EDITDatetime) -> Path:
-        querytime = EDITDatetime(querytime)
+    def filesystem(self, querytime: pyearthtoolsDatetime) -> Path:
+        querytime = pyearthtoolsDatetime(querytime)
 
         BARRA_HOME = self.ROOT_DIRECTORIES["BARRA"]
         basepath = Path(BARRA_HOME.format(region=self.region, version=self.version, datatype=self.datatype))
@@ -243,8 +243,8 @@ class BARRA_Forecast(BARRA, ForecastIndex):
         )
         self.record_initialisation()
 
-    def filesystem(self, querytime: EDITDatetime) -> Path:
-        querytime = EDITDatetime(querytime)
+    def filesystem(self, querytime: pyearthtoolsDatetime) -> Path:
+        querytime = pyearthtoolsDatetime(querytime)
 
         BARRA_HOME = self.ROOT_DIRECTORIES["BARRA"]
         basepath = Path(BARRA_HOME.format(region=self.region, version=self.version, datatype=self.datatype))

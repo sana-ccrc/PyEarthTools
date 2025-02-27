@@ -35,7 +35,7 @@ If installed, this package will automatically be imported when `pyearthtools.dat
 It can also be explicitly imported if installed by,
 
 ```py
-import edit_archive_NCI
+import site_archive_nci
 ```
 
 Once imported all archives are accesible underneath `edit.data.archive`
