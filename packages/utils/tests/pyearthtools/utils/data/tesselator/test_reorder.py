@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 from pyearthtools.utils.data.tesselator._patching.reorder import setup_formats, reorder, move_to_end
 
-# Test the setup_formats function.
+# Test setup_formats function.
 def test_setup_formats():
     # Test with one fully defined format and one partially defined format.
     assert setup_formats('RPTCHW', 'RP...HW') == ('RPTCHW', 'RPTCHW')
@@ -13,7 +13,6 @@ def test_setup_formats():
     assert setup_formats('RPTCHW', 'RPTCHW') == ('RPTCHW', 'RPTCHW')
     assert setup_formats('TCRPHW', 'RPTCHW') == ('TCRPHW', 'RPTCHW')
 
-
     # Test with different combinations of characters in the formats.
     assert setup_formats('RP...HW', 'RPXYHW') == ('RPXYHW', 'RPXYHW')
 
@@ -23,14 +22,13 @@ def test_setup_formats_value_error():
         setup_formats('RP...HW', 'RP...HW')
 
 
-# Test the reorder function.
+# Test reorder function.
 def test_reorder_same_format():
     data = np.zeros((3, 4, 5))
     result = reorder(data, 'TAC', 'TAC')
     np.testing.assert_array_equal(result, data)
 
-    # Test with same longer formats.
-    data = np.zeros((3, 4, 5, 6))
+    data = np.zeros((3, 4, 5, 6)) # Test with same longer formats.
     result = reorder(data, 'CTHW', 'CTHW')
     np.testing.assert_array_equal(result, data)
 
@@ -56,5 +54,30 @@ def test_reorder_invalid_format():
         reorder(data, 'TAC', 'CT')
 
 
-if __name__ == "__main__":
+# Test move_to_end function.
+def test_move_to_end_single_axis():
+    data = np.zeros((3, 4, 5))
+    new_format, reordered_data = move_to_end(data, 'TAC', 'T')
+    assert new_format == 'ACT'
+    assert reordered_data.shape == (4, 5, 3)
+
+def test_move_to_end_multiple_axes():
+    data = np.zeros((3, 4, 5))
+    new_format, reordered_data = move_to_end(data, 'TAC', 'TA')
+    assert new_format == 'CTA'
+    assert reordered_data.shape == (5, 3, 4)
+
+def test_move_to_end_all_axes():
+    # Test with all axes, i.e. moving all the data.
+    data = np.zeros((3, 4, 5))
+    new_format, reordered_data = move_to_end(data, 'TAC', 'AT')
+    assert new_format == 'CAT'
+    assert reordered_data.shape == (5, 4, 3)
+
+def test_move_to_end_invalid_axis():
+    data = np.zeros((3, 4, 5))
+    with pytest.raises(KeyError):
+        move_to_end(data, 'TAC', 'X')
+
+if __name__ == '__main__':
     pytest.main()
