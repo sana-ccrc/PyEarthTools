@@ -78,6 +78,3 @@ def test_move_to_end_invalid_axis():
     data = np.zeros((3, 4, 5))
     with pytest.raises(KeyError):
         move_to_end(data, 'TAC', 'X')
-
-if __name__ == '__main__':
-    pytest.main()
