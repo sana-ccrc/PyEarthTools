@@ -124,3 +124,28 @@ def test_cut_center_even_grid_odd_cut():
                                 [44, 45, 46],
                                 [54, 55, 56]])
     assert np.array_equal(result, expected_result)
+
+
+def test_center_square():
+    x = np.zeros((10, 1, 10, 10))
+
+    result = center(x, 5)
+    assert result.shape == (10, 1, 5, 5)
+
+def test_center_rectangle():
+    x = np.zeros((10, 1, 10, 10))
+    result = center(x, (6, 4))
+    assert result.shape == (10, 1, 6, 4)
+
+
+def test_center():
+    """
+    Test the center function with input format "THWC".
+    The center function first moves H and W to the end of the format.
+    Then it takes the center of the last two dimensions.
+    Then it reorders the center to the original format "THWC".
+    """
+    x = np.zeros((10, 10, 10, 1)) #THWC
+    result = center(x, (6, 4), "THWC") #Take 
+    assert result.shape == (10, 6, 4, 1)
+    
