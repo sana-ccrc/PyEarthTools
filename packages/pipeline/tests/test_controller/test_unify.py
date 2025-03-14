@@ -24,12 +24,6 @@ from tests.fake_pipeline_steps import FakeIndex
 
 pyearthtools.utils.config.set({"pipeline.run_parallel": False})
 
-# TODO
-
-
-class Unifer(branching.Unifier):
-    def check_validity(self, sample):
-        return 0
 
 
 def test_branch_with_join_invalid():

@@ -47,7 +47,7 @@ all = [
   "pyearthtools-pipeline[all] @ git+https://github.com/ACCESS-Community-Hub/PyEarthTools.git#subdirectory=packages/pipeline",
   "pyearthtools-training[all] @ git+https://github.com/ACCESS-Community-Hub/PyEarthTools.git#subdirectory=packages/training"
 ]
-test = ["pytest", "pytest-cov"]
+test = ["pytest", "pytest-cov", "pytest-xdist"]
 docs = [
   "sphinx",
   "myst-parser",
@@ -93,4 +93,5 @@ addopts = [
     '--cov-report=html',
     '--cov-report=term-missing',
     '--junitxml=report.xml',
+    '-n 4',
 ]
