@@ -350,7 +350,7 @@ class CatalogEntry:
         if not UTILS_REPR:
             return str(self)
 
-        return pyearthtools.utils.repr_utils.standard(
+        return pyearthtools.utils.repr_utils.default(
             self,
             name="Catalog Entry",
             documentation_attr="_doc_",
@@ -693,7 +693,7 @@ class Catalog:
         if not UTILS_REPR:
             return str(self)
 
-        return pyearthtools.utils.repr_utils.standard(
+        return pyearthtools.utils.repr_utils.default(
             *list(self),
             name=self.name or "Catalog",
             documentation_attr="_doc_",

@@ -16,4 +16,4 @@
 from .html import provide_html
 from .html import provide_html as html
 
-from .standard import provide_repr as standard
+from .standard import provide_repr as default

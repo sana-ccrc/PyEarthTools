@@ -198,7 +198,7 @@ class InitialisationRecordingMixin:
         return parse_repr_object(init_kwargs, "Initialisation", doc=doc), *expanded_information
 
     def __repr__(self):
-        return pyearthtools.utils.repr_utils.standard(
+        return pyearthtools.utils.repr_utils.default(
             *self.__get_items_for_repr(),
             name=self.__class__.__qualname__,
             description=dict(getattr(self, "_desc_", {})),

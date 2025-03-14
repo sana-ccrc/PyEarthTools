@@ -33,9 +33,10 @@ def clean_repr(obj):
     return repr(obj)
 
 
-def summarise_kwargs(variables: dict, padding: int = 1):
+def summarise_kwargs(variables: Optional[dict], padding: int = 1):
     li_items = []
-    if not isinstance(variables, dict):
+
+    if variables is None:
         return li_items
 
     padding = "".join(["\t"] * padding)  # type: ignore

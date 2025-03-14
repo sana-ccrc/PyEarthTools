@@ -84,7 +84,7 @@ class reprMixin:
         except NotImplementedError:
             return super().__repr__()
 
-        return pyearthtools.utils.repr_utils.standard(
+        return pyearthtools.utils.repr_utils.default(
             *steps,
             name=f"{self.__class__.__name__}",
             description=getattr(self, "_desc_", None),
