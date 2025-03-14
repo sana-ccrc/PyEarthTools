@@ -1,7 +1,7 @@
 # Commands
 
 ```shell
-[~]$ pyearthtools-models 
+[~]$ pyearthtools-models
 Usage: pyearthtools-models [OPTIONS] COMMAND [ARGS]...
 
 Options:

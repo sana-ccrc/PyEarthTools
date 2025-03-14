@@ -78,7 +78,7 @@ Take note how similar each data retrieval option is
     # * latitude                (latitude) float32 90.0 89.5 89.0 88.5 ... -89.0 -89.5 -90.0
     # * time                    (time) datetime64[ns] 2022-04-01T03:00:00
     # Data variables:
-    #     tmax                  (time, latitude, longitude) float32 
+    #     tmax                  (time, latitude, longitude) float32
 
     ```
 === "satellite"

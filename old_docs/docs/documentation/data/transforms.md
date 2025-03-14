@@ -4,7 +4,7 @@ Using `pyearthtools.data.DataIndex`'s which most archives subclass from, allows 
 
 ## Definition
 
-A `Transform` is an atomic operation to directly modify the data. 
+A `Transform` is an atomic operation to directly modify the data.
 Examples include,
 
 - Variable Subsetting

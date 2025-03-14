@@ -31,13 +31,13 @@ Unless you are an advanced Git user, we would recommend you follow this process:
 
 Prior to developing a pull request, it may be a good idea to create a GitHub issue to capture what the pull request is trying to achieve, any pertinent details, and (if applicable) how it aligns to the roadmap. Otherwise, please explain this in the pull request.
 
-To submit a pull request, please use the following workflow: 
+To submit a pull request, please use the following workflow:
 
 1. Ensure you are working on a new feature branch in **your fork**.
 2. Keep your feature branch rebased and up-to-date with the develop branch of PyEarthTools. You can do this by first syncing the develop branch on your fork, and then rebase your feature branch against the develop branch on your fork.
 3. When ready, submit a pull request to the develop branch of https://github.com/ACCESS-Community-Hub/PyEarthTools.
 
-To help disambiguate branches, some contributors like to prefix their branch names with a short numerical indentifier. This is up to the contributor and any approach to branch naming is welcome. 
+To help disambiguate branches, some contributors like to prefix their branch names with a short numerical indentifier. This is up to the contributor and any approach to branch naming is welcome.
 
 ## Pull Request Etiquette
 

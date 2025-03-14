@@ -14,9 +14,9 @@
 
 
 """
-pyearthtools Training 
+pyearthtools Training
 
-Using `pyearthtools` prepare data for training, 
+Using `pyearthtools` prepare data for training,
 and allow rapid distributed training of Machine Learning Models.
 """
 # ruff: noqa: F401
@@ -34,4 +34,3 @@ __version__ = "0.1.0"
 #     from pyearthtools.training import modules
 # except ImportError:
 #     pass
-

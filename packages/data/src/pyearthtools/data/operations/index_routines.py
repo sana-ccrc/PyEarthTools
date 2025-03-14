@@ -226,8 +226,6 @@ def series(
             calendar = subset_ds.time[0].item().calendar
             end = end.to_cftime(calendar=calendar)
             subset_ds = subset_ds.sel(**{time_dim: slice(None, end)})
-            
-                                    
 
         if not len(subset_ds[time_dim]) == 0:
             data = subset_ds
@@ -336,14 +334,12 @@ def _mf_series(
     except NotImplementedError:
         # Work around a bug/gap in xarray for loading NetCDF4 files and autochunking
 
-        open_kwargs.pop('chunks')
+        open_kwargs.pop("chunks")
 
         full_ds = xr.open_mfdataset(
             list(set(dataset_paths)),
             **open_kwargs,
         )
-                
-
 
     # full_ds = xr.merge(
     #     [

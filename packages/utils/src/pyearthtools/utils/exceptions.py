@@ -13,7 +13,6 @@
 # limitations under the License.
 
 
-
 class TesselatorException(Exception):
     """
     Tesselator Exceptions

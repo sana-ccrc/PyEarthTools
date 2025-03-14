@@ -1,19 +1,19 @@
 # Available Operations
 
-Within `pyearthtools.pipeline.operations` are the steps available to make up a pipeline. 
+Within `pyearthtools.pipeline.operations` are the steps available to make up a pipeline.
 
 To add your own, see [Making your own Operation](details/operation.md). Essentially subclass `pyearthtools.pipeline.Operation`.
 
 There are four main operation types available
 - xarray
-- numpy 
+- numpy
 - dask
 - Transforms
 
 ## xarray
 
 As `pipeline` utilises `data` to provide the base indexes in which to actually get data from, a very common data type will be `xarray` objects, either `Dataset` or `DataArrays`.
-Therefore, `xarray` operations are common place. 
+Therefore, `xarray` operations are common place.
 
 Here are the default operations included with `pyearthtools.pipeline`, accessible at `pyearthtools.pipeline.operations.xarray.{Category}.{Name}`.
 
@@ -31,7 +31,7 @@ Here are the default operations included with `pyearthtools.pipeline`, accessibl
 | sort | Sort variables of a dataset | `Sort` |
 | split | Split datasets | `OnVariables`, `OnCoordinate` |
 | values | Modify values of datasets | `FillNan`, `MaskValue`, `ForceNormalised`, `Derive` |
-| remapping | Reproject data | `HEALPix` | 
+| remapping | Reproject data | `HEALPix` |
 
 ## numpy
 
@@ -42,7 +42,7 @@ Here are the default operations included with `pyearthtools.pipeline`, accessibl
 
 | Category | Description | Available |
 | -------- | ----------- | --------- |
-| augument | Augument numpy data | `Rotate`, `Flip`, `Transform` | 
+| augument | Augument numpy data | `Rotate`, `Flip`, `Transform` |
 | conversion | Convert between data types | `ToXarray`, `ToDask` |
 | filters | Filter data when iterating | `DropAnyNan`, `DropAllNan`, `DropValue`, `Shape` |
 | join | Combine tuples of `np.ndarrays` | `Stack`, `VStack`, `HStack`, `Concatenate` |
@@ -61,7 +61,7 @@ Here are the default operations included with `pyearthtools.pipeline`, accessibl
 
 | Category | Description | Available |
 | -------- | ----------- | --------- |
-| augument | Augument numpy data | `Rotate`, `Flip`, `Transform` | 
+| augument | Augument numpy data | `Rotate`, `Flip`, `Transform` |
 | Compute  | Call compute on an dask object | `Compute` |
 | conversion | Convert between data types | `ToXarray`, `ToNumpy` |
 | filters | Filter data when iterating | `DropAnyNan`, `DropAllNan`, `DropValue`, `Shape` |
@@ -76,7 +76,7 @@ Here are the default operations included with `pyearthtools.pipeline`, accessibl
 
 In addition to the operations that can be applied, `pyearthtools.data.transforms` can also be applied. They can be directly be included within the `Pipeline` and will only be called on the `apply` step.
 
-If `transforms` need to be applied on the `undo` step or with other specifications `pyearthtools.pipeline.operations.Transforms` can be used. 
+If `transforms` need to be applied on the `undo` step or with other specifications `pyearthtools.pipeline.operations.Transforms` can be used.
 
 ```python
 pyearthtools.pipeline.operations.Transforms(

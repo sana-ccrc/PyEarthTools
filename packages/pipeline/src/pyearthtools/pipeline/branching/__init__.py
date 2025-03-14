@@ -13,7 +13,6 @@
 # limitations under the License.
 
 
-
 from pyearthtools.pipeline.branching.branching import PipelineBranchPoint
 from pyearthtools.pipeline.branching.unify import Unifier
 from pyearthtools.pipeline.branching.join import Joiner

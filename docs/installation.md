@@ -74,7 +74,7 @@ Developers of PyEarthTools will most likely want to check out the entire monorep
 The following instructions detail how to install PyEarthTools in [editable mode](https://setuptools.pypa.io/en/latest/userguide/development_mode.html), making it easier to implement and test changes iteratively.
 
 ```{tip}
-Each sub-package is versioned separately, so bugfixes or updates in a single sub-package can be performed independently without requiring a new release of the entire ecosystem. 
+Each sub-package is versioned separately, so bugfixes or updates in a single sub-package can be performed independently without requiring a new release of the entire ecosystem.
 ```
 
 First clone the PyEarthTools repository:

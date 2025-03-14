@@ -13,7 +13,6 @@
 # limitations under the License.
 
 
-
 """Pipeline specific transforms"""
 
 from pyearthtools.pipeline.operations.transform.add_variables import TimeOfYear

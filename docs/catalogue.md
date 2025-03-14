@@ -25,17 +25,17 @@ The good news is that even though there is no end to data volume increases, ther
 
 ## The role of data in science and machine learning
 
-Data is essential in three ways. 
+Data is essential in three ways.
 
-Firstly, access to open, trusted data sets is essential to being able to commence an academic research project into machine learning. Most researchers will get their start on data the can access easily. There are few things which have more impact than publishing high-quality open research benchmark datasets for stimulating research into a particular field or area. 
+Firstly, access to open, trusted data sets is essential to being able to commence an academic research project into machine learning. Most researchers will get their start on data the can access easily. There are few things which have more impact than publishing high-quality open research benchmark datasets for stimulating research into a particular field or area.
 
 Secondly, machine learning systems which are only trained on closed data sources are unlikely to be trusted by fellow researchers, leading to a lack of research interest in the field. Research thrives on re-use of prior research and prior data, inspiring people to investigate, compete and innovate. While not all data needs to be made public, providing enough to enable methodological research is important, particularly for validation and verification purposes.
 
-Thirdly, publishing research (or even operational/official) data from a new model allows others to evaluate, compare and assess the efficacy of models. 
+Thirdly, publishing research (or even operational/official) data from a new model allows others to evaluate, compare and assess the efficacy of models.
 
 ## Connecting directly to cloud data storage
 
-It is technically possible to access all data via a network, without involving a local on-disk cache. For model inference, this is reasonably efficient. For model training which required repeated access of the relevant data, using cloud storage directly is very inefficient. 
+It is technically possible to access all data via a network, without involving a local on-disk cache. For model inference, this is reasonably efficient. For model training which required repeated access of the relevant data, using cloud storage directly is very inefficient.
 
 ## Creating an on-disk catalogue
 

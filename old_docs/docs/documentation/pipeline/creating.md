@@ -35,7 +35,7 @@ pyearthtools.pipeline.Pipeline(
 
 Switching things up, here we have a much more complex pipeline, which consists of all the same style of operations as shown above, just nested further, and with more steps.
 
-We still have the branches of data, but now they consist of more then one step, and have operations applied to each of them. We even have one which hold a branch in of itself. 
+We still have the branches of data, but now they consist of more then one step, and have operations applied to each of them. We even have one which hold a branch in of itself.
 
 Afterwards, each element of data gets flattened, reshaped, and transformed, finally being merged, and converted to a dask array. Then some dask operations take place, finally concluding with a cache.
 
@@ -46,34 +46,34 @@ import pyearthtools.pipeline
 pyearthtools.pipeline.Pipeline(
     (
         (
-            pyearthtools.data.archive.ERA5(['tcwv', 'skt', 'sp']), 
+            pyearthtools.data.archive.ERA5(['tcwv', 'skt', 'sp']),
             pyearthtools.pipeline.operations.Transforms(
-                apply = pyearthtools.pipeline.operations.transform.AddCoordinates(('latitude', 'longitude'))), 
+                apply = pyearthtools.pipeline.operations.transform.AddCoordinates(('latitude', 'longitude'))),
             pyearthtools.pipeline.operations.xarray.Sort(('var_latitude', 'var_longitude', 'tcwv', 'skt', 'sp'))),
         (
-             pyearthtools.data.archive.ERA5(['t', 'u', 'v'], level_value = [1,50,150,250,400,600,750,900,1000]), 
+             pyearthtools.data.archive.ERA5(['t', 'u', 'v'], level_value = [1,50,150,250,400,600,750,900,1000]),
             pyearthtools.pipeline.operations.xarray.Sort(('t', 'u', 'v'))
-        ), 
+        ),
         (
             (
              pyearthtools.data.archive.ERA5(
                 ['mtnlwrf', 'msdwswrf', 'msdwlwrf', 'mtpr', 'mslhf', 'msshf', 'mtnswrf', 'mtdwswrf', 'msnswrf', 'msnlwrf'],
                 transforms = pyearthtools.data.transforms.derive(
-                    mtupswrf = 'mtnswrf - mtdwswrf', 
-                    msupswrf = 'msnswrf - msdwswrf', 
-                    msuplwrf = 'msnlwrf - msdwlwrf', 
+                    mtupswrf = 'mtnswrf - mtdwswrf',
+                    msupswrf = 'msnswrf - msdwswrf',
+                    msuplwrf = 'msnlwrf - msdwlwrf',
                     drop = True
                     )
-                ), 
+                ),
             pyearthtools.data.archive.ERA5('!accumulate[period:"6 hours"]:tp>tp_accum')
-            ), 
-            pyearthtools.pipeline.operations.xarray.Merge(), 
+            ),
+            pyearthtools.pipeline.operations.xarray.Merge(),
             pyearthtools.pipeline.operations.xarray.Sort(('mslhf', 'msshf', 'msuplwrf', 'msupswrf', 'mtnlwrf', 'mtpr', 'mtupswrf', 'tp_accum'))
-        ), 
+        ),
         (
-            pyearthtools.data.archive.ERA5(['mtdwswrf', 'z_surface', 'lsm', 'ci']), 
+            pyearthtools.data.archive.ERA5(['mtdwswrf', 'z_surface', 'lsm', 'ci']),
             pyearthtools.pipeline.operations.xarray.Sort(('mtdwswrf', 'z', 'lsm', 'ci'))
-        ), 
+        ),
     ),
     pyearthtools.pipeline.operations.xarray.reshape.CoordinateFlatten('level', skip_missing=True),
     pyearthtools.pipeline.operations.xarray.reshape.Dimensions(('time', 'latitude', 'longitude')),
@@ -82,7 +82,7 @@ pyearthtools.pipeline.Pipeline(
 
     pyearthtools.pipeline.operations.xarray.Merge(),
     pyearthtools.pipeline.operations.xarray.Sort(order, safe = True),
-    
+
     pyearthtools.pipeline.operations.xarray.conversion.ToDask(),
     pyearthtools.pipeline.operations.dask.reshape.Squish(axis=1),
     pyearthtools.pipeline.modifications.Cache('temp', pattern_kwargs = dict(extension = 'npy'))
@@ -164,7 +164,7 @@ See [Using a Pipeline](using.md) for more.
 
 ## Process
 
-It usually is easiest to construct a `Pipeline` by slowing add more steps and looking at the shape of the output. (Graph markers may be helpful here). 
+It usually is easiest to construct a `Pipeline` by slowing add more steps and looking at the shape of the output. (Graph markers may be helpful here).
 
 Step through one step at a time and check to make sure the data looks like what you expect.
 

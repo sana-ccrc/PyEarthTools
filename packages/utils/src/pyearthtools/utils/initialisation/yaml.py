@@ -65,7 +65,6 @@ def pyearthtools_initialisation_constructor(
 
 
 class Loader(yaml.Loader):
-
     def include(self, node):
 
         filename = Path(self.construct_scalar(node))  # type: ignore

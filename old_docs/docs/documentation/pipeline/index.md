@@ -18,7 +18,7 @@ import pyearthtools.pipeline
 
 data_preperation = pyearthtools.pipeline.Pipeline(
     (
-        pyearthtools.data.archive.ERA5(['msl', '10u', '10v', '2t']), 
+        pyearthtools.data.archive.ERA5(['msl', '10u', '10v', '2t']),
         pyearthtools.data.archive.ERA5(['z', 'q', 't', 'u', 'v'], level_value = [50, 100, 150, 200, 250, 300, 400, 500, 600, 700, 850, 925, 1000])
     ),
     pyearthtools.pipeline.operations.xarray.Merge(),

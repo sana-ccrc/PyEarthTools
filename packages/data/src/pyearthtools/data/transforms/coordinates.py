@@ -148,7 +148,8 @@ class StandardLongitude(Transform):
 
 
 @BackwardsCompatibility(StandardLongitude)
-def standard_longitude(type: VALID_COORDINATE_DEFINITIONS = "-180-180") -> Transform: ...
+def standard_longitude(type: VALID_COORDINATE_DEFINITIONS = "-180-180") -> Transform:
+    ...
 
 
 class ReIndex(Transform):
@@ -212,7 +213,8 @@ class ReIndex(Transform):
 
 
 @BackwardsCompatibility(ReIndex)
-def reindex(*args, **kwargs) -> Transform: ...
+def reindex(*args, **kwargs) -> Transform:
+    ...
 
 
 class StandardCoordinateNames(Transform):
@@ -257,7 +259,8 @@ class StandardCoordinateNames(Transform):
 
 
 @BackwardsCompatibility(StandardCoordinateNames)
-def force_standard_coordinate_names(*args, **kwargs) -> Transform: ...
+def force_standard_coordinate_names(*args, **kwargs) -> Transform:
+    ...
 
 
 class Select(Transform):
@@ -334,7 +337,8 @@ class Select(Transform):
 
 
 @BackwardsCompatibility(Select)
-def select(*args, **kwargs) -> Transform: ...
+def select(*args, **kwargs) -> Transform:
+    ...
 
 
 class Drop(Transform):
@@ -383,7 +387,8 @@ class Drop(Transform):
 
 
 @BackwardsCompatibility(Drop)
-def drop(*args, **kwargs) -> Transform: ...
+def drop(*args, **kwargs) -> Transform:
+    ...
 
 
 def cast_to_int(value):
@@ -478,7 +483,8 @@ class Flatten(Transform):
 
 
 @BackwardsCompatibility(Flatten)
-def flatten(*args, **kwargs) -> Transform: ...
+def flatten(*args, **kwargs) -> Transform:
+    ...
 
 
 class Expand(Transform):
@@ -538,7 +544,8 @@ class Expand(Transform):
 
 
 @BackwardsCompatibility(Expand)
-def expand(*args, **kwargs) -> Transform: ...
+def expand(*args, **kwargs) -> Transform:
+    ...
 
 
 def SelectFlatten(
@@ -572,7 +579,8 @@ def SelectFlatten(
 
 
 @BackwardsCompatibility(SelectFlatten)
-def select_flatten(*args, **kwargs) -> TransformCollection: ...
+def select_flatten(*args, **kwargs) -> TransformCollection:
+    ...
 
 
 class Assign(Transform):
@@ -623,7 +631,8 @@ class Assign(Transform):
 
 
 @BackwardsCompatibility(Assign)
-def assign(*args, **kwargs) -> Transform: ...
+def assign(*args, **kwargs) -> Transform:
+    ...
 
 
 class Pad(Transform):
@@ -673,4 +682,5 @@ class Pad(Transform):
 
 
 @BackwardsCompatibility(Pad)
-def pad(*args, **kwargs) -> Transform: ...
+def pad(*args, **kwargs) -> Transform:
+    ...

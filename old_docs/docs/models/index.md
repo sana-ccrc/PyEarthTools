@@ -113,7 +113,7 @@ qsub ~/gpu_file.pbs
     verify: 0
     ```
 
-    When selecting Live Data, it must be cached somewhere for the gpu nodes to access it without needing to download it. 
+    When selecting Live Data, it must be cached somewhere for the gpu nodes to access it without needing to download it.
     You will need to add in any storage flags pertaining to where you wish to cache this data.
 
     Specifying `--data_cache` sets this cache directory.
@@ -134,7 +134,7 @@ module load pyearthtools/models
     ```
     module list
     # Currently Loaded Modulefiles:
-    #  1) pyearthtools/models/VERSION 
+    #  1) pyearthtools/models/VERSION
     ```
 
 #### Step 3.1 - Set environment variable

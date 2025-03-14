@@ -52,9 +52,9 @@ class daskNormalisation(DaskOperation):
         """Base Dask Normalisation
 
         Args:
-            expand (bool, optional): 
+            expand (bool, optional):
                 Expand normalisation arrays to shape of `sample` by appending axis of size 1. Defaults to True.
-        """   
+        """
         super().__init__(split_tuples=True, recursively_split_tuples=True, recognised_types=(da.Array))
         self._expand = expand
 
@@ -138,7 +138,8 @@ class Division(daskNormalisation):
 
 
 @BackwardsCompatibility(Division)
-def TemporalDifference(*a, **k): ...
+def TemporalDifference(*a, **k):
+    ...
 
 
 class Evaluated(daskNormalisation):

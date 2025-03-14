@@ -40,8 +40,8 @@ If the data follows a very clear pattern, `pyearthtools.data.patterns` cAn be us
 import pyearthtools.data
 
 pattern = pyearthtools.data.patterns.ParsingPattern(
-    DATA_ROOT_DIR, '{variable}/{level}/{time}.nc', 
-    variable = 'test', 
+    DATA_ROOT_DIR, '{variable}/{level}/{time}.nc',
+    variable = 'test',
     level = 100
 )
 pattern.search(time = '2000-01-01T00')
@@ -67,10 +67,9 @@ class NewDataIndex(pyearthtools.data.ArchiveIndex):
         files = {}
         for var in self.variables:
             files[var] = f"/data/is/on/disk/here/{var}/{time}.nc"
-        return files        
+        return files
 ```
 
 If your data foLlows a clear structure, like that of CMIP data, `Structured` indexes can be used, which only need the rOot path, and the structure. See [Using Structured Indexes](./data/index.md/) for more.
 
 If again, things are more complex, you can make your own index, define the arguments the user needs to proVide, and return the paths of those filEs to `pyearthtools`. See [Developing DataIndexes](./data/index.md/) for more.
-

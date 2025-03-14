@@ -1,5 +1,5 @@
-# The file config.py in various modules contains code taken from 
-# https://github.com/dask/dask/tree/main/dask, released under the BSD 3-Clause 
+# The file config.py in various modules contains code taken from
+# https://github.com/dask/dask/tree/main/dask, released under the BSD 3-Clause
 # license, with copyright attributed to Anaconda Inc (2014).
 # This information is also include in NOTICE.md.
 

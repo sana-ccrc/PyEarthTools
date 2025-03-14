@@ -19,10 +19,10 @@ ECWMF ReAnalysis v5, Low-Resolution / WeatherBench Example
 The purpose of this module is to hold the index class which can be
 registered into the pyearthtools package namespace for easy access.
 
-The code here is the interface between the pyearthtools API and accessing 
+The code here is the interface between the pyearthtools API and accessing
 files on the filesystem.
 
-An indexer takes some 
+An indexer takes some
 """
 
 from __future__ import annotations
@@ -53,14 +53,14 @@ V_TO_PATH = {
     "10m_u_component_of_wind": "10m_u_component_of_wind",
     "10m_v_component_of_wind": "10m_v_component_of_wind",
     "2m_temperature": "2m_temperature",
-    #"constants": "constants",  # FIXME not working
+    # "constants": "constants",  # FIXME not working
     "geopotential": "geopotential",
-    #"geopotential_500": "geopotential_500",  # FIXME not working
+    # "geopotential_500": "geopotential_500",  # FIXME not working
     "potential_vorticity": "potential_vorticity",
     "rh": "relative_humidity",
     "specific_humidity": "specific_humidity",
     "temperature": "temperature",
-    #"temperature_850": "temperature_850",  # FIXME not working
+    # "temperature_850": "temperature_850",  # FIXME not working
     "toa_incident_solar_radiation": "toa_incident_solar_radiation",
     "total_cloud_cover": "total_cloud_cover",
     "total_precipitation": "total_precipitation",
@@ -68,6 +68,7 @@ V_TO_PATH = {
     "v": "v_component_of_wind",
     "vorticity": "vorticity",
 }
+
 
 @functools.lru_cache()
 def cached_iterdir(path: Path) -> list[Path]:
@@ -79,6 +80,7 @@ def cached_iterdir(path: Path) -> list[Path]:
 def cached_exists(path: Path) -> bool:
     """Run exits but cached"""
     return path.exists()
+
 
 @register_archive("era5lowres", sample_kwargs=dict(variable="2t"))
 class ERA5LowResIndex(ArchiveIndex):
@@ -97,7 +99,6 @@ class ERA5LowResIndex(ArchiveIndex):
         variables=["variable"],
         product=["resolution"],
     )
-
     @decorators.variable_modifications(variable_keyword="variables", remove_variables=False)
     @decorators.deprecated_arguments(
         level="`level` is deprecated in the ERA5 index. Simply provide the variables, `level` will be autofound."
@@ -106,7 +107,6 @@ class ERA5LowResIndex(ArchiveIndex):
         self,
         variables: list[str] | str,
         *,
-
         level_value: int | float | list[int | float] | tuple[list | int, ...] | None = None,
         transforms: Transform | TransformCollection | None = None,
     ):
@@ -155,10 +155,10 @@ class ERA5LowResIndex(ArchiveIndex):
     ) -> Path | dict[str, str | Path]:
         ERA5_HOME = self.ROOT_DIRECTORIES["era5lowres"]
 
-        '''
+        """
         This tells pyearthtools how to go from a request for a date/time to a path containing the files
         which will match that request.
-        '''
+        """
 
         paths = {}
         querytime = pyearthtoolsDatetime(querytime)

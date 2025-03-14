@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# This file contains code taken from https://github.com/dask/dask/tree/main/dask, 
-# released under the BSD 3-Clause license, with copyright attributed to 
+# This file contains code taken from https://github.com/dask/dask/tree/main/dask,
+# released under the BSD 3-Clause license, with copyright attributed to
 # Anaconda Inc (2014). This information is also include in NOTICE.md.
 
 """
@@ -198,7 +198,9 @@ def _load_config_file(path: str) -> dict | None:
         # Ignore permission errors
         return None
     except Exception as exc:
-        raise ValueError(f"A pyearthtools config file at {path!r} is malformed, original error " f"message:\n\n{exc}") from None
+        raise ValueError(
+            f"A pyearthtools config file at {path!r} is malformed, original error " f"message:\n\n{exc}"
+        ) from None
     if config is not None and not isinstance(config, dict):
         raise ValueError(
             f"A pyearthtools config file at {path!r} is malformed - config files must have "

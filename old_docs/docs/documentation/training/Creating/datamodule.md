@@ -52,12 +52,12 @@ Ideally, this default module should work with any machine learning framework, bu
 
 ## Making your own DataModule
 
-Any datamodule class should subclass from `PipelineDataModule`, it handles the parsing of the `pipelines` and the iteration split. 
+Any datamodule class should subclass from `PipelineDataModule`, it handles the parsing of the `pipelines` and the iteration split.
 
-The `pipelines` are then accessible from `.pipelines`, and can be a dictionary, a tuple, a pipeline or a dictionary of tuples. 
-To assist in the use of this complex type variable, `PipelineDataModule.map_function_to_pipelines` is provided which automates the mapping of a function over the pipelines, and it returns in the same type and structure as the pipeline. 
+The `pipelines` are then accessible from `.pipelines`, and can be a dictionary, a tuple, a pipeline or a dictionary of tuples.
+To assist in the use of this complex type variable, `PipelineDataModule.map_function_to_pipelines` is provided which automates the mapping of a function over the pipelines, and it returns in the same type and structure as the pipeline.
 
-Additionally, `map_function` is given which exposes the ability to map a function over any object just like a `pipeline`. `map_function_to_pipelines`, `train`, and `eval` all use the function to actually implement the functionality. 
+Additionally, `map_function` is given which exposes the ability to map a function over any object just like a `pipeline`. `map_function_to_pipelines`, `train`, and `eval` all use the function to actually implement the functionality.
 
 This datamodule can be index, iterating over, or `get_sample` used to get a sample of data.
 

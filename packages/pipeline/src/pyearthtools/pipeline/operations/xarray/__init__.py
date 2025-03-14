@@ -30,7 +30,7 @@ xarray Operations
 | sort | Sort variables of a dataset | `Sort` |
 | split | Split datasets | `OnVariables`, `OnCoordinate` |
 | values | Modify values of datasets | `FillNan`, `MaskValue`, `ForceNormalised`, `Derive` |
-| remapping | Reproject data | `HEALPix` | 
+| remapping | Reproject data | `HEALPix` |
 """
 
 from pyearthtools.pipeline.operations.xarray.compute import Compute

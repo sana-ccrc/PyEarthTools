@@ -326,22 +326,18 @@ class pyearthtoolsDatetime:
         """
         return datetime.datetime.fromisoformat(self.qualified.isoformat())
 
-    def to_cftime(self, calendar='noleap'):
-        '''
+    def to_cftime(self, calendar="noleap"):
+        """
         This method will throw an exception if cftime is not installed.
-        '''
+        """
         import cftime
+
         si = self.datetime
-        converted = cftime.datetime(si.year, si.month, si.day, si.hour, si.minute, si.second, si.microsecond, calendar=calendar)
+        converted = cftime.datetime(
+            si.year, si.month, si.day, si.hour, si.minute, si.second, si.microsecond, calendar=calendar
+        )
         return converted
 
-
-
-
-
-
-
-    
     @staticmethod
     def is_time(time_to_parse: Any) -> bool:
         """
@@ -500,12 +496,16 @@ class pyearthtoolsDatetime:
         return self.__add__(other)
 
     @overload
-    def __sub__(self, other: TimeDelta | int | datetime.timedelta) -> pyearthtoolsDatetime: ...
+    def __sub__(self, other: TimeDelta | int | datetime.timedelta) -> pyearthtoolsDatetime:
+        ...
 
     @overload
-    def __sub__(self, other: pyearthtoolsDatetime) -> TimeDelta: ...
+    def __sub__(self, other: pyearthtoolsDatetime) -> TimeDelta:
+        ...
 
-    def __sub__(self, other: pyearthtoolsDatetime | TimeDelta | int | datetime.timedelta) -> pyearthtoolsDatetime | TimeDelta:
+    def __sub__(
+        self, other: pyearthtoolsDatetime | TimeDelta | int | datetime.timedelta
+    ) -> pyearthtoolsDatetime | TimeDelta:
         """
         Subtract from underlying '_pandas_timestep'.
 

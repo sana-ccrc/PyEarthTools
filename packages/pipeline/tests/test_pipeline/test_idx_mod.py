@@ -137,7 +137,9 @@ def test_TimeIdxModifier_basic():
     import pyearthtools.data
 
     pipe = Pipeline(FakeIndex(), modifications.TimeIdxModifier("6 hours"))
-    assert pipe[pyearthtools.data.pyearthtoolsDatetime("2000-01-01T00")] == pyearthtools.data.pyearthtoolsDatetime("2000-01-01T06")
+    assert pipe[pyearthtools.data.pyearthtoolsDatetime("2000-01-01T00")] == pyearthtools.data.pyearthtoolsDatetime(
+        "2000-01-01T06"
+    )
 
 
 # def test_TimeIdxModifier_basic_tuple():

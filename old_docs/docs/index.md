@@ -1,4 +1,4 @@
-# PyEarthTools: Reproducible science pipelines for machine learning 
+# PyEarthTools: Reproducible science pipelines for machine learning
 
 [Installation](started/installation/index.md){ .md-button .md-button--primary } [Reference](reference/pyearthtools/data/index.md){ .md-button .md-button--primary } [Documentation](documentation/index.md){ .md-button .md-button--primary }
 
@@ -8,7 +8,7 @@ Welcome to the Documentation for `PyEarthTools` toolbox.
 
     This documentation is outdated and will be replaced.
     It does not represent the current state of the project.
- 
+
     Current target audience are PyEarthTools developers doing the documentation refactoring.
 
 
@@ -68,12 +68,12 @@ mindmap
 
 ```mermaid
 stateDiagram-v2
-    utils 
+    utils
     data
     pipeline
     training
     archives
-    models  
+    models
 
     utils --> data
     data --> archives
@@ -111,7 +111,7 @@ Building upon `pyearthtools.data`, `pyearthtools.pipeline` provides a means to t
 With readable config files, pipelines can be versioned controlled and trusted to provide data in the exact same way.
 
 ```python
-import pyearthtools.data 
+import pyearthtools.data
 import pyearthtools.pipeline
 
 pipeline = pyearthtools.pipeline.Pipeline(
@@ -126,7 +126,7 @@ pipeline['2024-01-01T06']
 
 ### `training`
 
-Leverage `pyearthtools.pipeline` to provide data sources for common Machine Learning (ML) frameworks to pull data from. 
+Leverage `pyearthtools.pipeline` to provide data sources for common Machine Learning (ML) frameworks to pull data from.
 
 By configuring an ML model with an `pyearthtools.pipeline` it is easy to allow others to test the model and trust the incoming data.
 

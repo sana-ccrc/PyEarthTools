@@ -1,6 +1,6 @@
 # pyearthtools Training
 
-Using `pyearthtools.data` this package aims to significantly speed up ML model investigations and experimentations. 
+Using `pyearthtools.data` this package aims to significantly speed up ML model investigations and experimentations.
 
 With `pyearthtools.pipeline` a data stram can be configured to prepare the data for training or prediction. Once the model is wrapped in a `Wrapper`, it can be trained upon, or connected with a `Predictor` for inference.
 
@@ -24,7 +24,7 @@ import pyearthtools.training
 import pyearthtools.pipeline
 
 datamodule = pyearthtools.training.data.default.PipelineDefaultDataModule(
-    pyearthtools.pipeline.Pipeline.sample(), 
+    pyearthtools.pipeline.Pipeline.sample(),
     train_split = pyearthtools.pipeline.iterators.DateRange('2000-01-01T00', '2000-02-01T00', '1 day')
 )
 # Training Mode

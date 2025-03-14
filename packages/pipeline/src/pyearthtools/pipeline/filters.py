@@ -13,7 +13,6 @@
 # limitations under the License.
 
 
-
 from abc import abstractmethod, ABCMeta
 from typing import Optional, Type, Union
 

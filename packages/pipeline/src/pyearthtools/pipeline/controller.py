@@ -487,7 +487,6 @@ class Pipeline(_Pipeline, Index):
             LOG.debug(f"Call pipeline __getitem__ for {indexes = }")
             return map(self.__getitem__, indexes)
 
-            
         sample, step_index = self._get_initial_sample(idx)
         LOG.debug(f"Call pipeline __getitem__ for {idx = }")
 
@@ -522,7 +521,15 @@ class Pipeline(_Pipeline, Index):
         """
         for step in self.steps:
             if not isinstance(
-                step, (PipelineStep, Operation, Pipeline, Transform, TransformCollection, pyearthtools.pipeline.branching.PipelineBranchPoint)
+                step,
+                (
+                    PipelineStep,
+                    Operation,
+                    Pipeline,
+                    Transform,
+                    TransformCollection,
+                    pyearthtools.pipeline.branching.PipelineBranchPoint,
+                ),
             ):
                 raise TypeError(f"When iterating through pipeline steps, found a {type(step)} which cannot be parsed.")
             if isinstance(step, Pipeline):
@@ -639,12 +646,12 @@ class Pipeline(_Pipeline, Index):
                 yield remaining
 
     @overload
-    def step(self, id: Union[str, int, Type[Any], Any], limit: None) -> Union[Index, Pipeline, Operation]: ...
+    def step(self, id: Union[str, int, Type[Any], Any], limit: None) -> Union[Index, Pipeline, Operation]:
+        ...
 
     @overload
-    def step(
-        self, id: Union[str, int, Type[Any], Any], limit: int
-    ) -> tuple[Union[Index, Pipeline, Operation], ...]: ...
+    def step(self, id: Union[str, int, Type[Any], Any], limit: int) -> tuple[Union[Index, Pipeline, Operation], ...]:
+        ...
 
     def step(
         self, id: Union[str, int, Type[Any], Any], limit: Optional[int] = -1

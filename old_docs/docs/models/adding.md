@@ -14,12 +14,12 @@ There are a set of properties which can be set in the registered model to alter 
 
 ### Setup
 
-    - Setting `_default_config_path` provides a default config path. 
+    - Setting `_default_config_path` provides a default config path.
         This should be given, otherwise it must be set by the user each time.
-    - Setting `_times` allows a model to specify which time deltas need to be 
+    - Setting `_times` allows a model to specify which time deltas need to be
         retrieved for predictions. Used for live download.
     - Setting `_download_paths` specifies files to download.
-    - Setting `_name` provides the name of the model. It is best to set 
+    - Setting `_name` provides the name of the model. It is best to set
         this identical to where the model is registered to.
         If not given, will be the class name. Use '/' to set categories.
 
@@ -28,7 +28,7 @@ There are a set of properties which can be set in the registered model to alter 
     Setting `_download_paths` in the class will allow those assets to be automatically retrieved and stored.
     They are then accessible underneath a directory retrievable from `self.assets`.
 
-    If given as a str the last '/' will be used as the name, or if given as a tuple, 
+    If given as a str the last '/' will be used as the name, or if given as a tuple,
     the first element is the link, and the second the name.
 
     These paths can be to either a file or a zip file on a server or on the local machine.

@@ -108,7 +108,8 @@ class Division(xarrayNormalisation):
 
 
 @BackwardsCompatibility(Division)
-def TemporalDifference(*a, **k): ...
+def TemporalDifference(*a, **k):
+    ...
 
 
 class Evaluated(xarrayNormalisation):

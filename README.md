@@ -20,6 +20,5 @@ We have information for:
  - [Installation instructions](https://pyearthtools.readthedocs.io/en/latest/installation.html) for different usage scenarios
  - [Data catalogue setup](https://pyearthtools.readthedocs.io/en/latest/catalogue.html) for facility managers or individuals to establish their research data catalogue
  - [A shiny tutorial gallery full of neat examples](https://pyearthtools.readthedocs.io/en/latest/nbook/Gallery.html)
- - Much more, including how-to guides, project setup guide, information on accessing data, guides to evaluation, orientiation for 
+ - Much more, including how-to guides, project setup guide, information on accessing data, guides to evaluation, orientiation for
    physical scientists and data scientists at our [documentation homepage](https://pyearthtools.readthedocs.io/en/latest/) (you may be reading this now or you may be visiting the README from elsewhere)
-

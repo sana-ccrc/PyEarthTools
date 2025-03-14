@@ -26,7 +26,7 @@ dependencies = [
     "pyyaml",
     "numpy",
     "scikit-learn",
-    "xarray",    
+    "xarray",
 ]
 dynamic = ["version", "readme"]
 

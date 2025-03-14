@@ -277,7 +277,8 @@ class InterpolateNan(Transform):
 
 
 @BackwardsCompatibility(InterpolateNan)
-def interpolate_na(*args, **kwargs): ...
+def interpolate_na(*args, **kwargs):
+    ...
 
 
 ### Model levels to pressure level transform needed

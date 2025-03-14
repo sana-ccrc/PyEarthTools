@@ -2,7 +2,7 @@
 
 order:
  - model
- - resolution 
+ - resolution
  - stream
  - type
 

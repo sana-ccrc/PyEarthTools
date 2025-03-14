@@ -17,7 +17,7 @@ Numpy Operations
 
 | Category | Description | Available |
 | -------- | ----------- | --------- |
-| augument | Augument numpy data | `Rotate`, `Flip`, `Transform` | 
+| augument | Augument numpy data | `Rotate`, `Flip`, `Transform` |
 | conversion | Convert between data types | `ToXarray`, `ToDask` |
 | filters | Filter data when iterating | `DropAnyNan`, `DropAllNan`, `DropValue`, `Shape` |
 | join | Combine tuples of `np.ndarrays` | `Stack`, `VStack`, `HStack`, `Concatenate` |

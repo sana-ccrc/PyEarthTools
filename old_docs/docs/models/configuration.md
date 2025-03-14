@@ -108,7 +108,7 @@ or
 ```shell
 export pyearthtools_MODELS_CONFIGS=./Experiments
 
-pyearthtools-models predict sfno --pipeline 'ERA5(Climate)' --output OUTPATH --time TIME --lead_time LEADTIME 
+pyearthtools-models predict sfno --pipeline 'ERA5(Climate)' --output OUTPATH --time TIME --lead_time LEADTIME
 ```
 
 or
@@ -116,7 +116,7 @@ or
 ```shell
 export pyearthtools_MODELS_CONFIGS=./Experiments
 
-pyearthtools-models interactive 
+pyearthtools-models interactive
 ```
 
 ### Further use

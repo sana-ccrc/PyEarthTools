@@ -16,7 +16,7 @@
 ERA5_PRESSURE_VARIABLES = [
     "t",
     "u",
-    "v",    
+    "v",
 ]
 
 ERA5_SINGLE_VARIABLES = [
@@ -24,8 +24,8 @@ ERA5_SINGLE_VARIABLES = [
     "10u",
     "v10",
     "10v",
-    "2t",   
-    "tcc",    
+    "2t",
+    "tcc",
 ]
 
 # ERA5_PRESSURE_VARIABLES = [

@@ -1,6 +1,6 @@
 # New Users Guide
 
-Welcome new user! This document will be continually updated based on new user experiences. 
+Welcome new user! This document will be continually updated based on new user experiences.
 
 Table of Contents:
 
@@ -12,7 +12,7 @@ Table of Contents:
 
 ## Introduction for Earth System Scientists
 
-PyEarthTools will greatly simplify your data access and data transformation code. 
+PyEarthTools will greatly simplify your data access and data transformation code.
 
 Machine learning models must first be 'trained'. All machine learning models, from simple examples like linear regression to complex multidimensional neural networks (which may require huge computational resources), are based on the same principles. Model input is drawn from the sample data and presented to the model. The model then makes a prediction. This prediction may be correct or incorrect. The prediction is compared to the desired output (sometimes called the target value or truth value). That comparison is scored using a loss function. That loss function is then used to update the model based on the accuracy of the prediction. Sometimes this is done in small batches (e.g. 8 samples at once). This process is called model training.
 
@@ -57,10 +57,10 @@ BRAN[doi] # Get BRAN data at doi
 > [!NOTE]
 > This section of the documentation is currently under development
 
-## Main Features of PyEarthTools for Model Inference	
+## Main Features of PyEarthTools for Model Inference
 
 > [!NOTE]
 > This section of the documentation is currently under development
 
 
-	
+

@@ -151,7 +151,8 @@ class TimeSeriesPredictor(Predictor):
         return self.fix_time_dim(idx, reversed_data)
 
     @abstractmethod
-    def recurrent(self, idx, steps: int, **kwargs): ...
+    def recurrent(self, idx, steps: int, **kwargs):
+        ...
 
     def prepare_output(self, output):
         """Hook to prepare output for inputs"""
@@ -474,7 +475,9 @@ class TimeSeriesManagedPredictor(TimeSeriesAutoRecurrentPredictor):
                     for key, val in self.variable_manager.split(model_output_shaped, self._output_order).items()
                 }
 
-            current_time_step = pyearthtoolsDatetime(idx) + (self._interval * step * model_output.shape[self._combine_axis])
+            current_time_step = pyearthtoolsDatetime(idx) + (
+                self._interval * step * model_output.shape[self._combine_axis]
+            )
             outputs.append(model_output)
 
             output_components = self.prepare_output(output_components)

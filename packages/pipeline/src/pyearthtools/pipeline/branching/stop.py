@@ -13,7 +13,6 @@
 # limitations under the License.
 
 
-
 from pyearthtools.pipeline.operation import Operation
 
 

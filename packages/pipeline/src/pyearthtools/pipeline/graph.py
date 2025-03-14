@@ -13,7 +13,6 @@
 # limitations under the License.
 
 
-
 from abc import abstractmethod
 from typing import Any, Optional
 

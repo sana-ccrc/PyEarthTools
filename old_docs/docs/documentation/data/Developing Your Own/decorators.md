@@ -107,7 +107,7 @@ func(variable = "u", argument = 'test')
 The `@check_arguments` can also take a path to a `.struc` file, which is a form of the directory structure
 of the data, which can be defined by the class arguments.
 
-This file must be structured like a `yaml` file, and must contain at least an `order` field, which 
+This file must be structured like a `yaml` file, and must contain at least an `order` field, which
 specifies the order of the variables. The rest of the file must contain a tree of valid arguments in the order defined in `order`.
 
 A `struc` file can be automatically created with `pyearthtools.data.commands.structure`, and then the `order` added.
@@ -161,7 +161,7 @@ func(product = "product_2", sub_variable = "sub_var_3_1")
 
 ### Modifications
 
-`pyearthtools.data` allows for data modifications to be made. These directly interface with the indexes, and allow advanced usage of the variables each dataset has. 
+`pyearthtools.data` allows for data modifications to be made. These directly interface with the indexes, and allow advanced usage of the variables each dataset has.
 
 When specifying the variables, the modification syntax can be used
 

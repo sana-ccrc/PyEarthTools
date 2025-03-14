@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# This file extends and adapts code taken from Stack Overflow, released under 
-# Creative Commons BY-SA 4.0 (International). 
+# This file extends and adapts code taken from Stack Overflow, released under
+# Creative Commons BY-SA 4.0 (International).
 #
 # This information is also included in NOTICE.md
 #

@@ -14,7 +14,7 @@
 
 
 """
-# Modifications 
+# Modifications
 
 The usage of `@variable_modifications` allows for variables to be dynamically modified when retrieved, with a particular focus on accumulation and other aggregations.
 
@@ -84,7 +84,7 @@ class AggregationGeneral(Aggregation):
 
 `single` takes a single timestep and expects a dataset to be returned with the variable as modified.
 
-`series` takes a start, end and interval, as can be parsed by `pyearthtools.data.TimeRange`, and expects 
+`series` takes a start, end and interval, as can be parsed by `pyearthtools.data.TimeRange`, and expects
 a dataset to be returned with the variable as modified but all timesteps as defined by the range.
 
 `variable` contains the variable being modified.
@@ -102,7 +102,7 @@ a dataset to be returned with the variable as modified but all timesteps as defi
 - daily
 - monthly
 
-- aggregate 
+- aggregate
 - mean
 - accumulate
 """

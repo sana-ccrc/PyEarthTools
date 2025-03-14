@@ -47,9 +47,9 @@ class numpyNormalisation(Operation):
         """Base Numpy Normalisation
 
         Args:
-            expand (bool, optional): 
+            expand (bool, optional):
                 Expand normalisation arrays to shape of `sample` by appending axis of size 1. Defaults to True.
-        """        
+        """
         super().__init__(split_tuples=True, recursively_split_tuples=True, recognised_types=(np.ndarray))
         self._expand = expand
 
@@ -131,7 +131,8 @@ class Division(numpyNormalisation):
 
 
 @BackwardsCompatibility(Division)
-def TemporalDifference(*a, **k): ...
+def TemporalDifference(*a, **k):
+    ...
 
 
 class Evaluated(numpyNormalisation):

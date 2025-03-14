@@ -51,4 +51,5 @@ class Rechunk(Transform):
 
 
 @BackwardsCompatibility(Rechunk)
-def rechunk(*args, **kwargs): ...
+def rechunk(*args, **kwargs):
+    ...

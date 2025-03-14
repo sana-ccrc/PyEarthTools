@@ -33,11 +33,11 @@ Setting `pyearthtools_CONFIG` allows for customisation of where configuration fi
 
 ### Environment Variables
 
-Additionally, configuration options can be set in the environment with the prefix `pyearthtools_`. 
+Additionally, configuration options can be set in the environment with the prefix `pyearthtools_`.
 
 When setting the environment variables, change any `.` to `__`.
 
-i.e. 
+i.e.
 ```shell
 export pyearthtools_FOO__BAR=Value
 ```

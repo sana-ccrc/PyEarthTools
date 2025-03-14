@@ -22,9 +22,9 @@ classifiers = [
 dependencies = [
     "pyearthtools-pipeline",
     "pyearthtools-utils>=0.1.0",
-    "einops", 
-    "scikit-learn", 
-    "scipy", 
+    "einops",
+    "scikit-learn",
+    "scipy",
 ]
 dynamic = ["version", "readme"]
 
@@ -35,7 +35,7 @@ readme = {file = ["README.md"], content-type = "text/markdown"}
 lightning = [
   "lightning",
   "tensorboard",
-  "torch", 
+  "torch",
   "piqa",
   "tensorly",
 ]

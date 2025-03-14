@@ -42,7 +42,8 @@ def test_branch_with_split():
     assert pipe[1] == (1, 1)
 
 
-class SpliterUnImplemented(branching.Spliter): ...
+class SpliterUnImplemented(branching.Spliter):
+    ...
 
 
 @pytest.mark.parametrize(

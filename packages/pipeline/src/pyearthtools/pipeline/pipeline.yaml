@@ -1,18 +1,18 @@
 pipeline:
   run_parallel: False     # Attempt to run parallel at all, if False, will use Serial Interface
-  
+
   parallel:               # Configuration for parallel running
     enabled:              # Which interfaces are enabled
       Delayed: True
       Futures: False
-    
+
     dask:                 # Configuration for dask
       start: True
       client:             # Dask client config
         processes: False
 
       config: {}          # Dask config to be set after spinning up distributed cluster
-    
+
     default: 'Serial'     # Default interface
 
   exceptions:             # Exception handling

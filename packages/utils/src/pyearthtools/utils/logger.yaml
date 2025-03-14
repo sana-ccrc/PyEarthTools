@@ -9,7 +9,7 @@
         # (i.e. the conpute host) format strings, e.g. 'pyearthtools_{hostname}_{now}_{submodule}.log'. If
         # this is Null, it will default to pyearthtools_log.log
         log_file_name: Null
-        # Path to save logs to, e.g. '<root>/<project>/<user>/tmp/pyearthtools_logs/'. If this is Null, 
+        # Path to save logs to, e.g. '<root>/<project>/<user>/tmp/pyearthtools_logs/'. If this is Null,
         # no logfiles will be created.
         log_file_directory: Null
         # Number of past logfiles to keep. Each time a new logfile is created, the previous one will be
@@ -26,9 +26,9 @@
         formatter: Null
 #    # Specific options for submodules can be set under a subsetting, as below. All options
 #    # configurable for the main logger file can be individually configured for each submodule
-#    data: 
+#    data:
 #        log_file_name: 'pyearthtools.{submodule}_{now}.log'
 #        stream_logger_level: "INFO"
 #    pipeline:
 #        stream_logger_level: "WARNING"
-        
+

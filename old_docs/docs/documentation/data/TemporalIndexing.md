@@ -33,8 +33,8 @@ The three resolutions mentioned above have the following values,
 
 The expected behaviour of the above call, is all data in Jan and Feb of 2021, which `pyearthtools` follows.
 
-Ultimately, `pyearthtools` will respect the resolution of the given `start`, and step by the given interval, retrieving all the data 
-which are within the specified resolution at each step. 
+Ultimately, `pyearthtools` will respect the resolution of the given `start`, and step by the given interval, retrieving all the data
+which are within the specified resolution at each step.
 
 !!! Note start.resolution == interval.resolution but > data.resolution
     If the start and interval have the same resolution, and the interval is 1, all data will be retrieved at the data resolution
@@ -64,7 +64,7 @@ era5 = ERA5('2t', level = 'single')
 
 era5.series('2021-02-03T14', '2021-06', interval = (1, 'month')).time
 
-##  All data at 14:00 on 3rd of each month between 02-05 
+##  All data at 14:00 on 3rd of each month between 02-05
 
 ```
 

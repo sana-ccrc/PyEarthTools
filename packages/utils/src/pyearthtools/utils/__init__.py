@@ -35,4 +35,3 @@ if xarray_imported:
     from pyearthtools.utils import data
 
 setattr(pyearthtools, "config", config)
-

@@ -1,6 +1,6 @@
 # Samplers
 
-Samplers control how data is returned / sampled when the pipeline is being iterated over. 
+Samplers control how data is returned / sampled when the pipeline is being iterated over.
 
 When directly indexing into the `Pipeline` no changes are applied.
 
@@ -60,7 +60,7 @@ class Default(Sampler):
                 break
 ```
 
-The `Sampler`'s use the `generator` function to create a `generator` to manage the sampling. 
+The `Sampler`'s use the `generator` function to create a `generator` to manage the sampling.
 
 ## Super Sampler
 

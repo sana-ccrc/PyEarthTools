@@ -75,7 +75,7 @@ class NewDataIndex(pyearthtools.data.ArchiveIndex):
         files = {}
         for var in self.variables:
             files[var] = f"/data/is/on/disk/here/{var}/{time}.nc"
-        return files        
+        return files
 
 ```
 
@@ -104,4 +104,3 @@ If the dataset to be indexed does not fit the mold above, review the various cla
 
 
 ## Using Structured Indexes
-

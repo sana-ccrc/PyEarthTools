@@ -13,7 +13,6 @@
 # limitations under the License.
 
 
-
 class TesselatorWarning(Warning):
     """
     Warnings regarding Tesselation Operations

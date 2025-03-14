@@ -18,7 +18,7 @@ Dask operations
 
 | Category | Description | Available |
 | -------- | ----------- | --------- |
-| augument | Augument numpy data | `Rotate`, `Flip`, `Transform` | 
+| augument | Augument numpy data | `Rotate`, `Flip`, `Transform` |
 | Compute  | Call compute on an dask object | `Compute` |
 | conversion | Convert between data types | `ToXarray`, `ToNumpy` |
 | filters | Filter data when iterating | `DropAnyNan`, `DropAllNan`, `DropValue`, `Shape` |

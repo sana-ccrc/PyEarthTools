@@ -21,7 +21,7 @@
 
 Create repeatable pipelines, transforming data and preparing for downstream applications.
 
-Utilises `pyearthtools.data` to provide the data indexes, transforms to apply on data, and introduces 
+Utilises `pyearthtools.data` to provide the data indexes, transforms to apply on data, and introduces
 operations, filters, samplers and iterators.
 
 ```python

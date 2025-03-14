@@ -1,6 +1,6 @@
 # Iterator
 
-As explained in [Using](./../using.md), pipelines can be iterated over, and use `Iterator`'s to define the indexes in which to retrieve data. 
+As explained in [Using](./../using.md), pipelines can be iterated over, and use `Iterator`'s to define the indexes in which to retrieve data.
 
 These objects subclass from `pyearthtools.pipeline.Iterator`, and must simply implement a `__iter__` function which is expected to return / yield indexes. These are then used in the pipelines `__iter__` to `__getitem__` data.
 

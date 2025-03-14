@@ -1,10 +1,10 @@
 # Operations
 
-An `pyearthtools.pipeline.Operation` is the core class which makes up the steps of a pipeline. All `operations.*` subclass from it. 
+An `pyearthtools.pipeline.Operation` is the core class which makes up the steps of a pipeline. All `operations.*` subclass from it.
 
 Additonally, with `PipelineStep` it provides a number of configuration options to help data flow, splitting of tuples, and raise/warn an exception on invalid types.
 
-`Operation` provides the interface in which functions are applied on a forward pass of the pipeline, and the functions to run on an undo operation. 
+`Operation` provides the interface in which functions are applied on a forward pass of the pipeline, and the functions to run on an undo operation.
 
 ## Functions
 
@@ -24,7 +24,7 @@ Args:
     recursively_split_tuples (bool, optional):
         Recursively split tuples. Defaults to False.
     operation (Literal['apply', 'undo', 'both'], optional):
-        Which functions to apply operation to. 
+        Which functions to apply operation to.
         If not 'apply' apply does nothing, same for `undo`. Defaults to "both".
     recognised_types (Optional[Union[tuple[Type, ...], Type, dict[str, Union[tuple[Type, ...], Type]]] ], optional):
         Types recognised, can be dictionary to reference different types per function Defaults to None.
@@ -36,19 +36,19 @@ Args:
 
 ### apply
 
-Runs `apply_func` upon the sample, splitting tuples if configured. 
+Runs `apply_func` upon the sample, splitting tuples if configured.
 
 The user must provide `apply_func` in the subclass if operation is either `apply` or `both`.
 
 ### undo
 
-Runs `undo_func` upon the sample, splitting tuples if configured. 
+Runs `undo_func` upon the sample, splitting tuples if configured.
 
 The user must provide `undo_func` in the subclass if operation is either `undo` or `both`.
 
 ### T
 
-Creates a transposed operation, swapping `apply` and `undo`. 
+Creates a transposed operation, swapping `apply` and `undo`.
 
 Useful for reverse pipelines for when an inverse operation is not provided for an operation.
 
@@ -98,6 +98,6 @@ class Squish(Operation):
         return np.expand_dims(sample, self.axis)
 ```
 
-For a user to add their own the `Operation`, provide `apply_func` and/or `undo_func`. 
+For a user to add their own the `Operation`, provide `apply_func` and/or `undo_func`.
 
 If tuples are to be split, set `split_tuples=True`, and `operation` to the operations to actually apply.

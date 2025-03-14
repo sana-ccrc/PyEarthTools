@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# This file contains code from https://github.com/Lightning-AI/pytorch-lightning, 
-# released under the Apache 2.0 license, with copyright attributed to the 
+# This file contains code from https://github.com/Lightning-AI/pytorch-lightning,
+# released under the Apache 2.0 license, with copyright attributed to the
 # Lightning AI team.
 #
 # This information is also included in the NOTICE.md file

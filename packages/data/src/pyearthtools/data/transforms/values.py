@@ -69,7 +69,8 @@ class Fill(Transform):
 
 
 @BackwardsCompatibility(Fill)
-def fill(*args, **kwargs): ...
+def fill(*args, **kwargs):
+    ...
 
 
 def ffill(*a, **b):

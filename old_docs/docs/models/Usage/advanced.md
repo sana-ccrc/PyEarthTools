@@ -14,7 +14,7 @@ Any pattern listed [here][pyearthtools.data.patterns] can be used, by providing 
     pyearthtools-models predict graphcast OTHER_ARGS --pattern ExpandedDate
 
     ```
-    This will now use the `ExpandedDate` pattern, saving data in this case at 
+    This will now use the `ExpandedDate` pattern, saving data in this case at
     ```txt
     temp_dir/2023/01/01/20230101T0000.nc
     ```
@@ -31,7 +31,7 @@ To specify these kwargs, add `--pattern_kwargs` and provide a dictionary in a js
     pyearthtools-models predict graphcast OTHER_ARGS --pattern ExpandedDate --pattern_kwargs '{"directory_resolution":"month", "prefix":"_test_"}
 
     ```
-    This will now use the `ExpandedDate` pattern, saving data in this case at 
+    This will now use the `ExpandedDate` pattern, saving data in this case at
     ```txt
     temp_dir/2023/01/_test_20230101T0000.nc
     ```

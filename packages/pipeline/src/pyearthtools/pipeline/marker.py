@@ -60,14 +60,14 @@ class Marker(PipelineStep):
             print(f"At marker {self.text!r} sample was:\n{to_print}")
         return sample
 
+
 class Empty(PipelineStep, Graphed):
     """Empty Operation to do nothing to the data"""
+
     def run(self, sample):
         return sample
-    
-    def _get_tree(
-        self, parent, graph = None
-    ):
+
+    def _get_tree(self, parent, graph=None):
         """
         Get graphviz graph
 

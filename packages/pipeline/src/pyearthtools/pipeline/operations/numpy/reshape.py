@@ -352,7 +352,6 @@ class Flatten(Operation):
 
 
 class SwapAxis(Operation):
-
     def __init__(self, axis_1: int, axis_2: int) -> None:
         """Move axis
 

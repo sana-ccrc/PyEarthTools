@@ -2,9 +2,9 @@
 
 Modifications are way to add advanced functionality to a pipeline which can directly modify the index of data being retrieved, and have full access to parent pipeline above it.
 
-Modifications which are implemented already, include index modifiers and a caching step. 
+Modifications which are implemented already, include index modifiers and a caching step.
 
-Particularly, these steps subclass from `pyearthtools.pipeline.PipelineIndex`, and are expected to provide an implementation of `__getitem__`. Unlike an operation, this is not applied, it is accessed instead of using the root index. 
+Particularly, these steps subclass from `pyearthtools.pipeline.PipelineIndex`, and are expected to provide an implementation of `__getitem__`. Unlike an operation, this is not applied, it is accessed instead of using the root index.
 
 Additionally, `undo_func` can be implemented to reverse the effect of the `PipelineIndex` when calling undo on the pipeline.
 
@@ -30,7 +30,7 @@ class IdxOverride(PipelineIndex):
         return self.parent_pipeline()[self._index]
 ```
 
-Once initialised, this can be used in a pipeline like any other step. 
+Once initialised, this can be used in a pipeline like any other step.
 
 
 ```python
@@ -41,4 +41,3 @@ pyearthtools.pipeline.Pipeline(
 
 # All indexes to this pipeline will return data for '2000-01-01T00'
 ```
-

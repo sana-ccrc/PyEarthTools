@@ -149,7 +149,10 @@ def format(words):
 def candidates(word, true_words):
     "Generate possible spelling corrections for word."
     return format(
-        known([word], true_words) or known(pyearthtoolss1(word), true_words) or known(pyearthtoolss2(word), true_words) or None
+        known([word], true_words)
+        or known(pyearthtoolss1(word), true_words)
+        or known(pyearthtoolss2(word), true_words)
+        or None
     )
 
 

@@ -19,7 +19,7 @@
 Index for ERA5 lowres, including downloading helper code and disk indexing for pyearthtools
 """
 
-__version__ = '0.1.0'
+__version__ = "0.1.0"
 
 import os
 
@@ -28,7 +28,7 @@ from pyearthtools.data.archive import register_archive
 
 from . import ERA5DataClass
 
-default_base = '/g/data/wb00/NCI-Weatherbench/5.625deg'  # taken from NCI noteboook on github
+default_base = "/g/data/wb00/NCI-Weatherbench/5.625deg"  # taken from NCI noteboook on github
 lowres_base = os.environ.get("ERA5LOWRES", default_base)
 
 ROOT_DIRECTORIES = {

@@ -10,7 +10,7 @@ A `Pipeline` can be used in three primary ways,
 
 ## Direct Indexing
 A pipeline just needs to consist of a sequence of steps following an `index` for this method to work.
-The index is passed directly to the highest `Index` object, which can either be a `pyearthtools.data.Index` or `pyearthtools.pipeline.PipelineIndex`. 
+The index is passed directly to the highest `Index` object, which can either be a `pyearthtools.data.Index` or `pyearthtools.pipeline.PipelineIndex`.
 
 Therefore, if a cache is present, it will be used.
 
@@ -44,7 +44,7 @@ These must be a `pyearthtools.pipeline.Iterator` of which basics are provided:
 | ---- | ----------- |
 | Range | Iterate through a `range` |
 | PreDefined | Yield elements from a predefined iterable |
-| File | Iterate over elements in a file, each line treated separately | 
+| File | Iterate over elements in a file, each line treated separately |
 | DateRange | Using `pyearthtools.data.TimeRange` iterate over dates |
 | DateRangeLimit | Starting at date and with interval, yield a number of samples |
 | Randomise | Randomise another `Iterator` |
@@ -61,7 +61,7 @@ import pyearthtools.data
 pipeline = pyearthtools.pipeline.Pipeline(
     pyearthtools.data.archive.ERA5.sample(),
     iterator = pyearthtools.pipeline.iterators.DateRange('2000-01-01T00', '2010-01-01T00', '6 hours'),
-) 
+)
 
 or
 
@@ -82,7 +82,7 @@ In addition to setting the `iterator` of a pipeline, it can be useful to set the
 
 | Name | Description |
 | ---- | ----------- |
-| Default | Default sampler, does nothing | 
+| Default | Default sampler, does nothing |
 | SuperSampler | Combines multiple samplers |
 | Random | Build a buffer and randomly sample from it |
 | DropOut | Drop out samples at a set interval |
@@ -100,7 +100,7 @@ import pyearthtools.data
 pipeline = pyearthtools.pipeline.Pipeline(
     pyearthtools.data.archive.ERA5.sample(),
     sampler = pyearthtools.pipeline.samplers.Random(buffer_len = 100),
-) 
+)
 
 or
 

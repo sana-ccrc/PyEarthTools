@@ -33,7 +33,7 @@ for data in datamodule:
     model.forward(data)
 ```
 
-Additionally, data modules can be configured for the requirements of particular ML frameworks, 
+Additionally, data modules can be configured for the requirements of particular ML frameworks,
 
 Currently, the following are implemented,
 
@@ -50,7 +50,7 @@ Loading data is only part of the problem, it actually needs to be connected into
 
 In `pyearthtools.training` this takes the form of wrappers, particularly, `ModelWrapper` and `TrainWrapper`.
 
-A `ModelWrapper` is the base wrapper class which provides the connection between a model and it's data source. 
+A `ModelWrapper` is the base wrapper class which provides the connection between a model and it's data source.
 By itself it cannot do much but provides the template in which other frameworks can be connected.
 
 A `TrainWrapper` simply provides the interface to run `fit`, and is the responsibility of the underlying implementation to provide.
@@ -66,7 +66,7 @@ data = pyearthtools.training.data.PipelineDataModule(
 model = pyearthtools.training.ModelWrapper(ML_MODEL, data)
 ```
 
-### Frameworks 
+### Frameworks
 
 The following frameworks have been implemented
 
@@ -76,11 +76,10 @@ The following frameworks have been implemented
 | XGBoost | &#9745; | &#9745; |
 | Onnx | &#9744; | &#9745; |
 
-### Prediction 
+### Prediction
 
 A `Predictor` provides the implementation in which to run prediction, it utilises the underlying data source to retrieve the initial conditions, and then the models implemented `predict` function to run the prediction.
 
 Additionally, this `Predictor` can be subclassed to provide further logic, for example, a time series aware prediction.
 
 For models which predict into the future, a `TimeSeriesRecurrentPredictor` can be used which allows for rollout of predictions.
-

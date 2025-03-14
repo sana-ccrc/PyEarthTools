@@ -74,7 +74,6 @@ def make_callback(callback: str, kwargs: dict[str, Any], **formats):
 
 
 class LightingTraining(LightningWrapper, TrainingWrapper):
-
     def __init__(
         self,
         model: L.LightningModule,

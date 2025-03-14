@@ -23,7 +23,7 @@ class XGBoost():
         use_dask: bool = False,
         n_workers: int=12,
     ):
-        
+
         if use_dask:
             client = Client(n_workers=n_workers,)
             model = xgboost.dask.DaskXGBRegressor(**model_params)
@@ -74,11 +74,11 @@ from pyearthtools.training.trainer.template import pyearthtoolsTrainer
 from pyearthtools.training.data.templates import DataStep
 
 class pyearthtoolsXGBoostTrainer(pyearthtoolsTrainer):
-    def __init__(self, 
-                 model, 
-                 train_data: DataStep, 
-                 valid_data: DataStep = None, 
-                 path: str | Path = None, 
+    def __init__(self,
+                 model,
+                 train_data: DataStep,
+                 valid_data: DataStep = None,
+                 path: str | Path = None,
                  **kwargs
                  ) -> None:
         super().__init__(model, train_data, valid_data, path)
@@ -89,7 +89,7 @@ class pyearthtoolsXGBoostTrainer(pyearthtoolsTrainer):
         self.path = Path(path)
 
     def fit(self,):
-    
+
     def _predict_from_data(self,):
         # Handle Predictions
 
@@ -98,7 +98,7 @@ class pyearthtoolsXGBoostTrainer(pyearthtoolsTrainer):
 
     def save(self,):
         # Save model
-    
+
     def eval(self,):
         # Evaluate model
 ```
@@ -113,7 +113,7 @@ Both the model load and save functions are simple xgboost wrappers, these will f
 
     def save(self, path: str | Path = None):
         # Save model
-        
+
         if path is None:
             path = Path(self.path)
 
