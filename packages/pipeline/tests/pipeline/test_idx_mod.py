@@ -20,8 +20,30 @@ import pytest
 import pyearthtools.utils
 
 from pyearthtools.pipeline import Pipeline, modifications
+from pyearthtools.pipeline import Operation
+from pyearthtools.data import Index
 
-from tests.fake_pipeline_steps import FakeIndex, MultiplicationOperation  # noqa: F403
+class FakeIndex(Index):
+    """Simply returns the `idx` or `override`."""
+
+    def __init__(self, override: int | None = None):
+        self._overrideValue = override
+        super().__init__()
+
+    def get(self, idx):
+        return self._overrideValue or idx
+
+
+class MultiplicationOperation(Operation):
+    def __init__(self, factor):
+        super().__init__(split_tuples=True)
+        self.factor = factor
+
+    def apply_func(self, sample):
+        return sample * self.factor
+
+    def undo_func(self, sample):
+        return sample // self.factor
 
 pyearthtools.utils.config.set({"pipeline.run_parallel": False})
 

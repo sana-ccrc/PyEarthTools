@@ -56,7 +56,7 @@ onnx_gpu = [
 all = [
   "pyearthtools-training[lightning]",
   "pyearthtools-training[xgboost]",
-  "pyearthtools-training[onnx_gpu]",
+#  "pyearthtools-training[onnx_gpu]",  # Removed until onnx compatibility with numpy 2 can be resolved
 ]
 
 [project.urls]

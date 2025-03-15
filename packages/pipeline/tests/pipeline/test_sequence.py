@@ -27,7 +27,39 @@ import pyearthtools.data
 from pyearthtools.pipeline import Pipeline, exceptions, modifications
 from pyearthtools.pipeline.modifications.idx_modification import SequenceRetrieval
 
-from tests.fake_pipeline_steps import *
+from pyearthtools.pipeline import Operation
+from pyearthtools.data import Index
+
+
+pyearthtools.utils.config.set({"pipeline.run_parallel": False})
+
+
+class FakeIndex(Index):
+    """Simply returns the `idx` or `override`."""
+
+    def __init__(self, override: int | None = None):
+        self._overrideValue = override
+        super().__init__()
+
+    def get(self, idx):
+        return self._overrideValue or idx
+
+
+class MultiplicationOperation(Operation):
+    def __init__(self, factor):
+        super().__init__(split_tuples=True)
+        self.factor = factor
+
+    def apply_func(self, sample):
+        return sample * self.factor
+
+    def undo_func(self, sample):
+        return sample // self.factor
+
+
+class MultiplicationOperationUnunifiedable(MultiplicationOperation):
+    def undo_func(self, sample):
+        return sample + self.factor
 
 
 @pytest.mark.parametrize(

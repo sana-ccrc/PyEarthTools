@@ -16,12 +16,22 @@
 import pytest
 
 from pyearthtools.pipeline import Pipeline, iterators, filters, exceptions, Operation
-from tests.fake_pipeline_steps import FakeIndex
+from pyearthtools.data import Index
 
 import pyearthtools.utils
 
 pyearthtools.utils.config.set({"pipeline.run_parallel": False})
 
+
+class FakeIndex(Index):
+    """Simply returns the `idx` or `override`."""
+
+    def __init__(self, override: int | None = None):
+        self._overrideValue = override
+        super().__init__()
+
+    def get(self, idx):
+        return self._overrideValue or idx
 
 class ReplaceOnKey(Operation):
     def __init__(self, **replaces):
