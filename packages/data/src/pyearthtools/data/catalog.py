@@ -144,9 +144,9 @@ class CatalogEntry:
 
     @property
     @lru_cache(None)
-    def function(self) -> Any:
+    def call_underlying_function(self) -> Any:
         """
-        Get underlying Class
+        Get underlying Class of the catalog entry
 
         Returns:
             (Any): Underlying Class
@@ -156,17 +156,13 @@ class CatalogEntry:
         return self.item_class(*self._args, **self._kwargs)
 
     def __getattr__(self, attribute: str):
+
         if attribute in ["item_class", "catalog", "function"]:
             raise AttributeError(f"Catalog has no attribute: {attribute!r}")
 
-        item_class = self.function
+        item_class = self.call_underlying_function
         if not hasattr(item_class, attribute):
             raise AttributeError(f"{item_class.__class__} has no attribute: {attribute!r}")
-
-        # def helper_function(*args, **kwargs):
-        #     return getattr(self.data_index, attribute)(
-        #         *args, **kwargs  # , **self.prefilled_kwargs
-        #     )
 
         return getattr(item_class, attribute)
 
@@ -317,7 +313,10 @@ class CatalogEntry:
         Returns:
             Any: Result of `function`
         """
-        return self.function(*args, **kwargs)
+
+        raise NotImplementedError("The implementation does not match the signature")
+
+        # return self.call_underlying_function(*args, **kwargs)
 
     def __getitem__(self, *args, **kwargs) -> Any:
         """
