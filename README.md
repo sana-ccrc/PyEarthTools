@@ -1,7 +1,5 @@
 # PyEarthTools: Reproducible science pipelines for machine learning
 
-[![Coverage Status](https://coveralls.io/repos/github/ACCESS-Community-Hub/PyEarthTools/badge.svg)](https://coveralls.io/github/ACCESS-Community-Hub/PyEarthTools) <-- we working towards 100% test coverage of PyEarthTools code
-
 PyEarthTools is a Python framework, containing modules for loading data; pre-processing, normalising and standardising data; defining machine learning (ML) models; training ML models; performing inference with ML models; and evaluating ML models. It contains specialised support for weather and climate data sources and models. It has an emphasis on reproducibility, shareable pipelines, and human-readable low-code pipeline definition.
 
 > [!NOTE]
@@ -11,6 +9,8 @@ PyEarthTools is a Python framework, containing modules for loading data; pre-pro
 > The development team are working busily to bring everything up to spec. As such, things are likely
 > to change pretty often. Please take a look around!
 >
+
+[![Coverage Status](https://coveralls.io/repos/github/ACCESS-Community-Hub/PyEarthTools/badge.svg)](https://coveralls.io/github/ACCESS-Community-Hub/PyEarthTools) <-- we are working towards 100% test coverage of PyEarthTools code
 
 # Overview of documentation
 
