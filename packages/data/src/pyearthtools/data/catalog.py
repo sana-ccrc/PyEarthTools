@@ -42,6 +42,8 @@ with the key being the class, and the value of the following form,
 from __future__ import annotations
 from collections import OrderedDict
 
+from typing import Optional
+
 import yaml
 import json
 from pathlib import Path
@@ -51,7 +53,7 @@ import warnings
 from functools import lru_cache
 
 from pyearthtools.utils.parsing import function_name
-from pyearthtools.utils.imports import dynamic_import
+from pyearthtools.utils.initialisation.imports import dynamic_import
 
 import pyearthtools.data
 from pyearthtools.data.collection import Collection, LabelledCollection
@@ -381,17 +383,16 @@ class Catalog:
     a dictionary with the init kwargs. A `name` kwarg specifies the `CatalogEntry` name.
     """
 
-    def __init__(self, *args, name: str | None = None, **kwargs):
+    def __init__(self, *, catalog_name: Optional[str] = None, entries=Optional[dict]):
         """
         Initalise a new Catalog of Data Sources
 
         Args:
-            *args (str, Path, 'Catalog', CatalogEntry | pyearthtools.data.Index):
-                Entries to add to catalog
             name (str, optional):
                 Name for this catalog. Defaults to None.
-            **kwargs (str, Path, 'Catalog', CatalogEntry | pyearthtools.data.Index):
+            named_entries: {name : (Path, 'Catalog', CatalogEntry | pyearthtools.data.Index)}
                 Named entries to add to catalog
+                Names may be None
 
         Examples:
             >>> test_catalog = Catalog()
@@ -405,12 +406,9 @@ class Catalog:
         """
         self._catalog = OrderedDict()
 
-        self.name = name
+        self.name = catalog_name
 
-        for arg in args:
-            self.append(arg, name=None)
-
-        for name, entry in kwargs.items():
+        for name, entry in entries.items():
             self.append(entry, name=name)
 
     def append(
@@ -715,13 +713,13 @@ class Catalog:
 
     ## Maths?
     def __add__(self, other):
-        new_catalog = Catalog(name=self.name)
+        new_catalog = Catalog(catalog_name=self.name)
         new_catalog.append(self)
         new_catalog.append(other)
         return new_catalog
 
     def __radd__(self, other):
-        new_catalog = Catalog(name=other.name)
+        new_catalog = Catalog(catalog_name=other.name)
         new_catalog.append(self)
         new_catalog.append(self)
         return new_catalog

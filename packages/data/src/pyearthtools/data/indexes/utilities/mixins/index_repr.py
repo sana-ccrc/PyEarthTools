@@ -22,6 +22,7 @@ except ImportError:
     UTILS_REPR = False
 
 import pyearthtools.data
+import pyearthtools.data.catalog
 
 
 class reprMixin:
@@ -34,10 +35,13 @@ class reprMixin:
 
         info = []
         if hasattr(self, "catalog"):
-            if isinstance(self.catalog, (pyearthtools.data.Catalog, pyearthtools.data.CatalogEntry)):
+            if isinstance(self.catalog, (pyearthtools.data.catalog.Catalog, pyearthtools.data.catalog.CatalogEntry)):
                 cat_dict = self.catalog.to_dict()
-                # info.append(Information('args', {'args': cat_dict['args']}))
-                info.append(Information("Initialisation", cat_dict["kwargs"]))
+
+                # Catalogs may be empty
+                if cat_dict.items():
+                    # info.append(Information('args', {'args': cat_dict['args']}))
+                    info.append(Information("Initialisation", cat_dict["kwargs"]))
             # elif isinstance(self.catalog, pyearthtools.data.Collection):
             #     info.append(Information('Catalog', {cat.name: cat.to_dict()['kwargs'] for cat in self.catalog}))
             else:
@@ -58,7 +62,7 @@ class reprMixin:
 
         if hasattr(self, "preprocess_transforms"):
             preprocess = self.preprocess_transforms
-            if not preprocess is None:
+            if preprocess:
                 preprocess = pyearthtools.data.transforms.TransformCollection(preprocess)
 
                 transforms = {}
