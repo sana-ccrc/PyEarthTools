@@ -91,7 +91,6 @@ addopts = [
     '--cov-fail-under=40',
     '--cov-branch',
     '--cov-report=html',
-    '--cov-report=term-missing',
     '--junitxml=report.xml',
     '-n 4',
 ]

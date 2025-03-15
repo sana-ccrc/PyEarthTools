@@ -15,6 +15,7 @@
 
 from pyearthtools.utils.data import converter
 import xarray as xr
+import pytest
 
 SIMPLE_DATA_ARRAY = xr.DataArray([1,2,3,4,5])
 SIMPLE_DATA_SET = xr.Dataset({"Entry": SIMPLE_DATA_ARRAY})
@@ -26,12 +27,16 @@ def test_NumpyConverter():
 	correctness
 	'''
 
+	# This round-trips convert and unconvert
 	nc = converter.NumpyConverter()
 	np_array1 = nc.convert_from_xarray(SIMPLE_DATA_ARRAY)
-	np_array2 = nc.convert_from_xarray(SIMPLE_DATA_SET)
 
 	# FIXME
-	# xr_da1 = nc.convert_to_xarray(np_array1)
+	#xr_da1 = nc.convert_to_xarray(np_array1)	
+
+	# Test conversion from xarray works
+	nc = converter.NumpyConverter()
+	np_array2 = nc.convert_from_xarray(SIMPLE_DATA_SET)		
 
 
 def test_DaskConverter():
