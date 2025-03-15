@@ -520,7 +520,9 @@ class Catalog:
         """Get catalog as dictionary"""
         return {key: value.to_dict() for key, value in self._catalog.items()}
 
-    def save(self, output_file: str | Path | None = None, direct_load: bool = False) -> None | dict:
+    def save(self, 
+        output_file: str | Path | None = None, 
+        direct_load: bool = False) -> None | dict:
         """
         Save Catalog to specified file
 
