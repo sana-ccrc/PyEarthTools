@@ -365,7 +365,7 @@ class Drop(Transform):
         for i in self._coordinates:
             if self._ignore_missing and i not in dataset.coords:
                 continue
-            dataset = dataset.drop(i)
+            dataset = dataset.drop_vars(i)
         return dataset
 
 
@@ -457,7 +457,7 @@ class Flatten(Transform):
                     coord_val = weak_cast_to_int(coord_val.values.item())
 
                     selected = dataset[var].sel(**{discovered_coord: coord_val})  # type: ignore
-                    selected = selected.drop(discovered_coord)  # type: ignore
+                    selected = selected.drop_vars(discovered_coord)  # type: ignore
                     selected.attrs.update(**{discovered_coord: coord_val})
 
                     new_ds[f"{var}{coord_val}"] = selected

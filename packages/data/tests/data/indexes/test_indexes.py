@@ -1,6 +1,7 @@
 
 from pyearthtools.data import indexes
 import pyearthtools.data.archive
+from pyearthtools.data.time import Petdt
 import pytest
 import pathlib
 
@@ -51,4 +52,18 @@ def test_FileSystemIndex(monkeypatch):
 	with pytest.raises(KeyError):
 		assert fsi.get(__file__) is not None
 		# TODO test actual netcdf file getting
+
+def test_AdvancedTimeIndex(monkeypatch):
+
+	monkeypatch.setattr("pyearthtools.data.indexes.AdvancedTimeIndex.__abstractmethods__", set())
+
+	data_interval = "day"
+	ati = indexes.AdvancedTimeIndex(data_interval)
+	dt = Petdt('2023-02')
+
+	monkeypatch.setattr(pyearthtools.data.indexes.Index, 'get', lambda x, y: x, raising=False)
+	ati.retrieve(dt, use_simple = True)
+
+
+
 
