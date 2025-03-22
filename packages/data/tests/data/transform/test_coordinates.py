@@ -106,6 +106,26 @@ def test_SelectFlatten():
 
 	# TODO: Check the values of the resulting dataset
 
+def test_Assign():
+
+	tf_assign = coordinates.Assign(
+		{"longitude": list(range(0, 4)),
+		 "vertical": list(range(3, 6))
+		}
+	)
+
+	result = tf_assign.apply(ds_vertical)
+
+	# TODO: check the values of the vertical coords
+
+def test_Pad():
+	tf_pad = coordinates.Pad({"longitude": list(range(0,4))})
+
+	with pytest.raises(ValueError):
+		result = tf_pad.apply(ds_vertical)
+		# TODO: Fix the code or fix the test
+
+	# TODO: check the values of the result
 	
 
 def test_weak_cast_to_int():

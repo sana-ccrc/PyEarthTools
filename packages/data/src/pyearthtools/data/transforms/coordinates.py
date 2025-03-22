@@ -602,10 +602,6 @@ class Assign(Transform):
     #     return dict(as_dataarray=self._as_dataarray, **self._coordinates)
 
 
-@BackwardsCompatibility(Assign)
-def assign(*args, **kwargs) -> Transform:
-    ...
-
 
 class Pad(Transform):
     """
