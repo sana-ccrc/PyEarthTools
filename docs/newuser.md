@@ -1,6 +1,6 @@
 # New Users Guide
 
-Welcome new user! This document will be continually updated based on new user experiences.
+Welcome new user! This document will be continually updated based on new user experiences. The new users guide is largley conceptual, summarising the features and purpose of the PyEarthTools package. People seeking a more concrete set of steps to achieve an outcome should read the [New Project Guide](newproject.md) next.
 
 Table of Contents:
 

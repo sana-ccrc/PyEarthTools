@@ -13,6 +13,8 @@
 
 self
 newuser
+newproject
+projectideas
 installation
 notebooks/Gallery
 catalogue
