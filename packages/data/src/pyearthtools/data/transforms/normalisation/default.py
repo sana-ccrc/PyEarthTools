@@ -44,7 +44,7 @@ def open_file(file: str | tuple | dict):
     data = open_files(file)
     if isinstance(data, (xr.Dataset, xr.DataArray)):
         data = get_default_transforms()(data)
-        data = pyearthtools.data.transforms.coordinates.drop("time", ignore_missing=True)(data)
+        data = pyearthtools.data.transforms.coordinates.Drop("time", ignore_missing=True)(data)
     return data
 
 
@@ -61,7 +61,7 @@ def get_and_print(lambda_func: Callable, print_message: str, print_control: bool
     return under_func
 
 
-class normaliser:
+class Normaliser:
     def __init__(
         self,
         index: pyearthtools.data.AdvancedTimeIndex,
@@ -214,7 +214,7 @@ class normaliser:
         # )
 
         aggregated_data = get_and_print(
-            lambda: pyearthtools.data.transforms.aggregation.over(method, dims)(
+            lambda: pyearthtools.data.transforms.aggregation.over(method=method, dimension=dims)(
                 self.index.series(
                     **retrieval_args,
                     transforms=transforms,
