@@ -1,8 +1,9 @@
-import pytest   
+import pytest
 
 from pyearthtools.pipeline import controller
 
 # def test_PipelineIndex():
+
 
 def test_Pipeline():
     # TODO: Break this test out into more individual test functions which are more isolated, making
@@ -13,17 +14,15 @@ def test_Pipeline():
 
     # Smoke test for making a graph from the pipeline
     graph = p.graph()
-        
+
     # Smoke test for adding two pipelines together
     # TODO: test this with non-empty pipelines
     pp = p + p
 
-
     # Smoke test can't access anything in an empty pipeline
     # TODO: test access with a non-empty pipeline
     with pytest.raises(ValueError):
-        p[0]    
-
+        p[0]
 
     # Smoke test conversion to "steps"
     # TODO: test with a non-empty pipeline
@@ -48,4 +47,3 @@ def test_Pipeline():
     p.exceptions_to_ignore = NotImplementedError
     assert p.exceptions_to_ignore is not None
     p.get_and_catch
-

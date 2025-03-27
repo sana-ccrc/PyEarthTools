@@ -753,8 +753,6 @@ class Pipeline(_Pipeline, Index):
         args = (*init.pop("__args", []), other)
         return Pipeline(*args, **init)
 
-
-
     def save(self, path: Optional[Union[str, Path]] = None, only_steps: bool = False) -> Union[str, None]:
         """
         Save `Pipeline`

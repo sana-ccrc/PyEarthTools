@@ -11,11 +11,11 @@ This guide offers a simple, repeatable process for undertaking a machine learnin
 7. Test the data using out-of-sample test data
 8. Evaluate the model using an evaluation scorecard
 
-Note this is a work in progress! This page should be completed soon. In time, a tutorial for each step of this process will be added for a sample problem showing with worked examples and functioning code how to do each step in its entirety. 
+Note this is a work in progress! This page should be completed soon. In time, a tutorial for each step of this process will be added for a sample problem showing with worked examples and functioning code how to do each step in its entirety.
 
 ## Identifying sources of data
 
-Step 1 is up to you, and will vary enormously by project, with an almost totally open-ended set of possibilities. This includes both input and target data. Many people working in weather model will have in mind a symmetrical model which runs auto-regressively. This is the case for many physical models, whereby the physical initial conditions contain an identical set of variables to the output of the model, but this is not necessarily the case in either physical modelling and even less so in machine learning. 
+Step 1 is up to you, and will vary enormously by project, with an almost totally open-ended set of possibilities. This includes both input and target data. Many people working in weather model will have in mind a symmetrical model which runs auto-regressively. This is the case for many physical models, whereby the physical initial conditions contain an identical set of variables to the output of the model, but this is not necessarily the case in either physical modelling and even less so in machine learning.
 
 If you aren't sure where to start, work through the tutorials, which will introduce several interesting data sets. If you would like some additional ideas, take a look at the [project ideas](projectideas.md) page and see if anything sparks your creativity.
 
@@ -43,7 +43,7 @@ In addition to simple loading of data, PyEarthTools undertakes the following ser
 
 ## Transform the data into a normal form suitable for machine learning
 
-This step is often considered to be part of the "model" in a machine learning project. Neural networks generally prefer input data which ranges between approximately -1 to +1, with some caveats and variations applying. An example of a common approach to this would be to divide all temperature values observed by the maximum observed temperature, applying a normalisation approach which can be easily reversed (so long as you keep track of that max observed temperature). A more statistical approach might be to subtract the mean from each value and divide the result by the standard deviation. 
+This step is often considered to be part of the "model" in a machine learning project. Neural networks generally prefer input data which ranges between approximately -1 to +1, with some caveats and variations applying. An example of a common approach to this would be to divide all temperature values observed by the maximum observed temperature, applying a normalisation approach which can be easily reversed (so long as you keep track of that max observed temperature). A more statistical approach might be to subtract the mean from each value and divide the result by the standard deviation.
 
 These simply approaches may not always be suitable for a variety of reasons, and may result in incompatibilities or simply undesirable and arbitrary differences between models resulting from whatever choices happen to have been made. PyEarthTools seeks to remove the arbitrary nature of many of these choices, offering standardised normalisation factors which can then improve interoperability between data sources and model architectures.
 
@@ -61,7 +61,7 @@ For users working with standard data sources which are already supported by PyEa
 
 (This section coming soon)
 
-The ultimate tests for a machine learning model are its ability to effectively transfer its learned skill onto new data, and maintain its performance over time. For this reason, some data should be reserved for evaluation which is never used for training. 
+The ultimate tests for a machine learning model are its ability to effectively transfer its learned skill onto new data, and maintain its performance over time. For this reason, some data should be reserved for evaluation which is never used for training.
 
 ## Evaluate the model using an evaluation scorecard
 
@@ -75,4 +75,4 @@ All physical models should ideally be compared to the following benchmarks:
 4. Performance against a simple multilayer perceptron or other simplified architecture
 5. Performance against a best-in-class ML model (if one is available)
 
-In addition, a range of evaluative metrics should be used. 
+In addition, a range of evaluative metrics should be used.

@@ -49,6 +49,7 @@ class MultiplicationOperation(Operation):
 
 pyearthtools.utils.config.set({"pipeline.run_parallel": False})
 
+
 def test_multiplication_undo():
     mo = MultiplicationOperation(2)
     mo2 = mo.apply_func(2)
@@ -129,6 +130,7 @@ def test_IdxMod_stacked_with_mult():
         MultiplicationOperation(2),
     )
     assert pipe[1] == ((2, 4), (4, 6))
+
 
 def test_IdxMod_with_branch():
     pipe = Pipeline(

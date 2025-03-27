@@ -5,4 +5,3 @@ This page exists just to give an idea of some of the projects that seem promisin
 1. Train an unconditioned diffusion model to generate realistic satellite images
 2. Train a conditioned diffusion model to generate realistic satellite images on the basis of model outputs, to generate synthetic satellite data
 3. Identify the least amount of data needed to train a skilful weather or climate model
-

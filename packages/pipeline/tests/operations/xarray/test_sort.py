@@ -47,19 +47,19 @@ def test_Sort():
     assert list(r.data_vars) == ["Temperature", "Humidity", "WombatsPerKm2"]
 
     s = sort.Sort(order=["Humidity", "Temperature"], strict=False)
-    r = s.apply_func(SIMPLE_DS2)    
+    r = s.apply_func(SIMPLE_DS2)
     assert list(r.data_vars) == ["Humidity", "Temperature", "WombatsPerKm2"]
 
     s = sort.Sort(order=["Temperature", "Humidity", "KangaroosPerCmSq"], strict=False)
-    r = s.apply_func(SIMPLE_DS2)    
+    r = s.apply_func(SIMPLE_DS2)
     assert list(r.data_vars) == ["Temperature", "Humidity", "WombatsPerKm2"]
 
     s = sort.Sort(order=["Temperature", "Humidity", None], strict=False)
-    r = s.apply_func(SIMPLE_DS2)        
+    r = s.apply_func(SIMPLE_DS2)
     assert list(r.data_vars) == ["Temperature", "Humidity", "WombatsPerKm2"]
 
     s = sort.Sort(order=["Temperature", "Humidity", "WombatsPerKm2"], strict=True)
-    s.apply_func(SIMPLE_DS2)    
+    s.apply_func(SIMPLE_DS2)
 
     with pytest.raises(RuntimeError):
         s = sort.Sort(order=["Temperature", "Humidity"], strict=True)
