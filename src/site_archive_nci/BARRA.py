@@ -28,7 +28,7 @@ from pyearthtools.data.indexes import (
     StaticDataIndex,
     decorators,
 )
-from pyearthtools.data.time import pyearthtoolsDatetime
+from pyearthtools.data.time import Petdt
 from pyearthtools.data.transforms import Transform, TransformCollection
 from pyearthtools.data.archive import register_archive
 
@@ -173,8 +173,8 @@ class BARRA(DataIndex):
         kwargs["datatype"] = "analysis"
         return BARRA_Analysis(*args, **kwargs)
 
-    def filesystem(self, querytime: pyearthtoolsDatetime) -> Path:
-        querytime = pyearthtoolsDatetime(querytime)
+    def filesystem(self, querytime: Petdt) -> Path:
+        querytime = Petdt(querytime)
 
         BARRA_HOME = self.ROOT_DIRECTORIES["BARRA"]
         basepath = Path(BARRA_HOME.format(region=self.region, version=self.version, datatype=self.datatype))
@@ -243,8 +243,8 @@ class BARRA_Forecast(BARRA, ForecastIndex):
         )
         self.record_initialisation()
 
-    def filesystem(self, querytime: pyearthtoolsDatetime) -> Path:
-        querytime = pyearthtoolsDatetime(querytime)
+    def filesystem(self, querytime: Petdt) -> Path:
+        querytime = Petdt(querytime)
 
         BARRA_HOME = self.ROOT_DIRECTORIES["BARRA"]
         basepath = Path(BARRA_HOME.format(region=self.region, version=self.version, datatype=self.datatype))

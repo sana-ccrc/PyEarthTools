@@ -14,7 +14,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Type
 
-from pyearthtools.data import pyearthtoolsDatetime, DataNotFoundError
+from pyearthtools.data import Petdt, DataNotFoundError
 from pyearthtools.data.indexes import ArchiveIndex, decorators, VariableDefault
 from pyearthtools.data.transforms import Transform, TransformCollection
 from pyearthtools.data.archive import register_archive
@@ -126,13 +126,13 @@ class BARPA(ArchiveIndex):
 
     def filesystem(
         self,
-        querytime: str | pyearthtoolsDatetime,
+        querytime: str | Petdt,
     ) -> Path | dict[str, str]:
         BARPA_HOME = Path(self.ROOT_DIRECTORIES["BARPA"])
 
         discovered_paths = {}
 
-        querytime_year = pyearthtoolsDatetime(querytime).at_resolution("year")
+        querytime_year = Petdt(querytime).at_resolution("year")
 
         for variable in self.variables:
             dir_path = BARPA_HOME / self.dir / variable / self.version

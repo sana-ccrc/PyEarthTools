@@ -20,7 +20,7 @@ from typing import Any, Literal
 
 import pyearthtools.data
 
-from pyearthtools.data import pyearthtoolsDatetime, TimeResolution
+from pyearthtools.data import Petdt, TimeResolution
 from pyearthtools.data.exceptions import DataNotFoundError, InvalidIndexError
 from pyearthtools.data.indexes import ArchiveIndex, decorators
 from pyearthtools.data.transforms import Transform, TransformCollection
@@ -102,13 +102,13 @@ class BRAN(ArchiveIndex):
 
     def filesystem(
         self,
-        basetime: str | datetime.datetime | pyearthtoolsDatetime,
+        basetime: str | datetime.datetime | Petdt,
     ) -> Path | dict[str, Path]:
         BRAN_HOME = self.ROOT_DIRECTORIES["BRAN"]
 
         paths = {}
 
-        basetime = pyearthtoolsDatetime(str(basetime))
+        basetime = Petdt(str(basetime))
 
         for variable in self.variables:
             if self.resolution == "static":

@@ -18,7 +18,7 @@ from typing import Literal
 
 
 import pyearthtools.data
-from pyearthtools.data import pyearthtoolsDatetime
+from pyearthtools.data import Petdt
 from pyearthtools.data.exceptions import DataNotFoundError
 from pyearthtools.data.indexes import ArchiveIndex, decorators
 from pyearthtools.data.transforms import Transform, TransformCollection
@@ -105,13 +105,13 @@ class MODIS(ArchiveIndex):
 
     def filesystem(
         self,
-        basetime: str | datetime.datetime | pyearthtoolsDatetime,
+        basetime: str | datetime.datetime | Petdt,
     ) -> Path:
         MODIS_HOME = self.ROOT_DIRECTORIES["MODIS"]
 
         paths = {}
 
-        basetime = pyearthtoolsDatetime(basetime)
+        basetime = Petdt(basetime)
         basepath = Path(MODIS_HOME.format(region=self.region))
 
         for variable in self.variables:

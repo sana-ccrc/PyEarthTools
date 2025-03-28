@@ -19,7 +19,7 @@ from typing import Any, Literal
 
 
 import pyearthtools.data
-from pyearthtools.data import pyearthtoolsDatetime
+from pyearthtools.data import Petdt
 
 from pyearthtools.data.exceptions import DataNotFoundError
 from pyearthtools.data.indexes import ArchiveIndex, decorators
@@ -104,13 +104,13 @@ class OceanMaps(ArchiveIndex):
 
     def filesystem(
         self,
-        basetime: str | datetime.datetime | pyearthtoolsDatetime,
+        basetime: str | datetime.datetime | Petdt,
     ) -> Path | dict[str, Path]:
         OceanMaps_HOME = self.ROOT_DIRECTORIES["OceanMaps"]
 
         paths = {}
 
-        basetime = pyearthtoolsDatetime(str(basetime))
+        basetime = Petdt(str(basetime))
         basetime -= datetime.timedelta(days=1)
 
         for variable in self.variables:

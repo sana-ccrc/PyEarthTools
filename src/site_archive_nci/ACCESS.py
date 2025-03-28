@@ -24,7 +24,7 @@ import pyearthtools.data
 from pyearthtools.data.exceptions import DataNotFoundError
 from pyearthtools.data.warnings import IndexWarning
 from pyearthtools.data.indexes import ArchiveIndex, ForecastIndex, DataFileSystemIndex, decorators
-from pyearthtools.data.time import pyearthtoolsDatetime, TimeDelta
+from pyearthtools.data.time import Petdt, TimeDelta
 from pyearthtools.data.transforms import Transform, TransformCollection
 
 from pyearthtools.data.archive import register_archive
@@ -40,7 +40,7 @@ ACCESS_DATATYPES = ["an", "fc", "fcmm"]
 VALID_DATATYPES = Literal["an", "fc", "fcmm"]
 
 
-def rounder(time: pyearthtoolsDatetime, interval: int) -> str:
+def rounder(time: Petdt, interval: int) -> str:
     hour = time.hour
     return "%02d00" % ((hour // interval) * interval,)
 
@@ -163,12 +163,12 @@ class ACCESS(DataFileSystemIndex, ACCESS_UI_MIXIN):
 
     def filesystem(
         self,
-        basetime: str | pyearthtoolsDatetime,
+        basetime: str | Petdt,
     ):
         paths = {}
 
         ACCESS_HOME = self.ROOT_DIRECTORIES["ACCESS"]
-        basetime = pyearthtoolsDatetime(basetime)
+        basetime = Petdt(basetime)
 
         basepath = Path(ACCESS_HOME.format(region=self.region))
 
@@ -262,8 +262,8 @@ class ACCESS_Forecast(ACCESS, ForecastIndex):
 
         self.forecast_leadtime = forecast_leadtime if forecast_leadtime is None else TimeDelta(forecast_leadtime)
 
-    def get(self, querytime: pyearthtoolsDatetime, *, select_time: pyearthtoolsDatetime | None = None, **kwargs) -> xr.Dataset:
-        querytime = pyearthtoolsDatetime(querytime)
+    def get(self, querytime: Petdt, *, select_time: Petdt | None = None, **kwargs) -> xr.Dataset:
+        querytime = Petdt(querytime)
         if self.forecast_leadtime:
             querytime = querytime - self.forecast_leadtime
         data = super().get(querytime, **kwargs)
@@ -272,8 +272,8 @@ class ACCESS_Forecast(ACCESS, ForecastIndex):
             data = data.sel(time=select_time)
         return data
 
-    def filesystem(self, basetime: str | pyearthtoolsDatetime):
-        basetime = pyearthtoolsDatetime(basetime)
+    def filesystem(self, basetime: str | Petdt):
+        basetime = Petdt(basetime)
         if self.forecast_leadtime:
             basetime = basetime - self.forecast_leadtime
         return super().filesystem(basetime)

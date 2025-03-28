@@ -17,7 +17,7 @@ from pathlib import Path
 
 
 import pyearthtools.data
-from pyearthtools.data import pyearthtoolsDatetime
+from pyearthtools.data import Petdt
 from pyearthtools.data.exceptions import DataNotFoundError
 from pyearthtools.data.indexes import ArchiveIndex, decorators
 from pyearthtools.data.indexes.utilities import spellcheck
@@ -109,13 +109,13 @@ class AGCD(ArchiveIndex):
 
     def filesystem(
         self,
-        basetime: str | datetime.datetime | pyearthtoolsDatetime,
+        basetime: str | datetime.datetime | Petdt,
     ) -> Path:
         AGCD_HOME = self.ROOT_DIRECTORIES["AGCD"]
 
         paths = {}
 
-        basetime = pyearthtoolsDatetime(basetime)
+        basetime = Petdt(basetime)
 
         for variable in self.variables:
             sub_var = self.sub_var[variable]

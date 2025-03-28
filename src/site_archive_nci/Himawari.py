@@ -18,7 +18,7 @@ from pathlib import Path
 
 
 import pyearthtools.data
-from pyearthtools.data import pyearthtoolsDatetime, TimeDelta
+from pyearthtools.data import Petdt, TimeDelta
 from pyearthtools.data.exceptions import DataNotFoundError
 from pyearthtools.data.indexes import ArchiveIndex, decorators
 from pyearthtools.data.transforms import Transform, TransformCollection
@@ -78,10 +78,10 @@ class Himawari(ArchiveIndex):
 
     def filesystem(
         self,
-        basetime: str | datetime.datetime | pyearthtoolsDatetime,
+        basetime: str | datetime.datetime | Petdt,
     ):
         root_dir = self.ROOT_DIRECTORIES["Himawari"]
-        basetime = pyearthtoolsDatetime(basetime)
+        basetime = Petdt(basetime)
 
         offset = TimeDelta(1, "day")
         check_dates = [basetime - offset, basetime, basetime + offset]
