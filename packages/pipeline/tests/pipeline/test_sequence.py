@@ -45,23 +45,6 @@ class FakeIndex(Index):
         return self._overrideValue or idx
 
 
-class MultiplicationOperation(Operation):
-    def __init__(self, factor):
-        super().__init__(split_tuples=True)
-        self.factor = factor
-
-    def apply_func(self, sample):
-        return sample * self.factor
-
-    def undo_func(self, sample):
-        return sample // self.factor
-
-
-class MultiplicationOperationUnunifiedable(MultiplicationOperation):
-    def undo_func(self, sample):
-        return sample + self.factor
-
-
 @pytest.mark.parametrize(
     "samples, result",
     [
