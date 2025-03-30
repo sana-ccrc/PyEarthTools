@@ -24,7 +24,7 @@ import numpy as np
 from matplotlib.figure import Figure
 
 from pyearthtools.data.indexes import FileSystemIndex
-from pyearthtools.data.save import dataset, json, array, plot
+from pyearthtools.data.save import dataset, jsonsave, array, plot
 
 DASK_IMPORTED = True
 try:
@@ -37,7 +37,7 @@ except (ImportError, ModuleNotFoundError) as e:
 
 DISPATCH = {
     dataset: [xr.Dataset, xr.DataArray],
-    json: [dict],
+    jsonsave: [dict],
     array: [np.ndarray],
     plot: [xplt.FacetGrid, Figure],
 }
