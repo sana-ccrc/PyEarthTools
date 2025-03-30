@@ -1,11 +1,6 @@
-# Environmental Data Intelligence Toolkit (pyearthtools) Data Indexing
+# PyEarthTools Data Indexing
 
-Data tools to support and reduce the complexity of accessing common Earth System Datasets.
+This is the data sub-package which forms a part of the [PyEarthTools package](https://github.com/ACCESS-Community-Hub/PyEarthTools).
 
-**Continue to the [documentation site](https://git.nci.org.au/bom/dset/pyearthtools-package/documentation).**
+Documentation for this package is maintained at the [documentation site](https://pyearthtools.readthedocs.io/en/latest/).
 
-## Adding archives
-
-`pyearthtools` itself contains no archives, and rely's on extra addons to include them, currently only an NCI addon is available, at [NCI](https://git.nci.org.au/bom/dset/pyearthtools-package/archives/nci.git)
-
-For examples, and documentation on the use of these tools, please see `/Examples/`.

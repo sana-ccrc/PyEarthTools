@@ -1,3 +1,5 @@
-# pyearthtools Utilities
+# PyEarthTools Utils
 
-A common source for commonly used utility functions.
+This is the utils sub-package which forms a part of the [PyEarthTools package](https://github.com/ACCESS-Community-Hub/PyEarthTools).
+
+Documentation for this package is maintained at the [documentation site](https://pyearthtools.readthedocs.io/en/latest/).
