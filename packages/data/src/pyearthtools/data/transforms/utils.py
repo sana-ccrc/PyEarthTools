@@ -86,15 +86,12 @@ from pathlib import Path
 
 def parse_dataset(value: str | Path | Any) -> Any:
     """
-    Attempt to load dataset if value is str,
-    If fails in any way, continue returning initial value
+    Attempt to load dataset if value is str or Path
+    Return the original value if not
     """
     if isinstance(value, (str, Path)):
-        try:
-            if Path(value).exists():
-                return xr.open_dataset(value)
-        except Exception:
-            pass
+        return xr.open_dataset(value)
+
     return value
 
 
