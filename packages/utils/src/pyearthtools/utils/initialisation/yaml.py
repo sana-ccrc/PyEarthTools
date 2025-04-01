@@ -13,10 +13,10 @@
 # limitations under the License.
 
 
-from typing import Literal, Sequence, Any, Union, Optional, TypeVar
 from collections.abc import Mapping
-
 from pathlib import Path
+from typing import Any, Literal, Optional, Sequence, TypeVar, Union
+
 import yaml
 
 import pyearthtools.utils
