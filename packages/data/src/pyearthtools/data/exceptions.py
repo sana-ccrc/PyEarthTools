@@ -89,6 +89,6 @@ def run_and_catch_exception(
     """
     try:
         return command(*args, **kwargs)
-    except exception as e:  # type: ignore
+    except Exception as e:  # type: ignore
         warnings.warn(f"Caught {type(e)}. Attempting graceful termination...")
     return None
