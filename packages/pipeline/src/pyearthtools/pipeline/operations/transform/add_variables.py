@@ -60,7 +60,7 @@ class TimeOfYear(Transform):
         if self.method == "dayofyear":
             value = (np.cos(ds.time.dt.dayofyear * np.pi / (366 / 2)) + 1) / 2
         if self.method == "monthofyear":
-            value = (np.cos(ds.time.dt.date.month * np.pi / 6) + 1) / 2
+            value = (np.cos(ds.time.dt.month * np.pi / 6) + 1) / 2
 
         new_dims = {}
 
