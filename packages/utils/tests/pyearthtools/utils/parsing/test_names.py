@@ -43,5 +43,7 @@ def test_function_name():
             return "Hello"
 
     # Test a callable object
-    name = names.function_name(MockThing())
+    mt = MockThing()
+    assert mt() == "Hello"
+    name = names.function_name(mt)
     assert name == "MockThing"
