@@ -34,6 +34,9 @@ National Computing Infrastructure specific Indexes
 import pyearthtools.data
 from pyearthtools.data.archive import register_archive
 
+# Please note, these directories may be found on the public NCI documentation
+# site, in the geonetwork data catalogue. 
+# See e.g. https://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f7332_1490_5979_5715
 
 ROOT_DIRECTORIES = {
     "ACCESS": "/g/data/wr45/ops_aps3/access-{region}/1/",
