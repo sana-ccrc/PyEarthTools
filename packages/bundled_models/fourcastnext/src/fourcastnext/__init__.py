@@ -15,3 +15,5 @@
 from fourcastnext.model import FourCastNext
 from fourcastnext import registered_model
 
+__version__ = "0.1.0"
+

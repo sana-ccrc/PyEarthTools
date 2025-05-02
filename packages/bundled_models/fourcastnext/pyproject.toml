@@ -4,19 +4,14 @@ build-backend = "setuptools.build_meta"
 
 
 [project]
-name = "fourcastnext"
-version = "2024.07.2"
-description = "FourCastNeXt"
+name = "pyearthtools-bundled-fourcastnext"
+version = "0.1.0"
+description = "FourCastNeXt Bundled Model"
 readme = "README.md"
 requires-python = ">=3.9"
-license = {file = "LICENSE"}
 keywords = ["fourcastnext"]
-authors = [
-  {email = "harrison.cook@bom.gov.au"},
-  {name = "Harrison Cook"}
-]
 maintainers = [
-  {name = "Harrison Cook", email = "harrison.cook@bom.gov.au"}
+  {name = "Tennessee Leeuwenburg", email = "tennessee.leeuwenburg@bom.gov.au"}
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -24,14 +19,23 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
- 'edit.training[lightning]>=1.0.1', 'edit.models>=1.0.0', 'edit.data>=1.0.1', 'edit.pipeline>=1.0.1', 'hydra-core', 'torch_optimizer', 'timm',
+ 'pyearthtools.training[lightning]>=0.1.0', 
+ 'pyearthtools.zoo>=0.1.0', 
+ 'pyearthtools.data>=0.1.0', 
+ 'pyearthtools.pipeline>=0.1.0', 
+ 'hydra-core', 
+ 'torch_optimizer',
+ 'timm',
 ]
 
 
 [project.urls]
-homepage = "https://bom.gov.au"
+homepage = "https://pyearthtools.readthedocs.io/"
+documentation = "https://pyearthtools.readthedocs.io/"
+repository = "https://github.com/ACCESS-Community-Hub/PyEarthTools"
 
-[project.entry-points."edit.models.model"]
+
+[project.entry-points."pyearthtools.zoo.model"]
 Global_fourcastnext = "fourcastnext.registered_model:FourCastNeXt"
 
 [tool.isort]
@@ -47,3 +51,8 @@ warn_unused_configs = true
 [[tool.mypy.overrides]]
 ignore_missing_imports = true
 
+[tool.hatch.version]
+path = "src/pyearthtools/pipeline/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pyearthtools/"]

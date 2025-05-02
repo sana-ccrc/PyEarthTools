@@ -21,7 +21,7 @@ Additionally, you can change
 
 ## Predictions / Inference
 
-If you have successfully run the training, you can now run some predictions with `edit.models`.
+If you have successfully run the training, you can now run some predictions with `pyearthtools.zoo`.
 
 Again, if you have changed the pipeline, you will need to create the configs necessary for inference. 
 
@@ -32,19 +32,19 @@ Simply these configs are the original pipeline broken into data retrieval and th
 Set the config path
 
 ```shell
-export EDIT_MODELS_CONFIGS=PATH_TO_CONFIGS:$EDIT_MODELS_CONFIGS
+export PYEARTHTOOLS_MODELS_CONFIGS=PATH_TO_CONFIGS:$PYEARTHTOOLS_MODELS_CONFIGS
 ```
 
 Set the dynamic import
 
 ```shell
-export EDIT_MODELS_IMPORTS='fourcastnext'@PATH_TO_FOURCASTNEXT/src
+export PYEARTHTOOLS_MODELS_IMPORTS='fourcastnext'@PATH_TO_FOURCASTNEXT/src
 ```
 
 Once those have been set you should be able to run
 
 ```shell
-edit-models models
+pet models
 ```
 
 and `Development/FourCastNeXt` should be visible.
@@ -52,7 +52,7 @@ and `Development/FourCastNeXt` should be visible.
 If so, you can now run some inference.
 
 ```shell
-edit-models interactive --model Development/FourCastNeXt
+pet interactive --model Development/FourCastNeXt
 ```
 
 When running the command, it will prompt for other kwargs (which fyi could be included in the initial command call),
@@ -62,7 +62,7 @@ Set `ckpt_path` to the full path of the checkpoint of the model you wish to load
 #### Example
 
 ```shell
-edit-models interactive --model Development/FourCastNeXt --ckpt_path PATH_TO_CHECKPOINT
+pet interactive --model Development/FourCastNeXt --ckpt_path PATH_TO_CHECKPOINT
 ```
 
 ## Acknowledgments

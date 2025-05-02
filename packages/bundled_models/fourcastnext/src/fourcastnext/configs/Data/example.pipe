@@ -1,6 +1,6 @@
-!edit@edit.pipeline.controller.Pipeline
+!pyearthtools@pyearthtools.pipeline.controller.Pipeline
 __args: !!python/tuple
-- !edit@edit.data.indexes.fake.FakeIndex
+- !pyearthtools@pyearthtools.data.indexes.fake.FakeIndex
   data_size: !!python/tuple
   - 128
   - 128
@@ -12,10 +12,10 @@ __args: !!python/tuple
   variable:
   - data
   - data_1
-- !edit@edit.pipeline.operations.xarray.conversion.ToDask
+- !pyearthtools@pyearthtools.pipeline.operations.xarray.conversion.ToDask
   warn: true
-- !edit@edit.pipeline.operations.dask.compute.Compute {}
-- !edit@edit.pipeline.modifications.idx_modification.TemporalRetrieval
+- !pyearthtools@pyearthtools.pipeline.operations.dask.compute.Compute {}
+- !pyearthtools@pyearthtools.pipeline.modifications.idx_modification.TemporalRetrieval
   concat: true
   delta_unit: null
   merge_function: null
@@ -26,7 +26,7 @@ __args: !!python/tuple
     - -6
     - 1
     # Note how target time retrieval has been dropped
-- !edit@edit.pipeline.operations.numpy.reshape.Rearrange
+- !pyearthtools@pyearthtools.pipeline.operations.numpy.reshape.Rearrange
   rearrange: 'c t h w -> t c h w'
 exceptions_to_ignore: null
 iterator: null

@@ -35,19 +35,19 @@ logging.getLogger("matplotlib").setLevel(logging.ERROR)
 def train(cfg):
     print(OmegaConf.to_yaml(cfg))
 
-    import edit.training
-    import edit.pipeline
+    import pyearthtools.training
+    import pyearthtools.pipeline
 
     splits = {
-        "train_split": edit.pipeline.iterators.DateRange(*cfg.data.splits.train),
-        "valid_split": edit.pipeline.iterators.DateRange(*cfg.data.splits.valid),
+        "train_split": pyearthtools.pipeline.iterators.DateRange(*cfg.data.splits.train),
+        "valid_split": pyearthtools.pipeline.iterators.DateRange(*cfg.data.splits.valid),
     }
 
     if cfg.data.splits.random:
         seed = cfg.data.splits.get("random_seed", 42)
         splits = {
-            "train_split": edit.pipeline.iterators.Randomise(splits["train_split"], seed),
-            "valid_split": edit.pipeline.iterators.Randomise(splits["valid_split"], None),
+            "train_split": pyearthtools.pipeline.iterators.Randomise(splits["train_split"], seed),
+            "valid_split": pyearthtools.pipeline.iterators.Randomise(splits["valid_split"], None),
         }
 
     pipelines = None
@@ -55,8 +55,7 @@ def train(cfg):
         pipelines = OmegaConf.to_object(cfg.data.pipelines)
     except ValueError:
         pipelines = cfg.data.pipelines
-        
-    datamodule = edit.training.data.lightning.PipelineLightningDataModule(
+    datamodule = pyearthtools.training.data.lightning.PipelineLightningDataModule(
         pipelines,  # type: ignore
         **splits,
         **cfg.data.module,
@@ -66,7 +65,7 @@ def train(cfg):
     # cfg.model.model_params.update(cfg.data.model_updates)
     model = instantiate(cfg.model)
 
-    trainer = edit.training.lightning.Train(
+    trainer = pyearthtools.training.lightning.Train(
         model,
         datamodule,
         path=cfg.path,

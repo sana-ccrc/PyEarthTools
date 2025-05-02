@@ -19,16 +19,16 @@ from pathlib import Path
 import logging
 import math
 
-import edit.models
+import pyearthtools.zoo
 
 import fourcastnext
 
 
 CONFIG_PATH = Path(__file__, "../configs/").resolve()
-LOG = logging.getLogger("edit.models.fourcastnext")
+LOG = logging.getLogger("pyearthtools.zoo.fourcastnext")
 
-@edit.models.register('Development/FourCastNeXt', exists='ignore')
-class FourCastNeXt(edit.models.BaseForecastModel):
+@pyearthtools.zoo.register('Development/FourCastNeXt', exists='ignore')
+class FourCastNeXt(pyearthtools.zoo.BaseForecastModel):
     """
     FourCastNeXt
 
@@ -36,7 +36,7 @@ class FourCastNeXt(edit.models.BaseForecastModel):
 
     \b
     Arguments:
-        lead_time (int | str | edit.data.TimeDelta): 
+        lead_time (int | str | pyearthtools.data.TimeDelta): 
             Lead time to predict to. If int will be given as hours.
             Separate delta notation by -.
         interval (int):
@@ -61,14 +61,14 @@ class FourCastNeXt(edit.models.BaseForecastModel):
                 Pipeline name to use
             output (str | Path):
                 Output location
-            lead_time (int | str | edit.data.TimeDelta, optional):
+            lead_time (int | str | pyearthtools.data.TimeDelta, optional):
                 Lead time of forecast (hours).
             interval (int):
                 Data interval in hours. Defaults to 6.
             ckpt_path (str, optional):
                 Override for weights path
         """
-        self.lead_time = edit.models.utils.delta_conversion(lead_time, 'hour')
+        self.lead_time = pyearthtools.zoo.utils.delta_conversion(lead_time, 'hour')
         if ckpt_path:
             self._redownload_each_time = True
             self._download_paths = [(ckpt_path, "weights.ckpt")]  # type: ignore
@@ -94,13 +94,12 @@ class FourCastNeXt(edit.models.BaseForecastModel):
             ),
             **kwargs,
         )
-        import edit.training
+        import pyearthtools.training
 
         model = fourcastnext.FourCastNext({})
-        model_wrapper = edit.training.wrapper.lightning.Predict(model, self.pipeline)
+        model_wrapper = pyearthtools.training.wrapper.lightning.Predict(model, self.pipeline)
         model_wrapper.load(self.assets / "weights.ckpt")
         
-        wrapper = edit.training.wrapper.predict.TimeSeriesAutoRecurrentPredictor(model_wrapper, interval= f'{self.interval} hours')
+        wrapper = pyearthtools.training.wrapper.predict.TimeSeriesAutoRecurrent(model_wrapper, interval= f'{self.interval} hours')
         
-
         return wrapper, model_kwargs

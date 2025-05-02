@@ -34,7 +34,7 @@ from torch_optimizer import Lamb
 
 from fourcastnext.architecture.afnonet import AFNONet
 
-from edit.training.modules import get_loss
+from pyearthtools.training.modules import get_loss
 
 
 torch.set_float32_matmul_precision('medium')
