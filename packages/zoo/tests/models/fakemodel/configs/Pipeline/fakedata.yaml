@@ -1,8 +1,8 @@
-!edit@edit.pipeline.controller.Pipeline
+!pyearthtools@pyearthtools.pipeline.controller.Pipeline
 __args: !!python/tuple
-- !edit@edit.data.transforms.coordinates.StandardLongitude
+- !pyearthtools@pyearthtools.data.transforms.coordinates.StandardLongitude
   type: -180-180
-- !edit@edit.pipeline.operations.xarray.conversion.ToNumpy
+- !pyearthtools@pyearthtools.pipeline.operations.xarray.conversion.ToNumpy
   reference_dataset: null
   run_parallel: false
   saved_records: null

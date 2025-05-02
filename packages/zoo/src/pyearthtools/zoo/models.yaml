@@ -1,11 +1,11 @@
-models:                                   # edit.models configuration
+models:                                   # pyearthtools.zoo configuration
   
   configs: null                           # Extra config location to expose, can be list, path or None
   assets: ~/.edit/models/assets/          # Location to save assets for models
   cache: ~/tmp/edit/models/cache/         # Cache of initial conditions, only used if detected a download index
   imports: null                           # Extra modules to import from disk, can be list, path or None. Expected syntax 'MODULE_NAME'@PATH
 
-  training_data_index:                    # Default kwargs for `edit.training.trainer.MLDataIndex`
+  training_data_index:                    # Default kwargs for `pyearthtools.training.trainer.MLDataIndex`
     pattern: ForecastExpandedDateVariable
 
   pattern:                                # Default kwargs for patterns, expected to be nested dict, for each pattern

@@ -1,6 +1,6 @@
-!edit@edit.pipeline.controller.Pipeline
+!pyearthtools@pyearthtools.pipeline.controller.Pipeline
 __args: !!python/tuple
-- !edit@edit.data.indexes.fake.FakeIndex
+- !pyearthtools@pyearthtools.data.indexes.fake.FakeIndex
   data_size: !!python/tuple
   - __Dimensionality:128__
   - __Dimensionality:128__

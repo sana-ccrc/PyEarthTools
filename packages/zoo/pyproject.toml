@@ -60,7 +60,7 @@ warn_return_any = true
 warn_unused_configs = true
 
 [[tool.mypy.overrides]]
-module = "edit.models"
+module = "pyearthtools.zoo"
 ignore_missing_imports = true
 
 
@@ -70,7 +70,7 @@ where = ["src/"]
 
 
 [tool.pytest.ini_options]
-addopts = "--cov='edit.models' --cov-report=html:term-missing"
+addopts = "--cov='pyearthtools.zoo' --cov-report=html:term-missing"
 
 [tool.hatch.version]
 path = "src/pyearthtools/zoo/__init__.py"
