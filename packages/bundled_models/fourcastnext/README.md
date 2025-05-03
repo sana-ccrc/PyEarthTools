@@ -1,4 +1,4 @@
-# FourCastNext Model for use with the EDIT Package
+# FourCastNeXt Model for use with the PyEarthTools Package
 
 ## Installation
 
