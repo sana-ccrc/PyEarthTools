@@ -1,5 +1,7 @@
 # FourCastNeXt Model for use with the PyEarthTools Package
 
+For more detail regarding the FourCastNeXt model, see [Guo et al. (2024)](https://doi.org/10.48550/arXiv.2401.05584).
+
 ## Installation
 
 Clone the repository, then run
