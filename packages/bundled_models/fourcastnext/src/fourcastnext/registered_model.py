@@ -108,7 +108,7 @@ class FourCastNextRM(pyearthtools.zoo.BaseForecastModel):
 
         model = fourcastnext.FourCastNextLM({})
         model_wrapper = pyearthtools.training.wrapper.lightning.Predict(model, self.pipeline)
-        
+
         model_wrapper.load(self.ckpt_path)
 
         wrapper = pyearthtools.training.wrapper.predict.TimeSeriesAutoRecurrent(
