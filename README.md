@@ -55,7 +55,7 @@ PyEarthTools comprises multiple sub-packages which can be used individually or t
 
 If you use PyEarthTools for your work, we would appreciate you acknowledging our work. A citable DOI will be available soon. In the meantime, please cite this repository.
 
-## Overview of documentation
+## Overview of Documentation
 
 We have information for:
 
