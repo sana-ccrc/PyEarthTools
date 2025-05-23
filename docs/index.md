@@ -6,7 +6,7 @@
 # PyEarthTools: Machine learning for Earth system science
 
 - An approachable way for researchers to get started with ML research for Earth system science
-- Provides a software framework for professional research
+- Provides a software framework for research and experimentation
 - Also suitable for students and newcomers
 - Still under early-stage development - things are likely to change a lot. If you notice an issue, please feel free to raise it on GitHub
 
@@ -67,7 +67,7 @@ PyEarthTools comprises multiple sub-packages which can be used individually or t
 
 If you use PyEarthTools for your work, we would appreciate you acknowledging our work. A citable DOI will be available soon. In the meantime, please cite this repository.
   
-  
+
 ```{toctree}
 :caption: 'Index to Documentation:'
 :maxdepth: 2
