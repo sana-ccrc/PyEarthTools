@@ -80,7 +80,7 @@ installation
 notebooks/Gallery
 catalogue
 config
-api
+api/api
 roadmap
 devguide
 maintainer
