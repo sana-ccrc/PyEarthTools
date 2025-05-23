@@ -69,6 +69,7 @@ If you use PyEarthTools for your work, we would appreciate you acknowledging our
   
 
 ```{toctree}
+:hidden:
 :caption: 'Index to Documentation:'
 :maxdepth: 2
 
