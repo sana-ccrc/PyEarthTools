@@ -5,20 +5,41 @@
 
 # PyEarthTools: Reproducible machine learning for Earth system science
 
-PyEarthTools is a Python framework, containing modules for loading data; pre-processing, normalising and standardising data; defining machine learning (ML) models; training ML models; performing inference with ML models; and evaluating ML models. It contains specialised support for weather and climate data sources and models. It has an emphasis on reproducibility, shareable pipelines, and human-readable low-code pipeline definition.
+- An approachable way for a researchers to get going with ML research for Earth system science
+- Suitable for students and newcomers, as well as providing a software framework for professional research
+- Still under early-stage development - things are likely to change a lot. If you notice an issue, please free to raise it on Github
+
+<figure style="display:inline-block; width:45%; margin-right:5%;">
+    <img src="https://pyearthtools.readthedocs.io/en/latest/_images/notebooks_demo_FourCastNeXt_Inference_9_1.png" alt="A prediction of the weather" width="100%">
+    <figcaption>A weather prediction from a trained model.</figcaption>
+</figure>
+
+<figure style="display:inline-block; width:45%; vertical-align:top;">
+    <img src="https://pyearthtools.readthedocs.io/en/latest/_images/notebooks_tutorial_Working_with_Climate_Data_14_2.svg" alt="A data processing pipeline" width="300">
+    <figcaption>A data processing flow composed for working with climate data.</figcaption>
+</figure>
 
 Source Code: [github.com/ACCESS-Community-Hub/PyEarthTools](https://github.com/ACCESS-Community-Hub/PyEarthTools)  
 Documentation: [pyearthtools.readthedocs.io](https://pyearthtools.readthedocs.io)  
 Tutorial Gallery: [available here](https://pyearthtools.readthedocs.io/en/latest/notebooks/Gallery.html)  
 
+PyEarthTools is composed from multiple sub-packages which users may want separately. However, people also want a very quick installation options. Here is the quickest way to install "everything" and get moving:
 
-> [!NOTE]
-> **THIS REPOSITORY IS UNDER CONSTRUCTION**
->
-> This repository contains code which is under construction, and should not yet be used outside of a research setting.
-> The development team are working busily to bring everything up to spec. As such, things are likely
-> to change pretty often. Please take a look around!
->
+```
+git clone git@github.com:ACCESS-Community-Hub/PyEarthTools.git
+pip install -r requirements-dev.txt
+conda install graphviz
+cd notebooks
+jupyter lab
+```
+
+PyEarthTools is a Python framework containing modules for:
+ - loading and fetching data; 
+ - pre-processing, normalising and standardising data into a normal form suitable for machine learning; 
+ - defining machine learning (ML) models; 
+ - training ML models and managing experiments;
+ - performing inference with ML models; 
+ - and evaluating ML models. 
 
 PyEarthTools comprises multiple sub-packages which can be used individually or together.
 
@@ -32,8 +53,6 @@ PyEarthTools comprises multiple sub-packages which can be used individually or t
 |  Bundled Models | Maintained versions of specific, bundled models which can be easily trained and run |
 |  Zoo            | Contains code for managing registered models (such as the bundled models) |
 |  Evaluation     | (Coming soon) Contains code for producing standard evaluations (such as benchmarks and scorecards) |
-
-[![Coverage Status](https://coveralls.io/repos/github/ACCESS-Community-Hub/PyEarthTools/badge.svg)](https://coveralls.io/github/ACCESS-Community-Hub/PyEarthTools) <-- we are working towards 100% test coverage of PyEarthTools code
 
 # Overview of documentation
 
