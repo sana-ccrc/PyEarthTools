@@ -56,7 +56,7 @@ For example, to install the `utils` sub-package, use:
 pip install "pyearthtools[utils] @ git+https://github.com/ACCESS-Community-Hub/PyEarthTools.git"
 ```
 
-Other available packages are `data`, `pipeline` and `training`.
+Other available packages are `data`, `pipeline`, `training`, `tutorial` and `zoo`.
 
 To install all PyEarthTools packages, including all their optional dependencies, use:
 
