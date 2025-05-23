@@ -19,6 +19,10 @@ The rest of this page contains reference information for the components of the D
 |------------------|-----------------------------------------------|---------------------|
 |  `data.archive`  | Indexing and loading from known data holdings | - [ZarrIndex](data_api.md#pyearthtools.data.archive.ZarrIndex)     |
 |                  |                                               | - [ZarrTimeIndex](data_api.md#pyearthtools.data.archive.ZarrTimeIndex) |
+|                  |                                               | - [extensions.register_archive](data_api.md#pyearthtools.data.archive.extensions.register_archive) |
+|                  |                                               | - [reset_root](data_api.md#pyearthtools.data.archive.reset_root) |
+|                  |                                               | - [reset_root](data_api.md#pyearthtools.data.archive.set_root) |
+|                  |                                               | - [reset_root](data_api.md#pyearthtools.data.archive.config_root) |
 | `data.derived`   |   Calculated derived fields                   | - [DerivedValue](data_api.md#pyearthtools.data.derived.DerivedValue) |
 |                  |                                               | - [TimeDerivedValue](data_api.md#pyearthtools.data.derived.TimeDerivedValue) |
 |                  |                                               | - [AdvancedTimeDerivedValue](data_api.md#pyearthtools.data.derived.AdvancedTimeDerivedValue) |
@@ -38,3 +42,42 @@ The rest of this page contains reference information for the components of the D
 |                  |                                               | - [CachingForecastIndex](data_api.md#pyearthtools.data.indexes.CachingForecastIndex) |
 |                  |                                               | - [IntakeIndex](data_api.md#pyearthtools.data.indexes.IntakeIndex) |
 |                  |                                               | - [IntakeIndexCache](data_api.md#pyearthtools.data.indexes.IntakeIndexCache) |
+|                  |                                               | - [cacheIndex.BaseCacheIndex](data_api.md#pyearthtools.data.indexes.cacheIndex.BaseCacheIndex) |
+|                  |                                               | - [cacheIndex.FileSystemCacheIndex](data_api.md#pyearthtools.data.indexes.cacheIndex.FileSystemCacheIndex) |
+|                  |                                               | - [cacheIndex.CacheFactory](data_api.md#pyearthtools.data.indexes.cacheIndex.CacheFactory) |
+|                  |                                               | - [cacheIndex.FunctionalCache](data_api.md#pyearthtools.data.indexes.cacheIndex.FunctionalCache) |
+|                  |                                               | - [combine.InterpolationIndex](data_api.md#pyearthtools.data.indexes.combine.InterpolationIndex) |
+|                  |                                               | - [fake.FakeIndex](data_api.md#pyearthtools.data.indexes.fake.FakeIndex) |
+|                  |                                               | - [extensions.register_accessor](data_api.md#pyearthtools.data.indexes.extensions.register_accessor) |
+| `data.modifications`   |                                         | - [Modification](data_api.md#pyearthtools.data.modifications.Modification) |
+|                  |                                               | - [register_modification](data_api.md#pyearthtools.data.modifications.register_modification) |
+|                  |                                               | - [variable_modifications](data_api.md#pyearthtools.data.modifications.variable_modifications) |
+|                  |                                               | - [aggregations.Aggregation](data_api.md#pyearthtools.data.modifications.aggregations.Aggregation) |
+|                  |                                               | - [aggregations.AggregationGeneral](data_api.md#pyearthtools.data.modifications.aggregations.AggregationGeneral) |
+|                  |                                               | - [aggregations.Mean](data_api.md#pyearthtools.data.modifications.aggregations.Mean) |
+|                  |                                               | - [aggregations.Accumulate](data_api.md#pyearthtools.data.modifications.aggregations.Accumulate) |
+|                  |                                               | - [constants.Constant](data_api.md#pyearthtools.data.modifications.constants.Constant) |
+|                  |                                               | - [decorator.VariableModification](data_api.md#pyearthtools.data.modifications.decorator.VariableModification) |
+|                  |                                               | - [decorator.Modifier](data_api.md#pyearthtools.data.modifications.decorator.Modifier) |
+|                  |                                               | - [reductions.Reduction](data_api.md#pyearthtools.data.modifications.reductions.Reduction) |
+|                  |                                               | - [reductions.Groupby](data_api.md#pyearthtools.data.modifications.reductions.Groupby) |
+|                  |                                               | - [reductions.Hourly](data_api.md#pyearthtools.data.modifications.reductions.Hourly) |
+|                  |                                               | - [reductions.Daily](data_api.md#pyearthtools.data.modifications.reductions.Daily) |
+|                  |                                               | - [reductions.Monthly](data_api.md#pyearthtools.data.modifications.reductions.Monthly) |
+|                  |                                               | - [register.register_modification](data_api.md#pyearthtools.data.modifications.register.register_modification) |
+| `data.operations`  |                                             | - [percentile](data_api.md#pyearthtools.data.operations.percentile) |
+|                  |                                               | - [aggregation](data_api.md#pyearthtools.data.operations.aggregation) |
+|                  |                                               | - [binning](data_api.md#pyearthtools.data.operations.binning) |
+|                  |                                               | - [SpatialInterpolation](data_api.md#pyearthtools.data.operations.SpatialInterpolation) |
+|                  |                                               | - [TemporalInterpolation](data_api.md#pyearthtools.data.operations.TemporalInterpolation) |
+|                  |                                               | - [FullInterpolation](data_api.md#pyearthtools.data.operations.FullInterpolation) |
+|                  |                                               | - [index_routines.series](data_api.md#pyearthtools.data.operations.index_routines.series) |
+|                  |                                               | - [index_routines.safe_series](data_api.md#pyearthtools.data.operations.index_routines.safe_series) |
+|                  |                                               | - [index_operations.split_ds](data_api.md#pyearthtools.data.operations.index_operations.split_ds) |
+|                  |                                               | - [index_operations.split_ds_gen](data_api.md#pyearthtools.data.operations.index_operations.split_ds_gen) |
+|                  |                                               | - [index_operations.aggregation](data_api.md#pyearthtools.data.operations.index_operations.aggregation) |
+|                  |                                               | - [index_operations.find_range](data_api.md#pyearthtools.data.operations.index_operations.find_range) |
+|                  |                                               | - [utils.identify_time_dimension](data_api.md#pyearthtools.data.operations.utils.identify_time_dimension) |
+|                  |                                               | - [forecast_op.forecast_series](data_api.md#pyearthtools.data.operations.forecast_op.forecast_series) |
+|                  |                                               | - [forecast_op.forecast_as_basetime](data_api.md#pyearthtools.data.operations.forecast_op.forecast_as_basetime) |
+|                  |                                               | - [forecast_op.forecast_select_time](data_api.md#pyearthtools.data.operations.forecast_op.forecast_select_time) |
