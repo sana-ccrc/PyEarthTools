@@ -1,4 +1,4 @@
-# PyEarthTools Data Package
+# Data API Index
 
 This is the data package which forms a part of the [PyEarthTools package](https://github.com/ACCESS-Community-Hub/PyEarthTools). It contains code for fetching, loading, transforming and working with a wide variety of data sources. It has support for industry standard data sources of common interest, and also has code to aid users in managing their own data in their own projects.
 
@@ -13,7 +13,7 @@ The use of the data package within PyEarthTools includes:
 
 These tasks are aided by the API presented by the data package. Users looking for "how-to guides" or worked examples should review the [Tutorial Gallery](https://pyearthtools.readthedocs.io/en/latest/notebooks/Gallery.html).
 
-The rest of this page contains reference information for the components of the Data package. The entire data API docs can be viewed at [Data API](data_api.md)
+The rest of this page contains reference information for the components of the Data package. The entire data API docs can be viewed at [Data API Docs](data_api.md)
 
 |  Module          |               Purpose                         |   API Docs    |
 |------------------|-----------------------------------------------|---------------------|

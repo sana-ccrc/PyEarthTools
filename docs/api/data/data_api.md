@@ -1,4 +1,4 @@
-# Data Package API Docs
+# Data API Docs
 
 ## `data.archive`
 

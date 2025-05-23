@@ -19,5 +19,7 @@ PyEarthTools comprises multiple sub-packages which can be used individually or t
 :hidden:
 
 data/data_index
+data/data_api
 utils/utils_index
+utils/utils_api
 ```

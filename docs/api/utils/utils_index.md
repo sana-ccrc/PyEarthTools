@@ -1,10 +1,10 @@
-# PyEarthTools Utils Package
+# Utils API Index
 
 This is the utils package which forms a part of the [PyEarthTools package](https://github.com/ACCESS-Community-Hub/PyEarthTools).
 
 
 
-The rest of this page contains reference information for the components of the Data package. The entire data API docs can be viewed at [Utils API](utils_api.md)
+The rest of this page contains reference information for the components of the Data package. The entire data API docs can be viewed at [Utils API Docs](utils_api.md)
 
 |  Module             |       Purpose                        |   API Docs     |
 |---------------------|--------------------------------------|----------------|
