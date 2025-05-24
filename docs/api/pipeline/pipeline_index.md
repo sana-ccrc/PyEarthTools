@@ -2,7 +2,7 @@
 
 This is the Pipeline package which forms a part of the [PyEarthTools package](https://github.com/ACCESS-Community-Hub/PyEarthTools).
 
-The rest of this page contains reference information for the components of the Pipeline package. The entire data API docs can be viewed at [Pipeline API Docs](pipeline_api.md).
+The rest of this page contains reference information for the components of the Pipeline package. The Pipeline API docs can be viewed at [Pipeline API Docs](pipeline_api.md).
 
 |  Module              |       Purpose                        |   API Docs     |
 |----------------------|--------------------------------------|----------------|
@@ -19,9 +19,9 @@ The rest of this page contains reference information for the components of the P
 |                      |                                      | - [Joiner](pipeline_api.md#pyearthtools.pipeline.branching.Joiner)  |
 |                      |                                      | - [Spliter](pipeline_api.md#pyearthtools.pipeline.branching.Spliter)  |
 | `pipeline.filters`   |                                      | - [Filter](pipeline_api.md#pyearthtools.pipeline.filters.Filter)  |
-|                      |                                      | - [Filter](pipeline_api.md#pyearthtools.pipeline.filters.Filter)  |
-|                      |                                      | - [Filter](pipeline_api.md#pyearthtools.pipeline.filters.Filter)  |
-|                      |                                      | - [Filter](pipeline_api.md#pyearthtools.pipeline.filters.Filter)  |
+|                      |                                      | - [FilterCheck](pipeline_api.md#pyearthtools.pipeline.filters.FilterCheck)  |
+|                      |                                      | - [FilterWarningContext](pipeline_api.md#pyearthtools.pipeline.filters.FilterWarningContext)  |
+|                      |                                      | - [TypeFilter](pipeline_api.md#pyearthtools.pipeline.filters.TypeFilter)  |
 | `pipeline.iterators` |                                      | - [Iterator](pipeline_api.md#pyearthtools.pipeline.iterators.Iterator)  |
 |                      |                                      | - [Range](pipeline_api.md#pyearthtools.pipeline.iterators.Range)  |
 |                      |                                      | - [Predefined](pipeline_api.md#pyearthtools.pipeline.iterators.Predefined)  |
@@ -59,7 +59,7 @@ The rest of this page contains reference information for the components of the P
 |                      |                                      | - [CoordinateFlatten](pipeline_api.md#pyearthtools.pipeline.operations.xarray.reshape.CoordinateFlatten)  |
 | `pipeline.operations.xarray.select`  |                      | - [SelectDataset](pipeline_api.md#pyearthtools.pipeline.operations.xarray.select.SelectDataset)  |
 |                      |                                      | - [DropDataset](pipeline_api.md#pyearthtools.pipeline.operations.xarray.select.DropDataset)  |
-|                      |                                      | - [DropDataset](pipeline_api.md#pyearthtools.pipeline.operations.xarray.select.DropDataset)  |
+|                      |                                      | - [SliceDataset](pipeline_api.md#pyearthtools.pipeline.operations.xarray.select.SliceDataset)  |
 | `pipeline.operations.xarray.split`  |                       | - [OnVariables](pipeline_api.md#pyearthtools.pipeline.operations.xarray.split.OnVariables)  |
 |                      |                                      | - [OnCoordinate](pipeline_api.md#pyearthtools.pipeline.operations.xarray.split.OnCoordinate)  |
 | `pipeline.operations.xarray.values`  |                      | - [FillNan](pipeline_api.md#pyearthtools.pipeline.operations.xarray.values.FillNan)  |
