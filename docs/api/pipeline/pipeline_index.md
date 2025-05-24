@@ -4,7 +4,7 @@ This is the utils package which forms a part of the [PyEarthTools package](https
 
 
 
-The rest of this page contains reference information for the components of the Data package. The entire data API docs can be viewed at [Pipeline API Docs](pipeline_api.md)
+The rest of this page contains reference information for the components of the Data package. The entire data API docs can be viewed at [Pipeline API Docs](pipeline_api.md).
 
 |  Module             |       Purpose                        |   API Docs     |
 |---------------------|--------------------------------------|----------------|

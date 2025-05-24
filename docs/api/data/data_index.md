@@ -13,7 +13,7 @@ The use of the data package within PyEarthTools includes:
 
 These tasks are aided by the API presented by the data package. Users looking for "how-to guides" or worked examples should review the [Tutorial Gallery](https://pyearthtools.readthedocs.io/en/latest/notebooks/Gallery.html).
 
-The rest of this page contains reference information for the components of the Data package. The entire data API docs can be viewed at [Data API Docs](data_api.md)
+The rest of this page contains reference information for the components of the Data package. The entire data API docs can be viewed at [Data API Docs](data_api.md).
 
 |  Module          |               Purpose                         |   API Docs    |
 |------------------|-----------------------------------------------|---------------------|
@@ -21,8 +21,8 @@ The rest of this page contains reference information for the components of the D
 |                  |                                               | - [ZarrTimeIndex](data_api.md#pyearthtools.data.archive.ZarrTimeIndex) |
 |                  |                                               | - [extensions.register_archive](data_api.md#pyearthtools.data.archive.extensions.register_archive) |
 |                  |                                               | - [reset_root](data_api.md#pyearthtools.data.archive.reset_root) |
-|                  |                                               | - [reset_root](data_api.md#pyearthtools.data.archive.set_root) |
-|                  |                                               | - [reset_root](data_api.md#pyearthtools.data.archive.config_root) |
+|                  |                                               | - [set_root](data_api.md#pyearthtools.data.archive.set_root) |
+|                  |                                               | - [config_root](data_api.md#pyearthtools.data.archive.config_root) |
 | `data.derived`   |   Calculated derived fields                   | - [DerivedValue](data_api.md#pyearthtools.data.derived.DerivedValue) |
 |                  |                                               | - [TimeDerivedValue](data_api.md#pyearthtools.data.derived.TimeDerivedValue) |
 |                  |                                               | - [AdvancedTimeDerivedValue](data_api.md#pyearthtools.data.derived.AdvancedTimeDerivedValue) |
