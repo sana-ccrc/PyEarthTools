@@ -52,16 +52,16 @@ PyEarthTools is a Python framework containing modules for:
 
 PyEarthTools comprises multiple sub-packages which can be used individually or together.
 
-|    Sub-Package                 |  Purpose  |
-|--------------------------------|---------------------- |
-|  [Data](api/data/data_index.md)    | Loading and indexing into well-known Earth system data sets to produce ML-ready data structures |
-|  [Utils](api/utils/utils_index.md)  | Code for common functionality across the sub-packages |
-|  Pipeline       | Definining reproducible sequences of operations with the ability to cache results |
-|  Training       | Code defining the training processes and schedules of a machine learning model |
-|  [Tutorial](api/tutorial/tutorial_index.md)       | Contains helper code for data data sets used in tutorials |
+|    Sub-Package                                         |  Purpose  |
+|--------------------------------------------------------|---------------------- |
+|  [Data](api/data/data_index.md)                        | Loading and indexing into well-known Earth system data sets to produce ML-ready data structures |
+|  [Utils](api/utils/utils_index.md)                     | Code for common functionality across the sub-packages |
+|  Pipeline                                              | Definining reproducible sequences of operations with the ability to cache results |
+|  [Training](api/training/trainind_index)               | Code defining the training processes and schedules of a machine learning model |
+|  [Tutorial](api/tutorial/tutorial_index.md)            | Contains helper code for data data sets used in tutorials |
 |  [Bundled Models](api/bundled_models/bundled_index.md) | Maintained versions of specific, bundled models which can be easily trained and run |
-|  [Zoo](api/zoo/zoo_index.md)            | Contains code for managing registered models (such as the bundled models) |
-|  Evaluation     | (Coming soon) Contains code for producing standard evaluations (such as benchmarks and scorecards) |
+|  [Zoo](api/zoo/zoo_index.md)                           | Contains code for managing registered models (such as the bundled models) |
+|  Evaluation                                            | (Coming soon) Contains code for producing standard evaluations (such as benchmarks and scorecards) |
 
 ## Acknowleging or Citing `PyEarthTools`
 

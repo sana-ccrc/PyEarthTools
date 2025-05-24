@@ -13,14 +13,14 @@
 .. autoclass:: fourcastnext.CropToRectangleSmall
     :members:    
 
-.. autoclass:: fourcastnext.architecture.Mlp
+.. autoclass:: fourcastnext.architecture.afnonet.Mlp
     :members:        
-.. autoclass:: fourcastnext.architecture.AFNO2D
+.. autoclass:: fourcastnext.architecture.afnonet.AFNO2D
     :members:
-.. autoclass:: fourcastnext.architecture.Block
+.. autoclass:: fourcastnext.architecture.afnonet.Block
     :members:
-.. autoclass:: fourcastnext.architecture.AFNONet
+.. autoclass:: fourcastnext.architecture.afnonet.AFNONet
     :members:
-.. autoclass:: fourcastnext.architecture.PatchEmbed
+.. autoclass:: fourcastnext.architecture.afnonet.PatchEmbed
     :members:    
 ```
