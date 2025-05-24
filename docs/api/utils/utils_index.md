@@ -32,7 +32,7 @@ The rest of this page contains reference information for the components of the U
 |                     |                                      | - [converter.DaskConverter](utils_api.md#pyearthtools.utils.data.converter.DaskConverter)
 | `utils.decorators`  | Define parameters which are aliases (e.g 't2m' and '2t')  | - [alias_arguments](utils_api.md#pyearthtools.utils.decorators.alias_arguments)  |
 |                     | Reverse a 1:1 dictionary mapping     | - [invert_dictionary_list](utils_api.md#pyearthtools.utils.decorators.invert_dictionary_list) |
-|                     | Reverse a 1:1 dictionary mapping     | - [classproperty](utils_api.md#pyearthtools.utils.decorators.classproperty) |
+|                     |                                      | - [classproperty](utils_api.md#pyearthtools.utils.decorators.classproperty) |
 | `utils.initialisation`   |                                 | - [dynamic_import](utils_api.md#pyearthtools.utils.dynamic_import) |
 |                     |                                      | - [load](utils_api.md#pyearthtools.utils.load) |
 |                     |                                      | - [save](utils_api.md#pyearthtools.utils.save) |
@@ -48,6 +48,6 @@ The rest of this page contains reference information for the components of the U
 |                     |                                      | - [search](utils_api.md#pyearthtools.utils.parameter.search) |
 |                     |                                      | - [search_threaded](utils_api.md#pyearthtools.utils.repr_utils.search_threaded) |
 | `utils.repr_utils`  |                                      | - [provide_html](utils_api.md#pyearthtools.utils.repr_utils.provide_html) |
-|                     |                                      | - [provide_html](utils_api.md#pyearthtools.utils.repr_utils.html) |
-|                     |                                      | - [provide_html](utils_api.md#pyearthtools.utils.repr_utils.default) |
+|                     |                                      | - [html](utils_api.md#pyearthtools.utils.repr_utils.html) |
+|                     |                                      | - [default](utils_api.md#pyearthtools.utils.repr_utils.default  ) |
 
