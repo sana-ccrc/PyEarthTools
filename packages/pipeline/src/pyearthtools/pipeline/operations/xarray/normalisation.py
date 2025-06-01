@@ -133,12 +133,13 @@ class MagicNorm(xarrayNormalisation):
 
         # Cache to disk once we have enough data
         if self.sample_count >= self.samples_needed:
-            try:
+            if os.path.exists(self.means_filename):
+                self.mean = xr.load_dataset(self.means_filename)
+                self.deviation = xr.load_dataset(self.deviation_filename)
+                self.samples_needed = 0
+            else:
                 self.mean.to_netcdf(self.means_filename)
                 self.deviation.to_netcdf(self.deviation_filename)
-            except:
-                # Could happen in a race condition
-                print("Tried to overwrite stats cache for Magic Norm")
 
     def normalise(self, sample):
 
