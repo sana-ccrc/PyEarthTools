@@ -106,9 +106,7 @@ BibTeX:
                   Pill, John and
                   Haddad, Stephen and
                   de Burgh-Day, Catherine},
-  title        = {PyEarthTools: Machine learning for Earth system
-                   science
-                  },
+  title        = {{PyEarthTools: Machine learning for Earth system science}},
   month        = jun,
   year         = 2025,
   publisher    = {Zenodo},
