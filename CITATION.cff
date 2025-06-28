@@ -30,10 +30,6 @@ authors:
   orcid: "https://orcid.org/0000-0002-1975-0042"  
 title: "PyEarthTools: Machine learning for Earth system science"  
 version: 0.1.1
-identifiers:
-    - type: doi
-      value: 10.5281/zenodo.15760769
+doi: 10.5281/zenodo.15760769
+url: https://doi.org/10.5281/zenodo.15760769
 date-released: 2025-06-28
-preferred-citation:
-  collection-doi: 10.5281/zenodo.15760769
-  type: software
