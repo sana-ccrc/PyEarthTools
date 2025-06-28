@@ -47,7 +47,7 @@
         }
     ],
     "license": "Apache-2.0",
-    "title": "PyEarthTools: Machine learning for Earth system science.",
+    "title": "PyEarthTools: Machine learning for Earth system science",
     "keywords": ["modelling", "geoscience", "earth system science"]
 
 }

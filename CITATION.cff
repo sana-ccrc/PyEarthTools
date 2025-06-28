@@ -28,7 +28,7 @@ authors:
 - family-names: de Burgh-Day
   given-names: Catherine
   orcid: "https://orcid.org/0000-0002-1975-0042"  
-title: "PyEarthTools: Machine learning for Earth system science."  
+title: "PyEarthTools: Machine learning for Earth system science"  
 version: 0.1.1
 identifiers:
     - type: doi
