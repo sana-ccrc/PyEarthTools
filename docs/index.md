@@ -92,9 +92,12 @@ PyEarthTools comprises multiple sub-packages which can be used individually or t
 
 If you use PyEarthTools for your work, we would appreciate you citing our software. 
 
-Cook, H., Leeuwenburg, T., Rio, M., Miller, J., Mason, G., Ramanathan, N., Pill, J., Haddad, S., & de Burgh-Day, C. (2025). PyEarthTools: Machine learning for Earth system science (0.1.1). Zenodo. https://doi.org/10.5281/zenodo.15760769
 
-BibTeX:
+:::::{tab-set}
+::::{tab-item} APA
+Cook, H., Leeuwenburg, T., Rio, M., Miller, J., Mason, G., Ramanathan, N., Pill, J., Haddad, S., & de Burgh-Day, C. (2025). PyEarthTools: Machine learning for Earth system science (0.1.1). Zenodo. https://doi.org/10.5281/zenodo.15760769
+::::
+::::{tab-item} BibTeX
 ```
 @software{cook_2025_15760769,
   author       = {Cook, Harrison and
@@ -115,6 +118,12 @@ BibTeX:
   url          = {https://doi.org/10.5281/zenodo.15760769}
 }
 ```
+::::
+:::::
+
+
+
+
   
 
 ```{toctree}
