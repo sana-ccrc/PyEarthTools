@@ -18,7 +18,7 @@ def _load_sample(variables, levels, sample_time):
 
     return sample
 
-
+@pytest.mark.slow
 @pytest.mark.parametrize(
     "variables,levels,sample_time",
     [
@@ -41,7 +41,7 @@ def test_load_vars(variables, levels, sample_time):
     assert sample.sizes["level"] == len(levels)
     assert all(level in sample.level for level in levels)
 
-
+@pytest.mark.slow
 @pytest.mark.parametrize(
     "variable,levels,sample_time",
     [
@@ -61,7 +61,7 @@ def test_load_1var(variable, levels, sample_time):
     assert sample.sizes["level"] == len(levels)
     assert all(level in sample.level for level in levels)
 
-
+@pytest.mark.slow
 @pytest.mark.parametrize(
     "variables,level,sample_time",
     [
