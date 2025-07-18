@@ -30,10 +30,11 @@ from pyearthtools.data.indexes import ArchiveIndex, decorators
 from pyearthtools.data.transforms import Transform, TransformCollection
 from pyearthtools.data.archive import register_archive
 
-from site_archive_met_office.utilities import cached_exists, cached_iterdir   
+from site_archive_met_office.utilities import cached_exists, cached_iterdir
 
 
 MOGLOBAL_RESOLUTION = (6, "hour")
+
 
 @register_archive("MOGLOBAL", sample_kwargs=dict(variable="2t"))
 class MOGLOBAL(ArchiveIndex):
@@ -81,7 +82,7 @@ class MOGLOBAL(ArchiveIndex):
 
         variables = [variables] if isinstance(variables, str) else variables
         self.variables = variables
-        self.resolution = MOGLOBAL_RESOLUTION   
+        self.resolution = MOGLOBAL_RESOLUTION
         self.level_value = level_value
         base_transform = TransformCollection()
 
@@ -102,24 +103,22 @@ class MOGLOBAL(ArchiveIndex):
     ) -> Path | dict[str, str | Path]:
         MOGLOBAL_HOME = self.ROOT_DIRECTORIES["MOGLOBAL"]
 
-
         paths = {}
         querytime = Petdt(querytime)
 
         # Format the query date as YYYYMMDD
         query_date = querytime.strftime("%Y%m%d")
-        
+
         # Extract model initialization time (e.g., "00", "06")
-        # TODO: Default to "00" if not specified - I think Petdt adds Txx when not specified for all time resolution steps. 
+        # TODO: Default to "00" if not specified - I think Petdt adds Txx when not specified for all time resolution steps.
         model_time = querytime.strftime("%H")
-            
+
         # Search for files matching the query date and model initialization time
         files_in_dir = cached_iterdir(Path(MOGLOBAL_HOME))
         relevant_files = [
-            filename for filename in files_in_dir
-            if query_date in str(filename) and f"_{model_time}_" in str(filename)
+            filename for filename in files_in_dir if query_date in str(filename) and f"_{model_time}_" in str(filename)
         ]
-        
+
         # print(f'Number of files in directory: {len(files_in_dir)}')
         # print("Query date:", query_date)
         # print("Query time:", querytime)
@@ -127,9 +126,7 @@ class MOGLOBAL(ArchiveIndex):
         print("Matching files:", relevant_files)
 
         if not relevant_files:
-            raise DataNotFoundError(
-                f"Unable to find data for: basetime: {querytime} at {MOGLOBAL_HOME}"
-            )
+            raise DataNotFoundError(f"Unable to find data for: basetime: {querytime} at {MOGLOBAL_HOME}")
 
         # Map the relevant files to their paths
         for filename in relevant_files:

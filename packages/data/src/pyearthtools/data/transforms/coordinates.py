@@ -207,9 +207,11 @@ class ReIndex(Transform):
 
         return dataset
 
+
 class ReIndexTime(Transform):
     """Reindex the time coordinate to a complete hourly time series."""
-# TODO look into using Petdt for this
+
+    # TODO look into using Petdt for this
 
     def __init__(self, date_range: tuple[str | pd.Timestamp, str | pd.Timestamp], freq: str = "h"):
         """

@@ -2,11 +2,14 @@ import xarray as xr
 from pyearthtools.data.transforms.values import SetMissingToNaN
 import numpy as np
 
+
 def test_set_missing_to_nan():
-    data = xr.Dataset({
-        "total_cloud_cover": ("time", [0, -999, 50]),
-        "low_cloud_cover": ("time", [10, -999, 20]),
-    })
+    data = xr.Dataset(
+        {
+            "total_cloud_cover": ("time", [0, -999, 50]),
+            "low_cloud_cover": ("time", [10, -999, 20]),
+        }
+    )
 
     varname_val_map = {
         "total_cloud_cover": -999.0,

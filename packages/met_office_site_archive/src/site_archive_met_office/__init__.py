@@ -25,13 +25,18 @@ Met Office specific Indexes
 
 import os
 import pyearthtools.data
-from pyearthtools.data.archive import register_archive, set_root_directory, get_root_directories, load_root_directories_from_config
+from pyearthtools.data.archive import (
+    register_archive,
+    set_root_directory,
+    get_root_directories,
+    load_root_directories_from_config,
+)
 
 
 ROOT_DIRECTORIES = {
     "ERA5lowres": "",
-    "MOGLOBAL": "", 
-    "MOUKV": "",        
+    "MOGLOBAL": "",
+    "MOUKV": "",
 }
 
 register_archive("ROOT_DIRECTORIES")(ROOT_DIRECTORIES)

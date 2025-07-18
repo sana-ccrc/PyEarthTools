@@ -20,11 +20,11 @@ from pyearthtools.data.transforms.values import SetMissingToNaN
 
 # This dictionary tells pyearthtools which variables have missing values and what those values are.
 varname_val_map = {
-        "total_cloud_cover": -999., 
-        "low_cloud_cover": -999., 
-        "mid_cloud_cover": -999.,
-        "high_cloud_cover": -999.
-    }
+    "total_cloud_cover": -999.0,
+    "low_cloud_cover": -999.0,
+    "mid_cloud_cover": -999.0,
+    "high_cloud_cover": -999.0,
+}
 
 
 @functools.lru_cache()
@@ -38,6 +38,7 @@ def cached_exists(path: Path) -> bool:
     """Run exits but cached"""
     return path.exists()
 
+
 # TODO:
 # - In the future it would be good to add the possibility to have this preprocessing step as part of a pipeline of other preprocessing steps.
 # - Other similarly process heavy steps could be added to the pipeline, such as calculation of climatologies, or other derived variables.
@@ -45,7 +46,7 @@ def cached_exists(path: Path) -> bool:
 
 # Helper function to preprocess and save NetCDF files as Zarr stores
 # @delayed Experimenting with delayed to see if it helps with performance
-def preprocess_and_save(file_path, date_range, zarr_output_dir): #TODO Needs to be implemented correctly
+def preprocess_and_save(file_path, date_range, zarr_output_dir):  # TODO Needs to be implemented correctly
     """
     Open a NetCDF file, preprocess it, and save as a Zarr store.
 
@@ -67,23 +68,24 @@ def preprocess_and_save(file_path, date_range, zarr_output_dir): #TODO Needs to 
     try:
         print(f"Preprocessing {file_path} -> {zarr_output_dir}")
         with xr.open_dataset(file_path) as ds:
-            if 'input_station_id' in ds:
-                ds = ds.drop_vars('input_station_id')
+            if "input_station_id" in ds:
+                ds = ds.drop_vars("input_station_id")
 
             station_id = ds.attrs.get("station_id", file_path.stem)
             ds = ds.assign_coords(station_id=station_id)
 
-            target_time = pd.date_range(date_range[0], date_range[1], freq='h')
+            target_time = pd.date_range(date_range[0], date_range[1], freq="h")
             ds = ds.reindex(time=target_time)
 
             out_path = Path(zarr_output_dir) / f"{file_path.stem}.zarr"
             print(f"Saving to Zarr: {out_path}")
-            ds.to_zarr(str(out_path), mode='w')
+            ds.to_zarr(str(out_path), mode="w")
             print(f"Saved Zarr: {out_path}")
             return str(out_path)
     except Exception as e:
         print(f"Failed to preprocess {file_path}: {e}")
         raise
+
 
 @register_archive("hadisd", sample_kwargs=dict(station="010010-99999"))
 class HadISDIndex(ArchiveIndex):
@@ -96,10 +98,11 @@ class HadISDIndex(ArchiveIndex):
             "range": "1931-2024",
             "Documentation": "https://www.metoffice.gov.uk/hadobs/hadisd/",
         }
+
     def __init__(
         self,
         station: str | list[str] | None = None,  # Allow single station, multiple stations, or None
-        variables: list[str] | str | None = None, 
+        variables: list[str] | str | None = None,
         *,
         transforms: Transform | TransformCollection | None = None,  # Ensure this is keyword-only
     ):
@@ -115,7 +118,7 @@ class HadISDIndex(ArchiveIndex):
 
         # Define the base transforms
         base_transform = TransformCollection()
-        base_transform += Drop("reporting_stats" )
+        base_transform += Drop("reporting_stats")
 
         # Add a transform to select variables (if variables are provided)
         if variables:
@@ -133,7 +136,7 @@ class HadISDIndex(ArchiveIndex):
             super().__init__(
                 transforms=base_transform + transforms,
             )
-       
+
         self.record_initialisation()
 
     # def get_all_station_ids(self, root_directory: Path | str) -> list[str]:
@@ -156,7 +159,6 @@ class HadISDIndex(ArchiveIndex):
     #                     station_id = file.stem.split("_")[-1]  # Assuming station ID is the last part of the filename
     #                     station_ids.append(station_id)
     #     return station_ids
-    
 
     def get_all_station_ids(self, root_directory: Path | str = None) -> list[str]:
         """
@@ -194,8 +196,6 @@ class HadISDIndex(ArchiveIndex):
                     station_ids.append(station_id)
             return station_ids
 
-
-
     def filesystem(self, *args, date_range=("1970-01-01T00", "2023-12-31T23"), **kwargs) -> dict[str, Path]:
         """
         Map a station ID or list of station IDs to their corresponding file paths.
@@ -213,7 +213,7 @@ class HadISDIndex(ArchiveIndex):
         HADISD_HOME = self.ROOT_DIRECTORIES["hadisd"]
         station_ids = self.station
 
-         # Ensure station_ids is always a list
+        # Ensure station_ids is always a list
         if isinstance(station_ids, str):
             station_ids = [station_ids]
 
@@ -225,7 +225,6 @@ class HadISDIndex(ArchiveIndex):
         if not isinstance(station_ids, list) or not all(isinstance(sid, str) for sid in station_ids):
             raise TypeError(f"Expected station_ids to be a str or list[str], but got: {type(station_ids)}")
 
-        
         # Define the station ranges and corresponding folders
         STATION_RANGES = [
             (0, 29999, "WMO_000000-029999"),
@@ -292,46 +291,46 @@ class HadISDIndex(ArchiveIndex):
                 raise DataNotFoundError(f"File not found for station: {station_id}, path: {file_path_zarr}")
 
             # Add the file path to the dictionary
-            paths[station_id] = file_path_zarr # Change to file_path_zarr to test with zarr files or remove "_zarr" to test with netcdf files
+            paths[station_id] = (
+                file_path_zarr  # Change to file_path_zarr to test with zarr files or remove "_zarr" to test with netcdf files
+            )
 
         return paths
 
     def load(
-            self,
-            files: dict[str, Path] | Path | list[str | Path] | tuple[str | Path],
-            combine: str = "nested",  
-            concat_dim: str = "station", 
-            parallel: bool = True,  
-            # engine: Literal["netcdf4", "zarr"] = "zarr",  # Default engine for loading
-            **kwargs,
-        ) -> Any:
-            """
-            Custom load method for HadISDIndex.
+        self,
+        files: dict[str, Path] | Path | list[str | Path] | tuple[str | Path],
+        combine: str = "nested",
+        concat_dim: str = "station",
+        parallel: bool = True,
+        # engine: Literal["netcdf4", "zarr"] = "zarr",  # Default engine for loading
+        **kwargs,
+    ) -> Any:
+        """
+        Custom load method for HadISDIndex.
 
-            Args:
-                files (dict[str, Path] | Path | list[str | Path] | tuple[str | Path]):
-                    Files to load.
-                combine (str, optional):
-                    Combine method for NetCDF files. Defaults to "by_coords".
-                    Options:
-                        - "by_coords": Combine datasets by aligning coordinates.
-                        - "nested": Combine datasets by concatenating along a new dimension.
-                **kwargs:
-                    Additional arguments passed to the parent class's load method.
+        Args:
+            files (dict[str, Path] | Path | list[str | Path] | tuple[str | Path]):
+                Files to load.
+            combine (str, optional):
+                Combine method for NetCDF files. Defaults to "by_coords".
+                Options:
+                    - "by_coords": Combine datasets by aligning coordinates.
+                    - "nested": Combine datasets by concatenating along a new dimension.
+            **kwargs:
+                Additional arguments passed to the parent class's load method.
 
-            Returns:
-                Any:
-                    Loaded data.
-            """
-            # Pass the combine argument as part of **kwargs
-            kwargs["combine"] = combine
-            kwargs["concat_dim"] = concat_dim
-            kwargs["parallel"] = parallel
-            
+        Returns:
+            Any:
+                Loaded data.
+        """
+        # Pass the combine argument as part of **kwargs
+        kwargs["combine"] = combine
+        kwargs["concat_dim"] = concat_dim
+        kwargs["parallel"] = parallel
 
-            # Call the parent class's load method
-            return super().load(files, **kwargs)
-
+        # Call the parent class's load method
+        return super().load(files, **kwargs)
 
     @property
     def _import(self):

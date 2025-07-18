@@ -92,7 +92,7 @@ class Drop(Transform):
         if not var_included:
             return dataset
         return dataset[var_included]
-    
+
 
 class Select(Transform):
     """Select specific dataset variables"""

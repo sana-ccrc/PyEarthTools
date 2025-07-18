@@ -29,7 +29,7 @@ from pyearthtools.data.indexes import ArchiveIndex, decorators
 from pyearthtools.data.transforms import Transform, TransformCollection
 from pyearthtools.data.archive import register_archive
 
-from site_archive_met_office.utilities import cached_exists, cached_iterdir   
+from site_archive_met_office.utilities import cached_exists, cached_iterdir
 
 
 MOUKV_RESOLUTION = (6, "hour")
@@ -82,10 +82,10 @@ class MOUKV(ArchiveIndex):
 
         variables = [variables] if isinstance(variables, str) else variables
         self.variables = variables
-        self.resolution = MOUKV_RESOLUTION   
+        self.resolution = MOUKV_RESOLUTION
         self.level_value = level_value
         base_transform = TransformCollection()
-        
+
         base_transform += pyearthtools.data.transforms.attributes.Rename(MOUKV_RENAME)
 
         if level_value:
@@ -105,24 +105,22 @@ class MOUKV(ArchiveIndex):
     ) -> Path | dict[str, str | Path]:
         MOGLOBAL_HOME = self.ROOT_DIRECTORIES["MOUKV"]
 
-
         paths = {}
         querytime = Petdt(querytime)
 
         # Format the querytime as a date
         query_date = querytime.strftime("%Y%m%d")
-        
+
         # Extract model initialization time (e.g., "00", "06")
-        # TODO: Default to "00" if not specified - I think Petdt adds Txx when not specified for all time resolution steps. 
+        # TODO: Default to "00" if not specified - I think Petdt adds Txx when not specified for all time resolution steps.
         model_time = querytime.strftime("%H")
-            
+
         # Search for files matching the query date and model initialization time
         files_in_dir = cached_iterdir(Path(MOGLOBAL_HOME))
         relevant_files = [
-            filename for filename in files_in_dir
-            if query_date in str(filename) and f"_{model_time}_" in str(filename)
+            filename for filename in files_in_dir if query_date in str(filename) and f"_{model_time}_" in str(filename)
         ]
-        
+
         # Debugging print statements
         # print(f'Number of files in directory: {len(files_in_dir)}')
         # print("Query date:", query_date)
@@ -131,9 +129,7 @@ class MOUKV(ArchiveIndex):
         # print("Matching files:", relevant_files)
 
         if not relevant_files:
-            raise DataNotFoundError(
-                f"Unable to find data for: basetime: {querytime} at {MOGLOBAL_HOME}"
-            )
+            raise DataNotFoundError(f"Unable to find data for: basetime: {querytime} at {MOGLOBAL_HOME}")
 
         # Map the relevant files to their paths
         for filename in relevant_files:

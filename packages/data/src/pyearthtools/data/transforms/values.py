@@ -67,7 +67,7 @@ class Fill(Transform):
             if self._direction in ["both", "backward"]:
                 dataset = dataset.bfill(coord, limit=self._limit)
         return encod(dataset)
-    
+
 
 class SetMissingToNaN(Transform):
     """

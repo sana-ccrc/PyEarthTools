@@ -30,8 +30,14 @@ from pyearthtools.data.indexes import ArchiveIndex, decorators
 from pyearthtools.data.transforms import Transform, TransformCollection
 from pyearthtools.data.archive import register_archive
 
-from site_archive_met_office.utilities import cached_exists, cached_iterdir                             # Could these be moved into a generic module?
-from site_archive_met_office.ancilliary.ERA5 import ERA5_SINGLE_VARIABLES, ERA5_PRESSURE_VARIABLES # NOT NEEDED NOW?   # Could these be moved into a generic module?
+from site_archive_met_office.utilities import (
+    cached_exists,
+    cached_iterdir,
+)  # Could these be moved into a generic module?
+from site_archive_met_office.ancilliary.ERA5 import (
+    ERA5_SINGLE_VARIABLES,
+    ERA5_PRESSURE_VARIABLES,
+)  # NOT NEEDED NOW?   # Could these be moved into a generic module?
 
 ERA_PROD = ["monthly-averaged", "monthly-averaged-by-hour", "reanalysis"]
 ERA_RESOLUTION = (1, "hour")
@@ -57,7 +63,7 @@ V_TO_PATH = {
     "u": "u_component_of_wind",
     "v": "v_component_of_wind",
     "vorticity": "vorticity",
-} 
+}
 
 
 @register_archive("ERA5lowres", sample_kwargs=dict(variable="2t"))
@@ -139,7 +145,7 @@ class ERA5lowres(ArchiveIndex):
         for variable in self.variables:
 
             # This line tells pyearthtools how to go from a request for a date/time to a path containing the files
-            var_path = Path(ERA5lowres_HOME) / V_TO_PATH[variable] 
+            var_path = Path(ERA5lowres_HOME) / V_TO_PATH[variable]
 
             files_in_dir = cached_iterdir(var_path)
             start_of_month_string = querytime.strftime("%Y")

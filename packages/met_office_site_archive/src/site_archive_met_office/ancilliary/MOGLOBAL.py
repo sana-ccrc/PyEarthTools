@@ -16,23 +16,6 @@
 # TODO: NEED TO UPDATE THE VARIABLES TO MATCH THE NEW DATASET
 
 
-MOGLOBAL_PRESSURE_VARIABLES = [
-    "t",
-    "u",
-    "v",
-    "z",
-    "rhi",
-    "rhw"
-]
+MOGLOBAL_PRESSURE_VARIABLES = ["t", "u", "v", "z", "rhi", "rhw"]
 
-MOGLOBAL_SINGLE_VARIABLES = [
-   "t2m",
-   "u10",
-   "v10",
-   "mslp",
-   "tp",
-   "toa_sw",
-   "lmask",
-   "orog",
-   "ltype"
-]
+MOGLOBAL_SINGLE_VARIABLES = ["t2m", "u10", "v10", "mslp", "tp", "toa_sw", "lmask", "orog", "ltype"]
