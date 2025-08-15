@@ -28,6 +28,8 @@ The rest of this page contains reference information for the components of the D
 |                  |                                               | - [AdvancedTimeDerivedValue](data_api.md#pyearthtools.data.derived.AdvancedTimeDerivedValue) |
 |                  |                                               | - [Insolation](data_api.md#pyearthtools.data.derived.Insolation) |
 | `data.download`  | Publicly available datasets                   | - [ARCOERA5](data_api.md#pyearthtools.data.download.arcoera5.ARCOERA5) |
+|                  |                                               | - [WB2ERA5](data_api.md#pyearthtools.data.download.weatherbench.WB2ERA5) |
+|                  |                                               | - [WB2ERA5Clim](data_api.md#pyearthtools.data.download.weatherbench.WB2ERA5Clim) |
 | `data.indexes`   |                                               | - [Index](data_api.md#pyearthtools.data.indexes.Index) |
 |                  |                                               | - [DataIndex](data_api.md#pyearthtools.data.indexes.DataIndex) |
 |                  |                                               | - [FileSystemIndex](data_api.md#pyearthtools.data.indexes.FileSystemIndex) |
@@ -189,5 +191,3 @@ The rest of this page contains reference information for the components of the D
 | `data.warnings`  |                                               | - [pyearthtoolsDataWarning](data_api.md#pyearthtools.data.warnings.InvalidIndexError) |
 |                  |                                               | - [IndexWarning](data_api.md#pyearthtools.data.warnings.IndexWarning) |
 |                  |                                               | - [AccessorRegistrationWarning](data_api.md#pyearthtools.data.warnings.AccessorRegistrationWarning) |
-
-

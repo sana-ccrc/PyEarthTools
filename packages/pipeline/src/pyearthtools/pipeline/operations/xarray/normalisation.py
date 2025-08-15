@@ -148,7 +148,7 @@ class MagicNorm(xarrayNormalisation):
 
         return (sample - self.mean) / self.deviation
 
-    def unnormalise(self, sample):
+    def denormalise(self, sample):
 
         return (sample * self.deviation) + self.mean
 
@@ -207,6 +207,20 @@ class Division(xarrayNormalisation):
         return sample * self.division_factor
 
 
+class SingleValueDivision(xarrayNormalisation):
+    """Division based Normalisation"""
+
+    def __init__(self, division_factor: float):
+        super().__init__()
+        self.record_initialisation()
+
+        self.division_factor = division_factor
+
+    def normalise(self, sample):
+        return sample / self.division_factor
+
+    def denormalise(self, sample):
+        return sample * self.division_factor
 
 
 @BackwardsCompatibility(Division)
