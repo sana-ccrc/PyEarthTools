@@ -34,8 +34,8 @@ class ChangeValue(ContextDecorator):
         >>> with ChangeValue(object, key = 'attribute', value = 'NewValue'):
         >>>     object.attribute = 'NewValue'
         >>>     print(object.attribute) # 'NewValue'
-
-        print(object.attribute) # 'value'
+        >>>
+        >>> print(object.attribute) # 'value'
     """
 
     def __init__(self, object: Any, key: str, value: Any):
