@@ -206,7 +206,7 @@
     :members:
 .. autoclass:: pyearthtools.pipeline.operations.dask.augment.Flip
     :members:
-.. autoclass:: pyearthtools.pipeline.operations.dask.augment.Transform
+.. autoclass:: pyearthtools.pipeline.operations.dask.augment.FlipAndRotate
     :members:
 
 .. autoclass:: pyearthtools.pipeline.operations.dask.filters.daskFilter
@@ -278,7 +278,7 @@
     :members:
 .. autoclass:: pyearthtools.pipeline.operations.numpy.augment.Flip
     :members:
-.. autoclass:: pyearthtools.pipeline.operations.numpy.augment.Transform
+.. autoclass:: pyearthtools.pipeline.operations.numpy.augment.FlipAndRotate
     :members:
 .. autoclass:: pyearthtools.pipeline.operations.numpy.filters.NumpyFilter
     :members:
