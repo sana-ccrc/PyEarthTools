@@ -47,6 +47,8 @@ exclude_patterns = [
     "**/.ipynb_checkpoints",
 ]
 
+default_role = 'literal'
+
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
