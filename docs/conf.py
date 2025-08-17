@@ -32,7 +32,7 @@ extensions = [
     "sphinx_gallery.load_style",
     "sphinx_design",
     "sphinx_togglebutton",
-    "sphinxcontrib.mermaid"
+    "sphinxcontrib.mermaid",
 ]
 source_suffix = [".rst", ".md"]
 
@@ -47,7 +47,7 @@ exclude_patterns = [
     "**/.ipynb_checkpoints",
 ]
 
-default_role = 'literal'
+default_role = "literal"
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output

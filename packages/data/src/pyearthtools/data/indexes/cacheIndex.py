@@ -113,14 +113,14 @@ class MemCache(BaseCacheIndex):
     """
     Memory Cache
 
-    ## Example
-    ```python
-    import pyearthtools.data
+    Examples:
 
-    mem_cache = pyearthtools.data.indexes.FunctionalMemCacheIndex(function = pyearthtools.data.archive.ERA5.sample())
-    mem_cache_test('2000-01-01T00')
-    # Cached into memory
-    ```
+        >>> import pyearthtools.data
+        ...
+        >>> mem_cache = pyearthtools.data.indexes.FunctionalMemCacheIndex(function = pyearthtools.data.archive.ERA5.sample())
+        >>> mem_cache_test('2000-01-01T00')
+        ... # Cached into memory
+
     """
 
     _cache: dict[str, Any]
@@ -138,21 +138,18 @@ class MemCache(BaseCacheIndex):
         **kwargs,
     ):
         """
+
         Cache into memory
 
         Uses either hash of args and kwargs or `pattern` to create key,
 
         Args:
-            pattern (str | type | PatternIndex | None, optional):
-                Pattern to use to create path to act as key. Defaults to None.
-            pattern_kwargs (dict[str, Any] | None, optional):
-                Kwargs for `pattern` if given. Defaults to None.
-            max_size (str | ByteSize | None, optional):
-                Max size of cache, set to None for no limit. Defaults to None.
-            compute (bool, optional):
-                Compute xarra / dask objects when given. Defaults to False.
-            transforms (Transform | TransformCollection, optional):
-                Transforms to add upon data retrieval. Defaults to TransformCollection().
+
+            pattern: Pattern to use to create path to act as key. Defaults to None.
+            pattern_kwargs: Kwargs for `pattern` if given. Defaults to None.
+            max_size: Max size of cache, set to None for no limit. Defaults to None.
+            compute: Compute xarray / dask objects when given. Defaults to False.
+            transforms: Transforms to add upon data retrieval. Defaults to TransformCollection().
         """
 
         self._pattern = pattern

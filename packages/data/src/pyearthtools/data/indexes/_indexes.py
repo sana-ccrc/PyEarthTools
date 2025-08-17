@@ -736,7 +736,7 @@ class AdvancedTimeIndex(TimeIndex):
 
     Overrides `retrieve`, to allow a series of data to be retrieved based upon given date resolution.
 
-    
+
     >>> ??? tip "New retrieve Behaviour"
     >>>
     >>>    Consider a dataset with 10 minute resolution

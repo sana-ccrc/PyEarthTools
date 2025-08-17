@@ -203,7 +203,7 @@ class BaseForecastModel:
     If `config_path` is `/data/goes/here`, and the model is `Model/Name`, with pipeline `PipelineName`
 
     The full path is `/data/goes/here/Model/Name/PipelineName`
-    
+
     The pattern of the cache will then take over.
 
     """

@@ -1,4 +1,4 @@
-    # Copyright Commonwealth of Australia, Bureau of Meteorology 2024.
+# Copyright Commonwealth of Australia, Bureau of Meteorology 2024.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -295,16 +295,16 @@ class SequenceRetrieval(IdxModifier):
 
     If `samples` is an `int`, then retrieve the idx originally asked for, and the sample offset by `samples`.
 
-    This will return 'sorted'.  
+    This will return 'sorted'.
 
-    >>> SequenceRetrieval(1)[0]  
-    ... # Will get (0, 1)  
-    >>> SequenceRetrieval(-1)[0]  
-    ... # Will get (-1, 0)  
-    >>> SequenceRetrieval(-6)[0]  
-    ... # Will get (-6, 0)  
+    >>> SequenceRetrieval(1)[0]
+    ... # Will get (0, 1)
+    >>> SequenceRetrieval(-1)[0]
+    ... # Will get (-1, 0)
+    >>> SequenceRetrieval(-6)[0]
+    ... # Will get (-6, 0)
 
-    If `samples` is a single-element iterable, it must be of length 2 or 3, with the third being optional. 
+    If `samples` is a single-element iterable, it must be of length 2 or 3, with the third being optional.
     The `idx` being requested is first offset, then num_of_samples retrieved, merged where applicable.
     If a single sample is retrieved, it will not be in a tuple if cannot be merged.
 
