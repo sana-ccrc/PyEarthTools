@@ -61,6 +61,7 @@ html_theme_options = {
 }
 html_baseurl = "https://pyearthtools.readthedocs.io/en/latest/"
 autodoc_typehints = "description"
+autoclass_content = "both"
 
 # This is needed to allow linking into auto-generated API documentation
 # It means there is a risk that genuine cross-referencing errors will be
