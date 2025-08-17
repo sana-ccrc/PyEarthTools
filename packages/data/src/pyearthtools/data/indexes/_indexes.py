@@ -349,23 +349,20 @@ class SingleTimeIndex(Index):
         **kwargs,
     ):
         """
-        Setup TimeIndex,
+        Setup TimeIndex.
 
         Will warn a user if date is of incorrect resolution
 
         Args:
-            data_interval (tuple[int, str] | int, optional):
-                Interval of data. Must follow format for
-                [TimeDelta][pyearthtools.data.time.TimeDelta]. by default None
-                E.g.
-                    (1, 'h') = 1 Hour
-                    (10, 'D') = 10 Days.
-                    10 = 10 minutes.
+            data_interval: Interval of data. Must follow format for
+                [TimeDelta][pyearthtools.data.time.TimeDelta].
 
-                Defaults to None.
-            round (bool, optional):
-                Default value for round when retrieving data.
-                Defaults to False.
+                - E.g. \n
+                >>> (1, 'h') = 1 Hour
+                >>> (10, 'D') = 10 Days.
+                >>> 10 = 10 minutes.
+
+            round: Default value for round when retrieving data.
         """
 
         super().__init__(**kwargs)
@@ -415,15 +412,13 @@ class SingleTimeIndex(Index):
         Set interval of data
 
         Args:
-            data_interval (tuple[int, str] | int, optional):
-                Interval of data. Must follow format for
-                [TimeDelta][pyearthtools.data.time.TimeDelta]. by default None
-                E.g.
-                    (1, 'h') = 1 Hour
-                    (10, 'D') = 10 Days.
-                     10 = 10 minutes.
+            data_interval: Interval of data. Must follow format for [TimeDelta][pyearthtools.data.time.TimeDelta].
 
-                Defaults to None.
+                - E.g. \n
+                  >>> (1, 'h') = 1 Hour
+                  >>> (10, 'D') = 10 Days.
+                  >>> 10 = 10 minutes.
+
         """
         resolution = None
         if data_interval:
@@ -521,18 +516,12 @@ class TimeIndex(SingleTimeIndex):
         API Function of [series][pyearthtools.data.index_operations.index_routines.series] for each AdvancedTimeIndex
 
         Args:
-            start (str | Petdt):
-                Start time for series
-            end (str | Petdt):
-                End time for series
-            interval (TimeDelta, optional):
-                Interval to retrieve data at. Defaults to initialise resolution.
-            transforms (TransformCollection | Transform, optional):
-                Extra Transforms to apply. Defaults to TransformCollection().
+            start: Start time for series
+            end: End time for series
+            interval: Interval to retrieve data at.
+            transforms: Extra Transforms to apply.
 
-        Returns:
-            (xr.Dataset):
-                Loaded series of data
+        Returns: Loaded series of data
         """
 
         interval = self._get_interval(interval)
@@ -564,18 +553,12 @@ class TimeIndex(SingleTimeIndex):
         Provides a safer way into get a series of data.
 
         Args:
-            start (str | Petdt):
-                Start time for series
-            end (str | Petdt):
-                End time for series
-            interval (tuple[int, str], optional):
-                Interval to retrieve data at. Defaults to initialised resolution .
-            transforms (TransformCollection | Transform, optional):
-                Extra Transforms to apply. Defaults to TransformCollection().
+            start: Start time for series
+            end: End time for series
+            interval: Interval to retrieve data at.
+            transforms: Extra Transforms to apply.
 
-        Returns:
-            (xr.Dataset):
-                Loaded safe_series of data
+        Returns: Loaded safe_series of data
         """
         interval = self._get_interval(interval)
 
@@ -605,18 +588,12 @@ class TimeIndex(SingleTimeIndex):
         API Function of [aggregation][pyearthtools.data.index_operations.index_operations.aggregation] for each AdvancedTimeIndex
 
         Args:
-            start (str | Petdt):
-                Start time for series
-            end (str | Petdt):
-                End time for series
-            interval (tuple[int, str], optional):
-                Interval to retrieve data at. Defaults to initialise resolution .
-            transforms (TransformCollection | Transform, optional):
-                Extra Transforms to apply. Defaults to TransformCollection().
+            start: Start time for series
+            end: End time for series
+            interval: Interval to retrieve data at.
+            transforms: Extra Transforms to apply.
 
-        Returns:
-            (xr.Dataset):
-                Aggregation of data
+        Returns: Aggregation of data
         """
         interval = self._get_interval(interval)
         if self.data_resolution:
@@ -659,7 +636,7 @@ class TimeIndex(SingleTimeIndex):
 
 class SingleTimeDataIndex(TimeIndex, DataIndex):
     """
-    Combine `SingleTimeIndex` and `DataIndex`,
+    Combine `SingleTimeIndex` and `DataIndex`.
 
     Allows temporal indexing with transforms applied.
     """

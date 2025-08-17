@@ -201,9 +201,9 @@ class Pipeline(_Pipeline, Index):
 
     A `Pipeline` can be used in three primary ways.
 
-    1. Direct Indexing with `pipeline[idx]` 
-    2. Iteration with `for i in pipeline` 
-    3. Applying to individual data objects with `pipeline.apply` 
+    1. Direct Indexing with `pipeline[idx]`
+    2. Iteration with `for i in pipeline`
+    3. Applying to individual data objects with `pipeline.apply`
 
     """
 

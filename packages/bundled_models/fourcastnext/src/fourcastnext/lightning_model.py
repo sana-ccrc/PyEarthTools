@@ -41,8 +41,7 @@ torch.set_float32_matmul_precision("medium")
 
 
 class FourCastNextLM(pl.LightningModule):
-    '''
-    '''
+    """ """
 
     def __init__(
         self,
@@ -64,11 +63,11 @@ class FourCastNextLM(pl.LightningModule):
 
         Args:
             model_params: Model params to pass to `AFNONet`
-            base_lr: Base learning rate. 
-            grad_accum_schedule: tbd. 
+            base_lr: Base learning rate.
+            grad_accum_schedule: tbd.
             precision: Float precision. Defaults to 32.
             loss_function: Loss function to use. Defaults to "L1Loss".
-            loss_kwargs: Kwargs to pass to the loss function. 
+            loss_kwargs: Kwargs to pass to the loss function.
 
         """
         super().__init__()
@@ -210,9 +209,9 @@ class FourCastNextLM(pl.LightningModule):
         self.trainer.accumulate_grad_batches = accumulate_grad_batches
 
     def configure_optimizers(self):
-        '''
+        """
         tbd
-        '''
+        """
 
         net_params = [p for p in self.parameters() if p.requires_grad]
         optimizer = Lamb(net_params, lr=self.hparams.base_lr, weight_decay=self.hparams.base_lr**2)

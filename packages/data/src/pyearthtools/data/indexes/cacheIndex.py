@@ -300,8 +300,8 @@ class FileSystemCacheIndex(BaseCacheIndex, FileSystemIndex):
             pattern: String of pattern to use or defined pattern.
                      Defaults to ExpandedDate, or TemporalExpandedDate.
             pattern_kwargs: Kwargs to pass to initalisation of new pattern if pattern is str.
-            transforms: Base Transforms to apply. 
-            cleanup: 
+            transforms: Base Transforms to apply.
+            cleanup:
 
                 **Cache cleanup settings.**
 
@@ -309,7 +309,7 @@ class FileSystemCacheIndex(BaseCacheIndex, FileSystemIndex):
 
                 If dictionary type, the following keys can be used:
 
-                .. table:: 
+                .. table::
 
                     +-----------+----------------------------------------------+--------------------------------+
                     | Key       | Purpose                                      | Type                           |
@@ -326,7 +326,7 @@ class FileSystemCacheIndex(BaseCacheIndex, FileSystemIndex):
                     |           | and current time                             |                                |
                     +-----------+----------------------------------------------+--------------------------------+
                     | verbose   | Print files being deleted                    | bool                           |
-                    +-----------+----------------------------------------------+--------------------------------+                     
+                    +-----------+----------------------------------------------+--------------------------------+
 
                 Cleanup is run on each initialisation and deletion of the `CacheIndex`, and can be triggered manually with `.cleanup()`
 

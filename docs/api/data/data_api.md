@@ -69,6 +69,9 @@
 .. autoclass:: pyearthtools.data.indexes.TimeIndex
     :members:
 
+.. autoclass:: pyearthtools.data.indexes.SingleTimeIndex
+    :members:
+
 .. autoclass:: pyearthtools.data.indexes.TimeDataIndex
     :members:
 

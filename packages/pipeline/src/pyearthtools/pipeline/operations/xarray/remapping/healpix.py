@@ -91,14 +91,14 @@ class HEALPix(BaseRemap):
         Args:
             spatial_coords: Dictionary of spatial coords to remap over, with the associated size.
             nside: The number of pixels each HEALPix face sides has. Must be power of 2.
-            interpolation: The interpolation scheme ("nearest-neighbor", "bilinear", "biquadratic", "bicubic"). 
-            resolution_factor: In some cases, when choosing nside "too large" for the source data, the projection 
-                               can contain NaN values. Choosing a resolution_factor > 1.0 can resolve this but 
+            interpolation: The interpolation scheme ("nearest-neighbor", "bilinear", "biquadratic", "bicubic").
+            resolution_factor: In some cases, when choosing nside "too large" for the source data, the projection
+                               can contain NaN values. Choosing a resolution_factor > 1.0 can resolve this but
                                requires careful inspection of the projected data.
-            include_coords: Include spatial_coords as variables for each face. 
-            manual_rechunking: Manually rechunk to one chunk per spatial grid. 
+            include_coords: Include spatial_coords as variables for each face.
+            manual_rechunking: Manually rechunk to one chunk per spatial grid.
             template_dataset: Override for template dataset to get coords from.
-            check_for_nans: Check for nans after remapping. 
+            check_for_nans: Check for nans after remapping.
 
         Raises:
             ValueError: If `spatial_coords` is wrong

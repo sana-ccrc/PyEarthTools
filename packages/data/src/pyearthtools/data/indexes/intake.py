@@ -73,8 +73,8 @@ class IntakeIndex(DataIndex):
 
         Args:
             catalog_file: Intake ESM Catalog location
-            transforms: Transforms to add to data. 
-            add_default_transforms: Add default transforms. 
+            transforms: Transforms to add to data.
+            add_default_transforms: Add default transforms.
             filter_dict: Filter dictionary for `Intake` search.
 
         Raises:
