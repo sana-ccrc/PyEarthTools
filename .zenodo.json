@@ -49,6 +49,11 @@
             "orcid": "https://orcid.org/0009-0000-5048-4240",
             "affiliation": "Met Office, United Kingdom",
             "name": "Sullivan, Ben"
+        },
+        {
+            "orcid": "https://orcid.org/0000-0002-6799-9109",
+            "affiliation": "Bureau of Meteorology, Australia",
+            "name": "Holmes, Ryan"
         }
     ],
     "license": "Apache-2.0",
