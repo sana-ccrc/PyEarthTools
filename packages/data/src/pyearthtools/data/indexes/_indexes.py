@@ -208,8 +208,8 @@ class FileSystemIndex(Index, metaclass=ABCMeta):
         """
         try:
             return self.load(self.search(*args), **kwargs)
-        except FileNotFoundError as e:
-            raise DataNotFoundError(f"Data with args: {args} could not be found.") from e
+        except Exception as e:
+            raise DataNotFoundError(f"Data with args: {str(args)} could not be found.") from e
 
     def filesystem(self, *args) -> Path | dict[str, str]:
         """
